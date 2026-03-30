@@ -1,0 +1,25 @@
+{
+  "name": "slides",
+  "version": "0.1.0",
+  "private": true,
+  "description": "slides - Slidev presentations monorepo",
+  "type": "module",
+  "scripts": {
+    "dev": "supaslidev",
+    "new": "supaslidev new",
+    "present": "supaslidev present",
+    "export": "supaslidev export",
+    "deploy": "supaslidev deploy",
+    "build": "pnpm --filter @supaslidev/* run build",
+    "postinstall": "nuxi prepare || true"
+  },
+  "devDependencies": {
+    "nuxt": "catalog:core",
+    "playwright-chromium": "catalog:",
+    "supaslidev": "^0.3.6"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "packageManager": "pnpm@10.28.1"
+}

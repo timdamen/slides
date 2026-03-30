@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>focusring.io - Final Design</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+        }
+        
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 2rem auto;
+            background: white;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .page-content {
+            padding: 1rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Page 1 Styles */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo {
+            width: 75px;
+            height: 75px;
+            background: #0753ce;
+            border-radius: 10px;
+            margin-right: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        
+        .company-info h1 {
+            font-size: 1.8rem;
+            color: #1e293b;
+            line-height: normal;
+        }
+        
+        .tagline {
+            color: #0753ce;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        .contact-info {
+            text-align: right;
+            color: #404243;
+        }
+        
+        .hero-section {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding: 2rem 0;
+        }
+        
+        .badges-section {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .badge {
+            background: #f1f5f9;
+            color: #1e293b;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 2px solid #0753ce;
+        }
+        
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: #404243;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .split-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .problem-section {
+            background: #fef1f2;
+            padding: 1rem;
+            border-radius: 12px;
+            border-left: 4px solid #b91c1c;
+        }
+        
+        .solution-section {
+            background: #f0fdf5;
+            padding: 1rem;
+            border-radius: 12px;
+            border-left: 4px solid #15803d;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+        
+        .section-content {
+            color: #404243;
+            margin-bottom: 1rem;
+        }
+        
+        .section-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .section-list li {
+            padding: 0.3rem 0;
+            color: #404243;
+        }
+        
+        .section-list li::before {
+            content: "•";
+            color: #b91c1c;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+        }
+        
+        .solution-section .section-list li::before {
+            color: #15803d;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: .7rem;
+            margin-bottom: 3rem;
+        }
+        
+        .service-card {
+            background: white;
+            padding: 1.2rem .7rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+        }
+        
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: #f1f5f9;
+            border-radius: 12px;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1e293b;
+            font-size: 2rem;
+            font-weight: 900;
+            border: 2px solid #0753ce;
+        }
+        
+        .service-card h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+        
+        .service-card p {
+            color: #404243;
+            font-size: 0.9rem;
+        }
+        
+        .cta-section {
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            margin-top: auto;
+        }
+        
+        .cta-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+        
+        .cta-subtitle {
+            color: #404243;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-button {
+            background: #0753ce;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            border: none;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        
+        .cta-button:hover {
+            background: #2563eb;
+        }
+        
+        /* Page 2 Styles */
+        .page2-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .page2-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+        
+        .page2-subtitle {
+            color: #404243;
+            font-size: 1.1rem;
+        }
+        
+        .process-flow {
+            background: #f8fafc;
+            padding: 2rem .5rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .process-title {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 2rem;
+        }
+        
+        .process-steps {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: .5rem;
+            flex-wrap: wrap;
+        }
+        
+        .process-step {
+            background: white;
+            border: 2px solid #0753ce;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            color: #0753ce;
+            text-align: center;
+            min-width: 120px;
+        }
+        
+        .process-arrow {
+            color: #0753ce;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .detailed-services {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .service-detail {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border: 1px solid #e2e8f0;
+        }
+        
+        .service-detail h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .service-detail-icon {
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1e293b;
+        }
+        
+        .service-detail p {
+            color: #404243;
+            margin-bottom: 1rem;
+        }
+        
+        .service-detail ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .service-detail li {
+            padding: 0.3rem 0;
+            color: #404243;
+        }
+        
+        .service-detail li::before {
+            content: "✓";
+            color: #22c55e;
+            font-weight: bold;
+            display: inline-block;
+            width: 1.5em;
+        }
+        
+        .excellence-card {
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 2rem;
+        }
+        
+        .excellence-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 1rem;
+        }
+        
+        .excellence-details {
+            color: #404243;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+        
+        .final-cta {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border: 1px solid #e2e8f0;
+        }
+        
+        .final-cta h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+        
+        .final-cta p {
+            color: #404243;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-details {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 1rem;
+        }
+        
+        .contact-item {
+            text-align: center;
+        }
+        
+        .contact-item strong {
+            display: block;
+            color: #1e293b;
+            margin-bottom: 0.2rem;
+        }
+        
+        .contact-item span {
+            color: #0753ce;
+            font-weight: 500;
+        }
+        
+        /* Page 3 - Cost Proposition Styles */
+        .cost-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .cost-section {
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .cost-section.reactive {
+            background: #fef1f2;
+            border-left: 4px solid #b91c1c;
+        }
+        
+        .cost-section.proactive {
+            background: #f0fdf5;
+            border-left: 4px solid #15803d;
+        }
+        
+        .cost-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cost-stats {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cost-stat {
+            text-align: center;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+        
+        .reactive .stat-number {
+            color: #b91c1c;
+        }
+        
+        .proactive .stat-number {
+            color: #15803d;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #404243;
+            line-height: 1.3;
+        }
+        
+        .cost-breakdown h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+        
+        .cost-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .cost-list li {
+            padding: 0.3rem 0;
+            color: #404243;
+            font-size: 0.9rem;
+        }
+        
+        .cost-list li::before {
+            content: "•";
+            color: #404243;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+        }
+        
+        .roi-timeline {
+            background: #f8fafc;
+            padding: 2rem 1rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .timeline-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .timeline-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+        
+        .timeline-year {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+        
+        .timeline-year h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 1rem;
+        }
+        
+        .timeline-year p {
+            font-size: 0.9rem;
+            color: #404243;
+            margin-bottom: 0.5rem;
+        }
+        
+        .roi-indicator {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .roi-indicator.positive {
+            background: #dcfce7;
+            color: #15803d;
+            border: 1px solid #bbf7d0;
+        }
+        
+        .industry-impact {
+            margin-bottom: 3rem;
+        }
+        
+        .impact-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .industry-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+        
+        .industry-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+        
+        .industry-item h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+        
+        .industry-item p {
+            font-size: 0.9rem;
+            color: #404243;
+        }
+        
+        .focusring-advantage {
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .advantage-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .advantage-dual {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .advantage-quick, .advantage-long {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+        
+        .advantage-quick h4, .advantage-long h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 1rem;
+        }
+        
+        .advantage-quick ul, .advantage-long ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .advantage-quick li, .advantage-long li {
+            padding: 0.3rem 0;
+            color: #404243;
+            font-size: 0.9rem;
+        }
+        
+        .advantage-quick li::before, .advantage-long li::before {
+            content: "✓";
+            color: #15803d;
+            font-weight: bold;
+            display: inline-block;
+            width: 1.5em;
+        }
+        
+        @media print {
+            .page {
+                margin: 0;
+                box-shadow: none;
+                page-break-after: always;
+            }
+        }
+
+        .logo-image {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Page 1 -->
+    <div class="page">
+        <div class="page-content">
+            <div class="header">
+                <div class="logo-section">
+                    <div class="logo">
+                        <img src="./fr.webp"
+                        class="logo-image"
+                        alt="logo">
+                    </div>
+                    <div class="company-info">
+                        <h1>focusring.io</h1>
+                        <div class="tagline">Accessibility. Solved.</div>
+                    </div>
+                </div>
+                <div class="contact-info">
+                    <div style="font-weight: 600; color: #1e293b;">Web Accessibility Solutions</div>
+                    <div>hello@focusring.io</div>
+                    <div>focusring.io</div>
+                </div>
+            </div>
+            
+            <div class="hero-section">
+                <h2 class="hero-title">Sustainable Digital Accessibility</h2>
+                <p class="hero-subtitle">We bridge the gap between accessibility assessment and sustainable implementation</p>
+            </div>
+            
+            <div class="badges-section">
+                <div class="badge">WCAG</div>
+                <div class="badge">EAA</div>
+                <div class="badge">Sustainable Remediation</div>
+                <div class="badge">70% Automation</div>
+                <div class="badge">Training</div>
+            </div>
+            
+            <div class="split-section">
+                <div class="problem-section">
+                    <h3 class="section-title">The Problem</h3>
+                    <p class="section-content">Most companies receive WCAG audit reports but lack the capacity to implement sustainable accessibility solutions, leading to recurring compliance issues.</p>
+                    <ul class="section-list">
+                        <li>Audit-only approach leaves gaps</li>
+                        <li>No implementation support</li>
+                        <li>Expensive recurring accessibility debt</li>
+                        <li>Limited team integration</li>
+                    </ul>
+                </div>
+                <div class="solution-section">
+                    <h3 class="section-title">Our Dual Approach</h3>
+                    <p class="section-content"><strong>Quick Solution:</strong> Immediate audit + remediation to solve current problems<br><strong>Long-term Strategy:</strong> Training, automation, and sustainable processes</p>
+                    <ul class="section-list">
+                        <li>Fast remediation for urgent compliance</li>
+                        <li>Sustainable development practices</li>
+                        <li>70% automation prevents future issues</li>
+                        <li>Team training reduces long-term costs</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">📋</div>
+                    <h4>WCAG-EM Audits</h4>
+                    <p>Complete WCAG-EM methodology assessment</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🛠</div>
+                    <h4>Remediation</h4>
+                    <p>Sustainable problem remediation</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🎓</div>
+                    <h4>Training</h4>
+                    <p>Team empowerment & skill building</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">⚡</div>
+                    <h4>Automation</h4>
+                    <p>70% WCAG automated testing</p>
+                </div>
+            </div>
+            
+            <div class="cta-section">
+                <h3 class="cta-title">Ready to solve accessibility sustainably?</h3>
+                <p class="cta-subtitle">Let's discuss how we can integrate with your development team</p>
+                <button class="cta-button">Start Your Accessibility Journey</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Page 2 -->
+    <div class="page">
+        <div class="page-content">
+            <div class="page2-header">
+                <h2 class="page2-title">Our Service Portfolio</h2>
+                <p class="page2-subtitle">From assessment to sustainable implementation and team integration</p>
+            </div>
+            
+            <div class="process-flow">
+                <h3 class="process-title">Our Proven Methodology</h3>
+                <div class="process-steps">
+                    <div class="process-step">Audit</div>
+                    <div class="process-arrow">→</div>
+                    <div class="process-step">Remediation</div>
+                    <div class="process-arrow">→</div>
+                    <div class="process-step">Integrate</div>
+                    <div class="process-arrow">→</div>
+                    <div class="process-step">Automate</div>
+                </div>
+            </div>
+            
+            <div class="detailed-services">
+                <div class="service-detail">
+                    <h3><div class="service-detail-icon">🤝</div>Team Integration</h3>
+                    <p>Embed directly into your web development teams for long-term accessibility strategy.</p>
+                    <ul>
+                        <li>Seamless workflow integration</li>
+                        <li>Sustainable accessibility practices</li>
+                        <li>Ongoing technical guidance</li>
+                        <li>Code review and mentoring</li>
+                    </ul>
+                </div>
+                
+                <div class="service-detail">
+                    <h3><div class="service-detail-icon">🏗</div>Standalone Development</h3>
+                    <p>Complete in-house web development projects with accessibility-first approach.</p>
+                    <ul>
+                        <li>End-to-end project management</li>
+                        <li>Accessibility from ground up</li>
+                        <li>Modern development practices</li>
+                        <li>Performance optimization</li>
+                    </ul>
+                </div>
+                
+                <div class="service-detail">
+                    <h3><div class="service-detail-icon">📋</div>Quick Solution: Audit + Remediation</h3>
+                    <p>Immediate WCAG-EM auditing and complete problem remediation for urgent compliance needs.</p>
+                    <ul>
+                        <li>Fast compliance achievement</li>
+                        <li>Complete problem resolution</li>
+                        <li>Detailed implementation roadmap</li>
+                        <li>EAA and WCAG documentation</li>
+                    </ul>
+                </div>
+                
+                <div class="service-detail">
+                    <h3><div class="service-detail-icon">⚡</div>Long-term Strategy: Prevention</h3>
+                    <p>Accessibility training, automation, and process implementation to prevent future accessibility issues.</p>
+                    <ul>
+                        <li>70% WCAG automation coverage</li>
+                        <li>Team training and skill building</li>
+                        <li>Sustainable development processes</li>
+                        <li>Continuous monitoring setup</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="excellence-card">
+                <h3 class="excellence-title">Technical Excellence Meets Accessibility</h3>
+                <p class="excellence-details">WCAG-EM methodology • Team integration • Sustainable development practices</p>
+                <button class="cta-button">Explore Our Approach</button>
+            </div>
+            
+            <div class="final-cta">
+                <h3>Ready to bridge the accessibility gap?</h3>
+                <p>Connect with our team to discuss your specific accessibility needs and how we can integrate with your development workflow.</p>
+                
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <strong>Email</strong>
+                        <span>hello@focusring.io</span>
+                    </div>
+                    <div class="contact-item">
+                        <strong>Website</strong>
+                        <span>focusring.io</span>
+                    </div>
+                    <div class="contact-item">
+                        <strong>Consultation</strong>
+                        <span>Schedule a call</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Page 3 - Cost Proposition -->
+    <div class="page">
+        <div class="page-content">
+            <div class="page2-header">
+                <h2 class="page2-title">The Financial Case for Strategic Accessibility</h2>
+                <p class="page2-subtitle">Early intervention delivers 10-100x cost savings compared to reactive fixes</p>
+            </div>
+            
+            <div class="cost-comparison">
+                <div class="cost-section reactive">
+                    <h3 class="cost-title">Reactive Approach: The Hidden Costs</h3>
+                    <div class="cost-stats">
+                        <div class="cost-stat">
+                            <div class="stat-number">100x</div>
+                            <div class="stat-label">Higher costs for production fixes vs. design-phase corrections</div>
+                        </div>
+                        <div class="cost-stat">
+                            <div class="stat-number">$10,000</div>
+                            <div class="stat-label">Average cost per accessibility complaint resolution</div>
+                        </div>
+                        <div class="cost-stat">
+                            <div class="stat-number">8,800+</div>
+                            <div class="stat-label">ADA federal lawsuits projected for 2024</div>
+                        </div>
+                    </div>
+                    <div class="cost-breakdown">
+                        <h4>Annual Hidden Costs:</h4>
+                        <ul class="cost-list">
+                            <li>Legal settlements: $5,000-$400,000+ per case</li>
+                            <li>Defense costs: $20,000-$100,000+ per lawsuit</li>
+                            <li>Emergency remediation: 10-20% of development budget</li>
+                            <li>Lost revenue: $6.9B annually across inaccessible sites</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="cost-section proactive">
+                    <h3 class="cost-title">Proactive Strategy: Proven ROI</h3>
+                    <div class="cost-stats">
+                        <div class="cost-stat">
+                            <div class="stat-number">$100</div>
+                            <div class="stat-label">Return for every $1 invested in accessibility (Forrester)</div>
+                        </div>
+                        <div class="cost-stat">
+                            <div class="stat-number">28%</div>
+                            <div class="stat-label">Higher revenue growth for accessibility leaders</div>
+                        </div>
+                        <div class="cost-stat">
+                            <div class="stat-number">70%</div>
+                            <div class="stat-label">Issues prevented through automation coverage</div>
+                        </div>
+                    </div>
+                    <div class="cost-breakdown">
+                        <h4>Investment vs. Returns:</h4>
+                        <ul class="cost-list">
+                            <li>Initial implementation: $8,000-$30,000</li>
+                            <li>Training investment: 16-20 hours total per team</li>
+                            <li>Automation tools: Often free or low-cost</li>
+                            <li>Market access: $13 trillion global disability market</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="roi-timeline">
+                <h3 class="timeline-title">Multi-Year ROI Trajectory</h3>
+                <div class="timeline-content">
+                    <div class="timeline-year">
+                        <h4>Year 1: Foundation & Quick Wins</h4>
+                        <p><strong>Investment:</strong> Initial audit, remediation, team training</p>
+                        <p><strong>Returns:</strong> Legal risk elimination, immediate compliance, 25-50% SEO improvement</p>
+                        <div class="roi-indicator positive">Break-even: 3-6 months</div>
+                    </div>
+                    <div class="timeline-year">
+                        <h4>Year 2-3: Process Optimization</h4>
+                        <p><strong>Investment:</strong> Automation integration, advanced training</p>
+                        <p><strong>Returns:</strong> 40% reduction in testing time, sustainable development practices</p>
+                        <div class="roi-indicator positive">ROI: 200-400%</div>
+                    </div>
+                    <div class="timeline-year">
+                        <h4>Year 3+: Competitive Advantage</h4>
+                        <p><strong>Investment:</strong> Minimal ongoing maintenance</p>
+                        <p><strong>Returns:</strong> Market expansion, brand differentiation, operational excellence</p>
+                        <div class="roi-indicator positive">ROI: 1000%+</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="industry-impact">
+                <h3 class="impact-title">Cross-Industry Impact</h3>
+                <div class="industry-grid">
+                    <div class="industry-item">
+                        <h4>E-commerce</h4>
+                        <p>66% of interactions abandoned due to barriers. Accessible sites see double conversion rates.</p>
+                    </div>
+                    <div class="industry-item">
+                        <h4>Financial Services</h4>
+                        <p>High litigation target. Early compliance prevents $50,000-$400,000 settlements.</p>
+                    </div>
+                    <div class="industry-item">
+                        <h4>Healthcare</h4>
+                        <p>Critical for patient access. Accessibility improvements increase digital engagement 40%.</p>
+                    </div>
+                    <div class="industry-item">
+                        <h4>Education</h4>
+                        <p>Federal compliance mandatory. Proactive approach costs $9/sq ft vs. $50/sq ft reactive.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="focusring-advantage">
+                <h3 class="advantage-title">The focusring.io Advantage</h3>
+                <div class="advantage-content">
+                    <div class="advantage-dual">
+                        <div class="advantage-quick">
+                            <h4>🚀 Quick Solution ROI</h4>
+                            <ul>
+                                <li>Immediate legal risk elimination</li>
+                                <li>Fast compliance achievement (3-6 months)</li>
+                                <li>Prevent $10,000+ complaint costs</li>
+                                <li>Unlock blocked market segments</li>
+                            </ul>
+                        </div>
+                        <div class="advantage-long">
+                            <h4>📈 Long-term Strategy ROI</h4>
+                            <ul>
+                                <li>70% automation prevents future issues</li>
+                                <li>Team training reduces ongoing costs 60%</li>
+                                <li>Sustainable processes eliminate technical debt</li>
+                                <li>Competitive advantage in inclusive design</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="final-cta">
+                <h3>Calculate Your Accessibility ROI</h3>
+                <p>Every month of delayed accessibility investment increases remediation costs exponentially. Start with quick wins while building long-term competitive advantages.</p>
+                
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <strong>Strategy Consultation</strong>
+                        <span>Free ROI assessment</span>
+                    </div>
+                    <div class="contact-item">
+                        <strong>Quick Start</strong>
+                        <span>Audit + remediation in 30 days</span>
+                    </div>
+                    <div class="contact-item">
+                        <strong>Partnership</strong>
+                        <span>hello@focusring.io</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

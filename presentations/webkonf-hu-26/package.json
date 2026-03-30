@@ -1,0 +1,19 @@
+{
+  "name": "@supaslidev/webkonf-hu-26",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "slidev build",
+    "dev": "slidev --open",
+    "export": "slidev export"
+  },
+  "dependencies": {
+    "@iconify-json/logos": "catalog:",
+    "@slidev/cli": "catalog:",
+    "@slidev/theme-apple-basic": "catalog:",
+    "@slidev/theme-default": "catalog:",
+    "@slidev/theme-seriph": "catalog:",
+    "@supaslidev/shared": "workspace:*",
+    "vue": "catalog:"
+  }
+}

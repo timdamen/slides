@@ -1,0 +1,19 @@
+{
+  "name": "@supaslidev/my-first-deck",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "slidev build",
+    "dev": "slidev --open",
+    "export": "slidev export"
+  },
+  "dependencies": {
+    "@slidev/cli": "catalog:",
+    "@slidev/theme-default": "catalog:",
+    "@slidev/theme-seriph": "catalog:",
+    "@slidev/theme-apple-basic": "catalog:",
+    "@supaslidev/shared": "workspace:*",
+    "vue": "catalog:"
+  },
+  "devDependencies": {}
+}

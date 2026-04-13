@@ -494,7 +494,7 @@ Set the stage. Most devs use open source every day without thinking about how it
   - Every Android phone. Most of the cloud. The ISS.
 
 - **2005** — Created <span class="i-logos-git-icon inline-block align-middle" /> **Git** out of frustration
-  - Built in **10 days** to manage Linux kernel development
+  - Built it to manage Linux kernel development
   - Now the backbone of how **100M+ developers** collaborate
 
 - One person shared their work. **The world built on it.**

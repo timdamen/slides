@@ -407,16 +407,13 @@ image: /images/tim-speaking.png
 # Tim Damen
 
 <br>
-
-<v-clicks>
-
-- Front-end developer & accessibility advocate
-- Working as an engineer in the Netherlands
-- Passionate about making the web work for **everyone**
-- Contributor to <span class="i-logos-nuxt-icon inline-block align-middle" /> **Nuxt**, **@nuxt/a11y**, and more
-- Building **WCAGify** — open source accessibility tooling
-
-</v-clicks>
+<div class="text-sm leading-10">
+🧑‍💻 Front-end developer & accessibility advocate <br>
+🇳🇱 Working as an engineer in the Netherlands <br>
+♿️ Passionate about making the web work for <strong>everyone</strong> <br>
+🧩 Contributor to <span class="i-logos-nuxt-icon inline-block align-middle" /> <strong>Nuxt</strong>, <strong>@nuxt/a11y</strong>, and more <br>
+🔧 Building <strong>WCAGify</strong> — open source accessibility tooling
+</div>
 
 <BarBottom title="Build Together, Accessed by All">
   <Item text="timdamen.io">
@@ -631,7 +628,7 @@ Our careers are built on the generosity of open source contributors.
 
 # No paywalls, no gatekeeping
 
-<img src="/images/paywall.png" alt="Paywall blocking access to tools" class="absolute right-12 top-1/2 -translate-y-1/2 w-96 rounded-lg shadow-lg" />
+<img src="/images/paywall.png" alt="Paywall blocking access to tools" class="absolute right-12 top-5/12 -translate-y-1/2 w-96 rounded-lg shadow-lg" />
 
 <v-clicks>
 
@@ -1106,7 +1103,7 @@ Then transition to: "Let me show you what this looks like in practice."
 
 ---
 
-# [Live demo: @nuxt/a11y](http://localhost:3000)
+# [Demo: @nuxt/a11y](http://localhost:3000)
 
 <img src="/images/nuxt-a11y.png" alt="nuxt/a11y module" class="mt-8 max-h-100 rounded-lg shadow-lg" />
 
@@ -1132,6 +1129,10 @@ Show:
 - Add the module → instant feedback
 - Fix an issue based on the guidance
 -->
+
+---
+
+<Tweet id="2040852222544687447" />
 
 ---
 

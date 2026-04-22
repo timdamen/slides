@@ -380,11 +380,9 @@ image: /images/wcag.webp
 # Tim Damen
 
 <br>
-<span class="text-2xl">🧑‍💻</span> Front-end Chapter Lead @ ABN AMRO
+<span class="text-2xl">🧑‍💻</span> Head of Front-end @ focusring.io
 
-<span class="text-2xl">♿️</span> Accessibility Lead & Advocate
-
-<span class="text-2xl">🎙️</span> Podcaster @ focustrap
+🧩 Ecosystem Team Member <span class="i-logos-nuxt-icon inline-block align-middle" /> @ Nuxt
 
 <span class="text-2xl">🌸</span> Husband and proud father of a daughter
 
@@ -401,16 +399,6 @@ image: /images/wcag.webp
     <carbon:logo-github />
   </Item>
 </BarBottom>
-
----
-layout: image
-image: /images/zion.webp
----
-
----
-layout: image
-image: /images/lowlands.jpeg
----
 
 ---
 layout: center
@@ -587,6 +575,45 @@ margin: auto;
 text-align: center;
 }
 </style>
+
+---
+
+# Before `z-index`: the `<layer>` element
+
+<div class="mt-4"></div>
+
+<v-clicks>
+
+- **Netscape 4 (1997)** introduced the `<layer>` element
+  - Allowed absolute positioning and stacking of content
+  - Each `<layer>` was a separate document object in JavaScript
+  - **Only worked in Netscape** — `if (document.layers)` was true in Netscape 4, but false in all other browsers
+
+- Meanwhile, **CSS2 (1998)** standardised `z-index` for stacking
+  - Supported across browsers, no vendor lock-in
+  - The `<layer>` element quietly disappeared
+
+- Today `<layer>` is a relic of the Browser Wars — proof that **open standards outlast**
+
+</v-clicks>
+
+<BarBottom title="en.wikipedia.org/wiki/Layer_element">
+  <Item text="timdamen.io">
+    <carbon:link />
+  </Item>
+  <Item text="Tim Damen">
+    <carbon:logo-linkedin />
+  </Item>
+    <Item text="timdamen">
+    <carbon:logo-github />
+  </Item>
+</BarBottom>
+
+<!--
+Fun historical detour. Before z-index existed in CSS, Netscape tried to solve layering with a proprietary HTML tag called <layer>.
+It only worked in Netscape 4 and died when CSS2 standardised z-index.
+A perfect example of why open standards win.
+-->
 
 ---
 layout: center
@@ -1315,6 +1342,11 @@ CSS anchor() is not supported by all browsers yet 😒
 
 ---
 
+<iframe height="500" style="width: 100%;" scrolling="no" title="position-try with flip keyword" src="https://codepen.io/una/embed/QWPvGRZ?default-tab=html%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+</iframe>
+
+---
+
 # "auto" and "auto"
 
 <PopoverDemoHint />
@@ -1324,11 +1356,6 @@ CSS anchor() is not supported by all browsers yet 😒
 # "auto" and "manual"
 
 <PopoverDemoHintm />
-
----
-
-<iframe height="500" style="width: 100%;" scrolling="no" title="position-try with flip keyword" src="https://codepen.io/una/embed/QWPvGRZ?default-tab=html%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-</iframe>
 
 ---
 

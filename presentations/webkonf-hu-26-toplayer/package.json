@@ -13,6 +13,7 @@
     "@slidev/theme-apple-basic": "catalog:",
     "@slidev/theme-default": "catalog:",
     "@slidev/theme-seriph": "catalog:",
+    "@floating-ui/dom": "^1.7.6",
     "@supaslidev/shared": "workspace:*",
     "vue": "catalog:"
   }

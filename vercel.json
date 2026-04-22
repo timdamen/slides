@@ -1,0 +1,16 @@
+{
+  "framework": null,
+  "installCommand": "pnpm install",
+  "buildCommand": "bash scripts/vercel-build.sh",
+  "outputDirectory": "dist",
+  "rewrites": [
+    {
+      "source": "/presentations/:name/(.*)",
+      "destination": "/presentations/:name/index.html"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

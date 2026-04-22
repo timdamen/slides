@@ -47,18 +47,6 @@
           </ul>
         </div>
       </div>
-
-      <!-- Utah Connection -->
-      <div class="utah-connection">
-        <div class="mountain-silhouette"></div>
-        <div class="connection-content">
-          <h2>🏔️ Utah's Toplayer</h2>
-          <p>
-            Just like how the layers of rock in Utah's national
-            parks tell the story of time, the toplayer represents decades of web development evolution.
-          </p>
-        </div>
-      </div>
     </div>
   </div>
 </template>

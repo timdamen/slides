@@ -4,7 +4,7 @@ packages:
 
 catalog:
   '@iconify-json/logos': ^1.2.11
-  '@slidev/cli': ^52.11.3
+  '@slidev/cli': ^52.14.2
   '@slidev/theme-apple-basic': latest
   '@slidev/theme-default': latest
   '@slidev/theme-seriph': latest

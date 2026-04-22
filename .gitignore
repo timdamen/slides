@@ -5,3 +5,6 @@ dist
 .nuxt
 .slidev
 .supaslidev
+deploy
+.output
+.vercel

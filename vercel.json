@@ -5,11 +5,23 @@
   "outputDirectory": "dist",
   "rewrites": [
     {
-      "source": "/presentations/:name/(.*)",
+      "source": "/presentations/:name/:path(\\d+)",
       "destination": "/presentations/:name/index.html"
     },
     {
-      "source": "/(.*)",
+      "source": "/presentations/:name/presenter/:path(.*)",
+      "destination": "/presentations/:name/index.html"
+    },
+    {
+      "source": "/presentations/:name/overview",
+      "destination": "/presentations/:name/index.html"
+    },
+    {
+      "source": "/presentations/:name/notes",
+      "destination": "/presentations/:name/index.html"
+    },
+    {
+      "source": "/:path((?!presentations|_nuxt|assets).*)",
       "destination": "/index.html"
     }
   ]

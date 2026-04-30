@@ -4,6 +4,7 @@ addons:
   - '@supaslidev/shared'
 background: https://cover.sli.dev
 title: Diving into the Toplayer; Where Dialogs, Popovers, and Modals Live
+colorSchema: dark
 info: |
   ## Diving into the Toplayer: Where Dialogs, Popovers, and Modals Live
   A presentation about the top layer of the web, focusing on dialogs, popovers, and modals. Learn how to effectively use these components to enhance user experience and accessibility.
@@ -90,16 +91,7 @@ mdc: true
         background-clip: text;
         -webkit-text-fill-color: transparent;
         display: inline-block;
-        animation: glow 2s ease-in-out infinite alternate;
-    }
-
-    @keyframes glow {
-        from {
-            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
-        }
-        to {
-            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8));
-        }
+        filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
     }
 
     .subtitle {
@@ -141,7 +133,7 @@ mdc: true
         border-radius: 12px;
         backdrop-filter: blur(10px);
         border: 1px solid rgba(255,255,255,0.2);
-        animation: float 6s ease-in-out infinite;
+        opacity: 0.5;
     }
 
     .layer-1 {
@@ -181,32 +173,11 @@ mdc: true
         border: 2px solid rgba(255, 215, 0, 0.5);
         top: 2%;
         right: 15%;
-        animation: floatTop 4s ease-in-out infinite;
+        transform: translateY(-15px) scale(1.05);
         box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
         z-index: 999999; /* Toplayer! */
     }
 
-    @keyframes float {
-        0%, 100% {
-            transform: translateY(0) rotate(0deg);
-            opacity: 0.3;
-        }
-        50% {
-            transform: translateY(-20px) rotate(2deg);
-            opacity: 0.7;
-        }
-    }
-
-    @keyframes floatTop {
-        0%, 100% {
-            transform: translateY(0) scale(1);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
-        }
-        50% {
-            transform: translateY(-30px) scale(1.1);
-            box-shadow: 0 0 50px rgba(255, 215, 0, 0.6);
-        }
-    }
 
     /* Mountain silhouette for Utah theming */
     .mountains {
@@ -262,11 +233,6 @@ mdc: true
         opacity: 1;
     }
 
-    @keyframes fadeInOut {
-        0%, 20%, 80%, 100% { opacity: 0.3; }
-        40%, 60% { opacity: 0.8; }
-    }
-
     /* Responsive design */
     @media (max-width: 768px) {
         .main-title {
@@ -298,7 +264,7 @@ mdc: true
         height: 4px;
         background: rgba(255,255,255,0.6);
         border-radius: 50%;
-        animation: particleFloat 10s linear infinite;
+        opacity: 0.6;
     }
 
     .particle:nth-child(1) { left: 20%; animation-delay: 0s; }
@@ -306,23 +272,6 @@ mdc: true
     .particle:nth-child(3) { left: 60%; animation-delay: 4s; }
     .particle:nth-child(4) { left: 80%; animation-delay: 6s; }
 
-    @keyframes particleFloat {
-        0% {
-            transform: translateY(100vh) scale(0);
-            opacity: 0;
-        }
-        10% {
-            opacity: 1;
-            transform: scale(1);
-        }
-        90% {
-            opacity: 1;
-        }
-        100% {
-            transform: translateY(-100px) scale(0);
-            opacity: 0;
-        }
-    }
 </style>
 
 ---

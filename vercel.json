@@ -1,28 +1,6 @@
 {
   "framework": null,
   "installCommand": "pnpm install",
-  "buildCommand": "bash scripts/vercel-build.sh",
-  "outputDirectory": "dist",
-  "rewrites": [
-    {
-      "source": "/presentations/:name/:path(\\d+)",
-      "destination": "/presentations/:name/index.html"
-    },
-    {
-      "source": "/presentations/:name/presenter/:path(.*)",
-      "destination": "/presentations/:name/index.html"
-    },
-    {
-      "source": "/presentations/:name/overview",
-      "destination": "/presentations/:name/index.html"
-    },
-    {
-      "source": "/presentations/:name/notes",
-      "destination": "/presentations/:name/index.html"
-    },
-    {
-      "source": "/:path((?!presentations|_nuxt|assets).*)",
-      "destination": "/index.html"
-    }
-  ]
+  "buildCommand": "npx supaslidev deploy --output dist",
+  "outputDirectory": "dist"
 }

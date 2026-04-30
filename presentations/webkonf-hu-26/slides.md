@@ -4,6 +4,7 @@ addons:
   - '@supaslidev/shared'
 background: https://cover.sli.dev
 title: "Build Together, Accessed by All: Open Source Web Accessibility"
+colorSchema: dark
 info: |
   ## Build Together, Accessed by All
   Open Source Web Accessibility — A talk about how open source and accessibility share the same philosophy: building things that work for everyone, together.

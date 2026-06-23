@@ -2,7 +2,6 @@
 theme: apple-basic
 addons:
   - '@supaslidev/shared'
-background: https://cover.sli.dev
 title: "Build Together, Accessed by All: Open Source Web Accessibility"
 colorSchema: dark
 info: |

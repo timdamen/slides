@@ -1,6 +1,5 @@
 ---
 theme: apple-basic
-background: https://cover.sli.dev
 title: Diving into the Toplayer; Where Dialogs, Popovers, and Modals Live
 info: |
   ## Diving into the Toplayer: Where Dialogs, Popovers, and Modals Live

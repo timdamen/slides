@@ -2,7 +2,6 @@
 theme: apple-basic
 addons:
   - '@supaslidev/shared'
-background: https://cover.sli.dev
 title: Keyboard accessibility & focus
 info: |
   ## Keyboard Accessibility & Focus

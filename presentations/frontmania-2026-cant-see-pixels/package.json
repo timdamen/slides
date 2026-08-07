@@ -1,0 +1,21 @@
+{
+  "name": "@supaslidev/frontmania-2026-cant-see-pixels",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "slidev build",
+    "dev": "slidev --open",
+    "export": "slidev export"
+  },
+  "dependencies": {
+    "@slidev/cli": "catalog:",
+    "@slidev/theme-default": "catalog:",
+    "@supaslidev/shared": "workspace:*",
+    "dom-accessibility-api": "^0.7.0",
+    "vue": "catalog:"
+  },
+  "devDependencies": {
+    "axe-core": "catalog:",
+    "playwright-chromium": "catalog:"
+  }
+}

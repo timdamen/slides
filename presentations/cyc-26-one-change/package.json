@@ -1,0 +1,25 @@
+{
+  "name": "@supaslidev/cyc-26-one-change",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "slidev build",
+    "dev": "slidev --open",
+    "export": "slidev export",
+    "audit": "slidev build && node scripts/a11y-audit.mjs"
+  },
+  "dependencies": {
+    "@slidev/cli": "catalog:",
+    "@slidev/theme-default": "catalog:",
+    "@supaslidev/shared": "workspace:*",
+    "@vue/compiler-sfc": "catalog:core",
+    "acorn": "catalog:",
+    "acorn-walk": "catalog:",
+    "astring": "catalog:",
+    "vue": "catalog:"
+  },
+  "devDependencies": {
+    "axe-core": "catalog:",
+    "playwright-chromium": "catalog:"
+  }
+}

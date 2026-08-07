@@ -1,0 +1,323 @@
+/* Frontmania 2026 — focus-ring motif, dark, WCAG AA contrast on dark bg */
+
+:root {
+  --fm-ring: #74c0fc;
+  --fm-accent: #ffd43b;
+  --fm-ok: #69db7c;
+  --fm-warn: #ffa94b;
+  --fm-danger: #ff8787;
+  --fm-muted: #9aa4b2;
+  --fm-border: #3b4252;
+  --fm-panel: #14161c;
+}
+
+.slidev-layout {
+  background: #0e1015;
+}
+
+/*
+ * Upstream Slidev nav renders "sync settings" and "More Options" as a
+ * button nested inside a button (axe: nested-interactive, serious).
+ * Neither control is needed while presenting or in the hosted deck, so we
+ * hide them until the upstream markup is fixed. Everything else (prev/next,
+ * overview, fullscreen, presenter mode) stays keyboard-reachable.
+ */
+nav.slidev-nav button:has(> button.slidev-icon-btn),
+nav > .flex > button:has(> button.slidev-icon-btn),
+button:has(> button.slidev-icon-btn) {
+  display: none !important;
+}
+
+.slidev-layout h1 {
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+/* ---- cover ---- */
+.cover-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  gap: 1rem;
+}
+.cover-kicker {
+  color: var(--fm-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.cover-title {
+  font-size: 3.1rem;
+  line-height: 1.12;
+  font-weight: 800;
+}
+.ring-accent {
+  outline: 4px solid var(--fm-ring);
+  outline-offset: 6px;
+  border-radius: 4px;
+  padding: 0 0.15em;
+}
+.cover-byline { color: #e5e9f0; font-size: 1.05rem; }
+.cover-url { color: var(--fm-ring); }
+
+/* ---- shared bits ---- */
+.punch {
+  margin-top: 1.2rem;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--fm-accent);
+  line-height: 1.35;
+}
+.punch.danger { color: var(--fm-danger); }
+.punch-sm {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--fm-accent);
+  margin-top: 1.4rem;
+}
+.dim { color: var(--fm-muted); font-weight: 400; font-size: 0.85em; }
+.small-print { color: var(--fm-muted); font-size: 0.8rem; margin-top: 1.6rem; font-style: italic; }
+.src-note { color: var(--fm-muted); font-size: 0.62rem; margin-top: 0.9rem; }
+
+/* ---- persona (slide 2) ---- */
+.persona-card {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 1.6rem;
+  border: 1px solid var(--fm-border);
+  border-radius: 14px;
+  padding: 1.6rem 2rem;
+  background: var(--fm-panel);
+  outline: 3px solid var(--fm-ring);
+  outline-offset: 4px;
+  max-width: 620px;
+}
+.persona-avatar { font-size: 4.5rem; }
+.persona-facts { margin: 0; }
+.persona-facts div {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 1rem;
+  padding: 0.24rem 0;
+}
+.persona-facts dt {
+  color: var(--fm-muted);
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  align-self: center;
+}
+.persona-facts dd { margin: 0; font-size: 1.05rem; font-weight: 600; }
+
+/* ---- stats ---- */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 1.4rem;
+}
+.stat-stack { display: flex; flex-direction: column; gap: 0.9rem; }
+
+/* ---- three ways to read (slide 5) ---- */
+.three-col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.9rem;
+  margin-top: 1rem;
+}
+.read-card {
+  border: 1px solid var(--fm-border);
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  background: var(--fm-panel);
+  font-size: 0.78rem;
+}
+.read-card h3 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem; }
+.read-card ul { padding-left: 1rem; }
+.read-card li { margin: 0.2rem 0; color: #cdd3dd; }
+.read-viz {
+  border: 1px dashed var(--fm-border);
+  border-radius: 8px;
+  padding: 0.5rem 0.6rem;
+  margin-bottom: 0.6rem;
+  min-height: 4.4rem;
+  display: flex;
+  align-items: center;
+  font-size: 1.8rem;
+  color: #cdd3dd;
+}
+.read-viz.mono {
+  font-family: ui-monospace, monospace;
+  font-size: 0.62rem;
+  line-height: 1.5;
+}
+.ring-accent-card { outline: 3px solid var(--fm-ring); outline-offset: 3px; }
+
+/* ---- vendors (slide 7) ---- */
+.vendor-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+.vendor-card {
+  border: 1px solid var(--fm-border);
+  border-radius: 12px;
+  padding: 0.8rem 1rem;
+  background: var(--fm-panel);
+  font-size: 0.8rem;
+}
+.vendor-card h3 { font-size: 0.92rem; font-weight: 700; margin-bottom: 0.3rem; }
+.vendor-card p { color: #cdd3dd; line-height: 1.45; margin: 0; }
+
+/* ---- devtools (slide 8) ---- */
+.two-col-loose {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 2rem;
+  margin-top: 1.2rem;
+  align-items: start;
+}
+.screenshot-placeholder, .qr-placeholder {
+  border: 2px dashed var(--fm-border);
+  border-radius: 12px;
+  padding: 2.2rem 1rem;
+  text-align: center;
+  color: var(--fm-muted);
+  font-size: 0.85rem;
+}
+
+/* ---- funnel hero (slide 10) ---- */
+.funnel-hero {
+  display: flex;
+  gap: 0.7rem;
+  margin-top: 2.2rem;
+  flex-wrap: wrap;
+}
+.funnel-step {
+  border: 1px solid var(--fm-border);
+  border-radius: 999px;
+  padding: 0.6rem 1.3rem;
+  font-weight: 700;
+  font-size: 1.05rem;
+  background: var(--fm-panel);
+  outline: 2px solid var(--fm-ring);
+  outline-offset: 3px;
+}
+
+/* ---- funnel stage slides ---- */
+.needs-vs {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 1.6rem;
+  margin-top: 1rem;
+  align-items: start;
+  font-size: 0.92rem;
+}
+.needs-vs ul { padding-left: 1.1rem; }
+.needs-vs li { margin: 0.42rem 0; }
+
+.badge-row {
+  display: flex;
+  gap: 1.1rem;
+  margin-top: 0.9rem;
+  flex-wrap: wrap;
+}
+.badge-row-tight { margin-top: 0.6rem; }
+
+.decide-bottom {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 1.2rem;
+  align-items: center;
+  margin-top: 0.7rem;
+}
+.research-note {
+  border-left: 3px solid var(--fm-ring);
+  padding: 0.4rem 0.9rem;
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: #cdd3dd;
+  background: var(--fm-panel);
+  border-radius: 0 8px 8px 0;
+}
+.research-note .src-note { display: block; margin-top: 0.3rem; }
+
+.centerpiece h1 { display: none; }
+
+/* ---- confirm (slide 19) ---- */
+.confirm-story { margin-top: 1.4rem; display: flex; flex-direction: column; gap: 0.85rem; max-width: 780px; }
+.confirm-step {
+  border: 1px solid var(--fm-border);
+  border-radius: 10px;
+  padding: 0.65rem 1rem;
+  background: var(--fm-panel);
+  font-size: 0.95rem;
+}
+.confirm-step.fix {
+  outline: 2px solid var(--fm-ok);
+  outline-offset: 2px;
+  border-color: #2f5e3f;
+}
+
+/* ---- reveal table (slide 21) ---- */
+.reveal-table { margin-top: 0.8rem; font-size: 0.8rem; border-collapse: collapse; }
+.reveal-table th {
+  text-align: left;
+  color: var(--fm-muted);
+  text-transform: uppercase;
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  padding: 0.3rem 1.2rem 0.3rem 0;
+}
+.reveal-table td { padding: 0.42rem 1.2rem 0.42rem 0; border-top: 1px solid var(--fm-border); vertical-align: middle; }
+.reveal-table td:first-child { font-weight: 700; white-space: nowrap; }
+
+/* ---- exec slide (24) ---- */
+.exec-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+.exec-grid > :nth-child(4) { grid-column: 1 / 2; }
+.exec-punch { text-align: center; font-size: 1.5rem; }
+
+/* ---- court (26) ---- */
+.court-card {
+  border: 1px solid var(--fm-border);
+  border-radius: 14px;
+  padding: 1.6rem 2rem;
+  background: var(--fm-panel);
+  margin-top: 1.6rem;
+  max-width: 700px;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+/* ---- ending (27) ---- */
+.ending { max-width: 760px; display: flex; flex-direction: column; gap: 1.3rem; }
+.ending-line { font-size: 1.15rem; line-height: 1.55; color: #e5e9f0; }
+.ending-quote {
+  font-size: 1.45rem;
+  line-height: 1.45;
+  font-weight: 700;
+  color: var(--fm-accent);
+  border-left: 4px solid var(--fm-ring);
+  padding-left: 1.1rem;
+}
+.ending-quote.final { color: #fff; outline: 3px solid var(--fm-ring); outline-offset: 10px; border-radius: 4px; border-left: none; padding: 0.4rem 0.8rem; }
+
+/* ---- thanks (28) ---- */
+.thanks-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 2rem;
+  align-items: center;
+  margin-top: 1rem;
+}
+.thanks-links { font-size: 1.02rem; line-height: 2; }

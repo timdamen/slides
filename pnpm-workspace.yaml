@@ -8,6 +8,10 @@ catalog:
   '@slidev/theme-apple-basic': latest
   '@slidev/theme-default': latest
   '@slidev/theme-seriph': latest
+  acorn: ^8.18.0
+  acorn-walk: ^8.3.5
+  astring: ^1.9.0
+  axe-core: ^4.12.1
   playwright-chromium: ^1.58.2
   vue: ^3.5.26
 

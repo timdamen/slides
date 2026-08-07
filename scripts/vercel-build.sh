@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Pre-generate thumbnails with extended timeout + --per-slide for decks where
-# supaslidev's default slidev export fails (timeout on cover.sli.dev, or zero
-# .print-slide-container matches when first-slide CSS overrides body). Best-
-# effort: skipped silently on Vercel where Playwright/Chromium isn't available.
-node scripts/generate-thumbnails.mjs || echo "  (skipping pre-generation — likely no Chromium)"
-
-# Back up committed thumbnails before supaslidev deploy overwrites them
-# (Playwright/Chromium is not available on Vercel, so thumbnail generation fails)
+# Thumbnails are NOT generated here. They are generated locally and committed:
+#
+#   node scripts/generate-thumbnails.mjs <deck-id>
+#
+# This build only has to preserve them. `supaslidev deploy` clears
+# dist/thumbnails and tries to regenerate every deck's cover itself, which
+# cannot work on Vercel (no Chromium), so the committed files are copied aside
+# first and put back afterwards.
 cp -r thumbnails thumbnails-backup 2>/dev/null || true
 
 # Ensure clean output directory exists
@@ -19,7 +19,7 @@ mkdir -p dist
 # to prevent Nuxt from using the Vercel preset
 NITRO_PRESET=static npx supaslidev deploy --output dist
 
-# Restore backed-up thumbnails that supaslidev failed to regenerate
+# Put the committed thumbnails back
 if [ -d thumbnails-backup ]; then
   mkdir -p dist/thumbnails
   for f in thumbnails-backup/*.webp thumbnails-backup/*.png; do

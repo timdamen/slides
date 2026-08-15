@@ -9,6 +9,7 @@
     "audit": "slidev build && node scripts/a11y-audit.mjs"
   },
   "dependencies": {
+    "@iconify-json/logos": "catalog:",
     "@slidev/cli": "catalog:",
     "@slidev/theme-default": "catalog:",
     "@supaslidev/shared": "workspace:*",

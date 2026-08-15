@@ -3,6 +3,7 @@
  *
  * Everything here runs in the browser, offline, on real parsers:
  *   - acorn            → JavaScript / ESM
+ *   - @babel/parser     → TypeScript, via @vue/compiler-sfc's re-export
  *   - @vue/compiler-sfc → Vue single-file components
  *
  * Nothing is pre-baked. The diffs you see on stage are computed live from a
@@ -10,7 +11,7 @@
  */
 import { parse as acornParse } from 'acorn'
 import type { Node as AcornNode } from 'acorn'
-import { parse as parseSfc } from '@vue/compiler-sfc'
+import { babelParse, parse as parseSfc } from '@vue/compiler-sfc'
 
 export interface AstNode extends AcornNode {
   [key: string]: any
@@ -68,7 +69,53 @@ export function parseJs(code: string): ParseResult {
   }
 }
 
-const SKIP_KEYS = new Set(['type', 'start', 'end', 'loc', 'range', 'sourceType'])
+/**
+ * Parse as TypeScript.
+ *
+ * acorn does not speak TypeScript, and a routes file is TypeScript: the whole
+ * subject of example one is `as RouteRecordRaw[]`, which acorn cannot represent
+ * at all. Stripping the type syntax before parsing — which is what the demos
+ * used to do — leaves those characters outside every node, so clicking them in
+ * the source pane lands on Program and lights up the entire file.
+ *
+ * `@vue/compiler-sfc` already ships Babel's parser, so no new dependency: the
+ * type annotation comes back as a real `TSAsExpression` with real offsets into
+ * the text on screen, and the two-numbers claim holds for every character.
+ *
+ * Comments come back on the File node rather than through a callback.
+ */
+export function parseTs(code: string): ParseResult {
+  try {
+    const file: any = babelParse(code, {
+      plugins: ['typescript'],
+      sourceType: 'module',
+      allowReturnOutsideFunction: true,
+    })
+    const comments = (file.comments ?? []).map((c: any) => ({ start: c.start, end: c.end }))
+    return { ast: file.program as AstNode, error: null, comments }
+  } catch (error: any) {
+    return { ast: null, error: error?.message ?? String(error), comments: [] }
+  }
+}
+
+const SKIP_KEYS = new Set([
+  'type',
+  'start',
+  'end',
+  'loc',
+  'range',
+  'sourceType',
+  // Babel bookkeeping. `extra` carries a re-parsed copy of literals, and the
+  // comment arrays would otherwise show up as children of whatever node they
+  // happen to touch — a comment is not a node, which is the point elsewhere.
+  'extra',
+  'leadingComments',
+  'trailingComments',
+  'innerComments',
+  'comments',
+  'tokens',
+  'errors',
+])
 
 /**
  * Depth-first walk over any ESTree-shaped tree.
@@ -142,6 +189,11 @@ export interface TreeNode {
 function nodeDetail(node: AstNode): string {
   if (node.type === 'Identifier') return node.name
   if (node.type === 'Literal') return JSON.stringify(node.value)
+  // Babel splits ESTree's single `Literal` into one node type per kind.
+  if (node.type === 'StringLiteral') return JSON.stringify(node.value)
+  if (node.type === 'NumericLiteral' || node.type === 'BooleanLiteral') return String(node.value)
+  // The reason this parser is here at all: name the type the audience clicked.
+  if (node.type === 'TSTypeReference') return node.typeName?.name ?? ''
   if (node.type === 'TemplateElement') return JSON.stringify(node.value?.raw ?? '')
   if (node.type === 'ImportDeclaration') return JSON.stringify(node.source?.value)
   return ''

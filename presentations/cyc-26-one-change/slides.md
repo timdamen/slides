@@ -22,7 +22,7 @@ drawings:
 
 <div class="cover-wrap">
   <p class="cover-kicker">Commit Your Code 2026 · Plano, TX</p>
-  <h1 class="cover-title">One change.<br>Three hundred repositories.<br><span class="accent">Nobody reports to me.</span></h1>
+  <h1 class="cover-title">One change.<br>300 repositories.</h1>
   <p class="cover-byline">Tim Damen · <span class="cover-url">talks.timdamen.io</span></p>
   <p class="cover-programme">Utilising the JavaScript AST for Automated Frontend Lifecycle Management</p>
 </div>
@@ -47,10 +47,6 @@ src: ./pages/02-mechanism.md
 
 ---
 src: ./pages/03-landing.md
----
-
----
-src: ./pages/04-promise.md
 ---
 
 ---

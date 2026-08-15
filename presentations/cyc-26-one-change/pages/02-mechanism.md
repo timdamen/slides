@@ -13,7 +13,7 @@ layout: center
 </div>
 
 <!--
-⏱ 5:00 — Act 2. The mechanism. This is the part of the talk the title undersells.
+⏱ 4:30 — Act 2. The mechanism. This is the part of the talk the title undersells.
 
 Remember I said one item on that list turned out to be a lie? It's "standards, written down".
 
@@ -35,7 +35,7 @@ Notice the `@latest`. We are not asking them to keep the updater up to date. Tha
 <UpdateRun mode="run" />
 
 <!--
-⏱ 5:40 — Demo. Start it, then talk over it. Ninety seconds.
+⏱ 5:10 — Demo. Start it, then talk over it. Ninety seconds.
 
 When they run that script, this happens.
 
@@ -52,76 +52,4 @@ That's it. That's the mechanism. Two of those four commands aren't even ours, th
 [let the ledger fill]
 
 And this is what came out. Fifty-four codemods, from eight different packages, in one commit. That app had gone about nine months without an update. Nine months, a thousand and forty commits, fourteen people. Then one afternoon.
--->
-
----
-
-# A hundred and fifty-three of them
-
-<div class="census">
-
-<div class="census-row">
-  <span class="census-n accent">153</span>
-  <span class="census-l">codemods shipped</span>
-</div>
-
-<div class="census-row">
-  <span class="census-n accent">157</span>
-  <span class="census-l">tests for them</span>
-</div>
-
-<div class="census-row dim">
-  <span class="census-n">9,001</span>
-  <span class="census-l">lines of migration code</span>
-</div>
-
-<div class="census-row dim">
-  <span class="census-n">11,820</span>
-  <span class="census-l">lines of test</span>
-</div>
-
-</div>
-
-<p v-click class="punch">More test than implementation. That ratio is the only reason anyone lets us do this.</p>
-
-<!--
-⏱ 7:10
-
-A hundred and fifty-three codemods over about two and a half years. A hundred and fifty-seven test files.
-
-[click] There is more test code than migration code. One point three lines of test for every line that ships.
-
-I want to be blunt about why. It is not craftsmanship. It's that a codemod runs unattended, in a repository I will never open, against a version of a file I have never seen, possibly two years after I wrote it. There's no review step where a human catches it. The test suite is the review step, and it runs before the code exists in anyone's repo.
-
-Every migration gets three cases minimum: it works, it's already been applied and does nothing, and the thing it's looking for isn't there and it doesn't explode.
--->
-
----
-layout: center
----
-
-<div class="ownership">
-  <div class="own-half">
-    <p class="own-n">6</p>
-    <p class="own-l">files in that app carry a header saying<br><strong>the platform owns this, don't edit it</strong></p>
-  </div>
-  <div class="own-vs" aria-hidden="true">↓</div>
-  <div class="own-half danger">
-    <p class="own-n">58</p>
-    <p class="own-l">files the platform updates<br><strong>have actually edited</strong></p>
-  </div>
-</div>
-
-<!--
-⏱ 7:45 — Slow down here. This is the honest slide and it sets up the whole last third.
-
-Six files in that repository say we own them. Generated, do not edit, we'll clobber it.
-
-Across the three updates in that app's history, we touched fifty-eight.
-
-The gap between those two numbers is where all of my anxiety lives. Because the other fifty-two are files the app team owns. Files they wrote, files they've customised, files with their comments in. Their router config. Their entry point. Their internationalisation setup.
-
-The boundary between what I own and what they own does not run around their source directory. It runs straight through the middle of individual files.
-
-Hold that thought for eight minutes.
 -->

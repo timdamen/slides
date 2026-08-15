@@ -17,7 +17,7 @@
 <p class="punch exec-punch">Accessibility is now conversion infrastructure.</p>
 
 <!--
-⏱ 34:00 — Section F: the business case. This slide is deliberately screenshot-able: five numbers, five sources, five dates, one sentence. Screenshot it. Send it to whoever owns your roadmap.
+⏱ 36:00 — Section F: the business case. This slide is deliberately screenshot-able: five numbers, five sources, five dates, one sentence. Screenshot it. Send it to whoever owns your roadmap.
 
 For twenty years the accessibility business case was ethics, lawsuits, and "it's about 15 percent of users" — and roadmaps kept not caring. Fine. Here's the version roadmaps understand: traffic almost times-five, converting 42 percent better, a fifth of holiday orders touched by AI, fifty million shopping queries a day, and McKinsey putting three to five trillion on it by 2030.
 
@@ -40,7 +40,7 @@ Every one of those customers reads your site through the accessibility tree firs
 </v-clicks>
 
 <!--
-⏱ 35:30 — The Monday-morning list. Six items, none needing a budget meeting.
+⏱ 37:30 — The Monday-morning list. Six items, none needing a budget meeting.
 
 [click] Semantic HTML first. Half the ARIA on the web is making things worse — we just saw the data. The elements come with the behavior built in.
 
@@ -72,7 +72,7 @@ A US judge issued a **preliminary injunction** blocking Perplexity's *Comet* bro
 <p class="src-note">Preliminary injunction, N.D. Cal. · Mar 2026 — cuttable slide if running long</p>
 
 <!--
-⏱ 37:00 — (Cuttable if over time — check the clock. If behind, skip straight to the ending.)
+⏱ 39:00 — (Cuttable if over time — check the clock. If behind, skip straight to the ending.)
 
 One more signal, this time from a courtroom. March 2026: a federal judge granted Amazon a preliminary injunction blocking Perplexity's Comet browser from shopping on Amazon on users' behalf.
 

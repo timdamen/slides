@@ -16,7 +16,7 @@ class: ending-slide
 </div>
 
 <!--
-⏱ 38:00 — Section G: the ending. Tone shift: slow down, drop the jokes, mean it.
+⏱ 40:00 — Section G: the ending. Tone shift: slow down, drop the jokes, mean it.
 
 Everything I showed you tonight works because of a data structure that was built for people. Blind users. Keyboard users. Screen-reader users. It was built, argued for, and maintained by people who mostly never got the budget they asked for.
 

@@ -2,49 +2,63 @@
 
 <div class="seam">
 
-```json
-// every app's tsconfig, written by us, years before we needed it
+```json {*}{lines:false}
+// tsconfig.ts
 "paths": {
   "@playwright/test": ["./platform/test.ts"]
 }
 ```
 
-<p v-click class="punch">Every test file in every app <span class="accent">already imports that specifier.</span></p>
+<div v-click="1">
 
-<p v-click class="punch-sm">Our wrapper re-exports it. Behind an environment variable, it also scans every page the test visits and fails on critical violations.</p>
+```ts {*}{lines:false}
+import { test as base } from '@playwright/test'
+import { scanForViolations } from '@platform/a11y'
 
-<p v-click class="punch-sm accent">Nobody wrote an accessibility assertion. Nobody changed a test file.</p>
+export const test = base.extend({
+  page: async ({ page }, use) => {
+    await use(page)                  // their test, untouched
+    if (process.env.PLATFORM_A11Y)
+      await scanForViolations(page)  // fails on critical only
+  },
+})
+```
+
+</div>
+
+<p v-click="2" class="punch">Every test file in every app <span class="accent">already imports that specifier.</span></p>
 
 </div>
 
 <!--
-⏱ 8:35 — Act 3. The change lands.
+⏱ 8:05 — Act 3. The change lands. About ninety seconds, and it is the clearest picture of the mechanism in the talk.
 
 Back to the email. Automated accessibility checks in every customer-facing frontend.
 
-Here's how much source code we had to edit to do it. [gesture at the tsconfig]
+Here is how much source code we had to edit to do it. [gesture at the alias]
 
-Every app's tsconfig has this alias, and it's been there for years. When a developer writes `import { test } from '@playwright/test'`, they don't get Playwright's test function. They get ours. Ours calls Playwright's, and then does whatever else we need it to do.
+Every app's tsconfig has this line, and it has been there for years. When a developer writes `import { test } from '@playwright/test'`, they do not get Playwright's test function. They get ours.
 
-[click] Every test file in the estate already imports that specifier. There is nothing to migrate, because the import statement was always pointing at us.
+[click] And this is ours. Nine lines.
 
-[click] So the accessibility scanner went in behind an environment variable. Flip it on, and every page any functional test visits gets scanned. Fails only on critical, because a platform team that turns everyone's build red on a Tuesday does not get a second change.
+First line: we import Playwright's real test function. We are not reimplementing anything and we are not forking anything. It is Playwright, exactly as it ships.
 
-[click] Nobody wrote an assertion. Nobody opened a test file. The whole estate got scanned.
+Then we extend the page fixture. Their test body runs first and runs untouched — that is the `await use(page)`. Whatever the feature team wrote happens normally, and if it fails, it fails for their own reasons.
 
-I'm not going to pretend we saw this coming in 2024. We didn't know about the accessibility mandate. We aliased that import because we wanted to control the test timeout. But you only get to be lucky like this if you own a seam in the first place, and owning seams is a thing you can decide to do on purpose.
+Afterwards, if the environment variable is set, we scan the page their test just left behind. Same browser, whatever state their test walked the app into. Every route a functional test visits gets audited for free. Critical only — a platform team that turns three hundred builds red on a Tuesday morning does not get a second chance.
+
+[click] Every test file in the estate already imports that specifier. There was nothing to migrate, because the import statement was always pointing at us.
+
+[click] So nobody wrote an assertion, and nobody opened a test file.
+
+I am not going to pretend we saw this coming. We aliased that import years earlier because we wanted to control the test timeout. But you only get to be lucky like this if you own a seam in the first place, and owning seams is a thing you can decide to do on purpose.
 -->
 
 ---
 layout: center
 ---
 
-<p class="mega">The cheapest codemod is<br>the one you <span class="accent">designed away.</span></p>
-
-<div class="two-rule" v-click>
-  <div><p class="rule-h">Config we own</p><p>ships as an imported preset. A version bump changes it. Zero codemod, zero diff in their repo.</p></div>
-  <div><p class="rule-h">Code they own</p><p>can only be changed by a codemod. That is the only door, and it opens into someone else's house.</p></div>
-</div>
+<p class="mega">The best codemod is<br>the one you <span class="accent">designed away</span></p>
 
 <!--
 ⏱ 9:35
@@ -64,7 +78,7 @@ The accessibility rollout was mostly the cheap door. Two scripts, one alias, a c
 layout: center
 ---
 
-<p class="verdict-green">Deadline met.</p>
+<p class="verdict-green">Deadline met</p>
 
 <!--
 ⏱ 10:15 — Say it, hold it for two seconds, move on. Don't celebrate; the talk isn't over.

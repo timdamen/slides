@@ -10,10 +10,8 @@
 </v-clicks>
 </div>
 
-<p v-click class="punch">Five moments where the agent picks you — or your competitor.</p>
-
 <!--
-⏱ 11:00 — Section C: the funnel.
+⏱ 13:00 — Section C: the funnel.
 
 Classic e-commerce funnel, the one from every marketing deck since 2005. We're going to walk Alex's agent through all five stages, on Veldloper, our fictional trail-running shop.
 
@@ -56,7 +54,7 @@ funnel: 1
 </div>
 
 <!--
-⏱ 12:00 — Stage 1: Discover.
+⏱ 14:00 — Stage 1: Discover.
 
 The agent lands on your product page and asks one question: what is this page about?
 
@@ -136,7 +134,7 @@ funnel: 2
 - accessible names that carry meaning
 - alt text on product images
 - real `<table>`s with header cells
-- link text with purpose — "click here" is a 404 for meaning
+- link text with purpose — "click here"
 
 </v-clicks>
 
@@ -153,7 +151,7 @@ funnel: 2
 </div>
 
 <!--
-⏱ 15:30 — Stage 2: Compare.
+⏱ 17:30 — Stage 2: Compare.
 
 Alex's agent has five shops open. It's building a comparison: price, weight, availability. Whoever's data extracts cleanly gets ranked; whoever's doesn't gets skipped.
 
@@ -228,7 +226,7 @@ funnel: 3
 </div>
 
 <!--
-⏱ 19:00 — Stage 3: Decide.
+⏱ 21:00 — Stage 3: Decide.
 
 The agent picked you. It wants to give you money. Between it and your revenue stands one element — and this is what we shipped.
 
@@ -308,7 +306,7 @@ funnel: 4
 </div>
 
 <!--
-⏱ 22:30 — Stage 4: Checkout. The stage where broken markup stops being a philosophy debate and starts being a refund.
+⏱ 24:30 — Stage 4: Checkout. The stage where broken markup stops being a philosophy debate and starts being a refund.
 
 [click] A placeholder is not a label. It's a grey hint that evaporates on focus. In the tree, that field has no name — it's an anonymous slot the agent would have to *guess*.
 
@@ -334,7 +332,7 @@ class: centerpiece
 </div>
 
 <!--
-⏱ 24:00 — THE demo. Minimal talking while it types; let the room read.
+⏱ 26:00 — THE demo. Minimal talking while it types; let the room read.
 
 [demo] Broken form, press Run. The agent narrates its own funeral: looks for a textbox named "email" — there isn't one, there's an anonymous input with a placeholder. It refuses to guess — "guessing fields is how I order 12 pairs of shoes". Then it looks for a pay button, finds a div cosplaying as one, and aborts. Veldloper lost €189 in four seconds, and this form passes every visual QA check we have.
 
@@ -372,7 +370,7 @@ funnel: 5
 </div>
 
 <!--
-⏱ 26:30 — Stage 5: Confirm. The stage everyone forgets, with my favorite failure mode.
+⏱ 28:30 — Stage 5: Confirm. The stage everyone forgets, with my favorite failure mode.
 
 [click] The purchase worked! Your backend is happy. The toast fades in, in pixels.
 

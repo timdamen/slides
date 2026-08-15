@@ -26,6 +26,6 @@ defineProps<{
   font-size: 0.7rem;
   transform: rotate(-1deg);
 }
-.wcag-sc { font-weight: 800; color: #69db7c; white-space: nowrap; }
+.wcag-sc { font-weight: 700; color: #69db7c; white-space: nowrap; }
 .wcag-name { color: #d8dee9; }
 </style>

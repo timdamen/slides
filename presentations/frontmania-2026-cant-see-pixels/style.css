@@ -28,9 +28,22 @@ button:has(> button.slidev-icon-btn) {
   display: none !important;
 }
 
+/*
+ * Headings are deliberately quiet, matching the CYC-26 deck. The theme's
+ * default is Avenir Next / Nunito Sans at weight 800, which at this size reads
+ * as shouting. The slide's job is to be a caption for the speaker, not a
+ * poster: hierarchy comes from size and colour, not from weight.
+ */
 .slidev-layout h1 {
-  font-weight: 800;
-  letter-spacing: -0.01em;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  font-size: 1.6rem;
+  line-height: 1.2;
+  margin-bottom: 1.1rem;
+}
+
+.slidev-layout h1 + p{
+  opacity: 1;
 }
 
 /* ---- cover ---- */
@@ -51,11 +64,11 @@ button:has(> button.slidev-icon-btn) {
 .cover-title {
   font-size: 3.1rem;
   line-height: 1.12;
-  font-weight: 800;
+  font-weight: 700;
 }
 .ring-accent {
   outline: 4px solid var(--fm-ring);
-  outline-offset: 6px;
+  outline-offset: -3px;
   border-radius: 4px;
   padding: 0 0.15em;
 }
@@ -66,7 +79,7 @@ button:has(> button.slidev-icon-btn) {
 .punch {
   margin-top: 1.2rem;
   font-size: 1.35rem;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--fm-accent);
   line-height: 1.35;
 }
@@ -181,6 +194,21 @@ button:has(> button.slidev-icon-btn) {
   gap: 2rem;
   margin-top: 1.2rem;
   align-items: start;
+}
+.slide-shot.shot-cap {
+  max-height: 20rem;
+  width: auto;
+  margin: 0 auto;
+  display: block;
+}
+.two-col-loose.shot-right {
+  grid-template-columns: 0.85fr 1.5fr;
+  align-items: center;
+}
+.slide-shot {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
 }
 .screenshot-placeholder, .qr-placeholder {
   border: 2px dashed var(--fm-border);

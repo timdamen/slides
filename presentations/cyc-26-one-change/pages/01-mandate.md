@@ -7,7 +7,7 @@ layout: center
     <div class="grey-swatch" style="background-color:#8b8b8b"></div>
     <div class="grey-swatch" style="background-color:#787878"></div>
   </div>
-  <p class="grey-caption">A designer wanted the page background<br><span class="accent">one step darker.</span></p>
+  <p class="grey-caption">The business wanted the page background<br><span class="accent">one step darker.</span></p>
 </div>
 
 <!--
@@ -32,10 +32,11 @@ layout: center
 <div class="bottlenecks">
 <v-clicks>
 
-<p>forty-plus teams, none of whom agreed it mattered</p>
-<p>no shared vocabulary to describe the change</p>
-<p>forty-plus backlogs, forty-plus sets of priorities</p>
-<p>and it had to land <span class="accent">everywhere at roughly the same time</span>, or the product looked broken</p>
+<p>40+ teams, with different priorities</p>
+<p>lack of an adopted design system</p>
+<p>lack of CSS utilities and ways to share them</p>
+<p>40+ backlogs items</p>
+<p>and it had to land <span class="accent">everywhere at roughly the same time</span></p>
 
 </v-clicks>
 </div>
@@ -66,15 +67,35 @@ I think about that project more than any other thing I've worked on, and it's th
 <v-clicks>
 
 <p>Platform teams, with an actual mandate</p>
-<p>Standards, written down</p>
-<p>A design system worth using</p>
-<p>Shared pipelines</p>
-<p>One frontend stack instead of forty</p>
+<p>Standards and guidelines, written down and governed</p>
+<p>A strong design system</p>
+<p>Shared CI/CD pipelines</p>
+<p>One frontend stack instead of multiple</p>
+<p>Good philosophy and vision</p>
 
 </v-clicks>
 </div>
 
-<p v-click class="punch">I work on the other side of that decision now.</p>
+<p v-click class="punch">Working in the middle of this transition formed me as a Frontend Engineer</p>
+
+---
+layout: image-right
+image: /images/tim-speaking.png
+---
+
+# Tim Damen
+
+<br>
+<div class="text-sm leading-10">
+🧑‍💻 Web platform tech lead<br>
+🇳🇱 Working as an engineer in the Netherlands <br>
+♿️ Passionate about making the web work for <strong>everyone</strong> <br>
+🧩 Contributor to <span class="i-logos-nuxt-icon inline-block align-middle" /> <strong>Nuxt</strong>, <strong>@nuxt/a11y</strong>, and more <br>
+🔧 Building <strong>WCAGify</strong> — open source accessibility tooling
+🧑‍🧑‍🧒‍🧒 Husband and father of two 👧🏼🧒🏼
+
+🧗🏼‍♂️ Love to go outdoors and explore
+</div>
 
 <!--
 ⏱ 1:40
@@ -96,11 +117,11 @@ I'll also tell you which part of that list turned out to be a lie. But not yet.
 
 ---
 
-# The email
+# New email:
 
 <div class="mandate">
   <p class="mandate-body">Every customer-facing frontend must run<br><span class="accent">automated accessibility checks</span> in CI.</p>
-  <p class="mandate-meta">Not a proposal. Not a Q3 initiative.<br>A date, chosen by people who have never opened your repo.</p>
+  <p class="mandate-meta">Sharp deadline because of the EAA</p>
 </div>
 
 <!-- TODO(Tim): either put a real quarter here or keep it date-free. Don't invent one. -->
@@ -124,10 +145,7 @@ layout: center
 <div class="huge-stat">
   <p class="huge-number">~300</p>
   <p class="huge-label">frontend applications</p>
-  <p class="huge-sub">and not one of those teams reports to me</p>
 </div>
-
-<p class="src-note">Roughly. It counts repositories that install our packages. <span class="dim">TODO(Tim): verify or soften.</span></p>
 
 <!--
 ⏱ 2:50
@@ -143,50 +161,152 @@ There are five of us.
 
 ---
 
-# Three hundred tickets
+# Rewind 5 years. Same shape. Different foundation.
 
-<BreakEven />
+<div class="wire-row">
+
+  <div class="wire">
+    <div class="wire-frame" v-click="1">
+      <div class="wire-h">header</div>
+      <div class="wire-b">
+        <div class="wire-side">nav</div>
+        <div class="wire-main">content</div>
+      </div>
+      <div class="wire-f">footer</div>
+    </div>
+    <ul class="wire-stack" v-click="4">
+      <li>Vue</li><li>Vuex</li><li>webpack</li><li>Karma</li>
+    </ul>
+  </div>
+
+  <div class="wire">
+    <div class="wire-frame" v-click="2">
+      <div class="wire-h">header</div>
+      <div class="wire-b">
+        <div class="wire-main">content</div>
+      </div>
+      <div class="wire-f">footer</div>
+    </div>
+    <ul class="wire-stack" v-click="4">
+      <li>Vue</li><li>Pinia</li><li>Vite</li><li>Jest</li>
+    </ul>
+  </div>
+
+  <div class="wire">
+    <div class="wire-frame" v-click="3">
+      <div class="wire-h">header</div>
+      <div class="wire-b">
+        <div class="wire-main">content</div>
+        <div class="wire-rail">nav</div>
+      </div>
+      <div class="wire-f">footer</div>
+    </div>
+    <ul class="wire-stack" v-click="4">
+      <li>Vue</li><li>hand-rolled store</li><li>webpack</li><li>Mocha</li>
+    </ul>
+  </div>
+
+</div>
+
+<p v-click="5" class="punch">Every team solved the same problems. <span class="accent">Every team was reinventing the wheel</span></p>
+<p v-click="6" class="punch">Born was our CLI tool that could scaffold and update web applications according to the standards and guidelines</p>
 
 <!--
-⏱ 3:20 — First interactive slide. Keep it to about sixty seconds.
+⏱ 3:20 — The origin of the toolkit. About seventy seconds. This is a story beat, so tell it, don't present it.
+Five clicks: one per wireframe, then the stacks, then the punch. Let each frame land before the next.
 
-The obvious plan is tickets. One per app. Let's do the arithmetic out loud, because it's the plan everybody proposes and it deserves a real answer rather than a smirk.
+Rewind a few years. We were coming off AngularJS and moving to Vue, and every team did that migration themselves.
 
-Three hundred apps, four hours each, and this is not a once-a-year thing.
+And here is what we kept finding when we looked inside the repositories.
 
-Now watch what happens when I drag it down. [drag to 12]
+[click] Here is one of them. A header at the top — the bank's header, the same one on every product. A layout in the middle. A footer at the bottom.
 
-Twelve apps. Go write the tickets. Genuinely. If this is you, everything I build in the next twenty minutes will make your life worse: you'll spend six months on tooling to save a week of typing, and you'll own the tooling forever.
+[click] Here is another team's application.
 
-I'm not being modest. Most rooms I give this talk in should not build any of this. The interesting question is what has to change before you should.
+[click] And another.
+
+If you squinted at screenshots you could not tell them apart, and that is by design: it's one bank, it's supposed to look like one bank.
+
+[click] And underneath, no two of them were built the same way.
+
+Different Vue version. Different state management, and in one case somebody had written their own. Different bundler. Different test runner. Every one of those was a reasonable decision on the Tuesday it was made, by a team that had no way of knowing what the team next door had picked.
+
+So we had forty-odd teams solving the same problem, in parallel, in isolation, and every one of them paying full price for it.
+
+[click] Every team solved the same problem. Nobody solved it twice.
+
+That is the sentence that got us funding. Not "we should have a platform team" — that argument never lands. This: the same work, done again, by people who did not know it had already been done.
+
+So we built a thing that generated the foundation for you. Header wired in, layout, footer, router, store, tests, pipeline — one command, and you started from the same place as everybody else.
+
+That first version is dead now. We replaced it, and I'll come back to why. But it is where all of this starts, and it started as a scaffolding tool, not an updating one. The updating problem is the one we did not see coming.
 -->
 
 ---
 
-# Three things have to be true first
+# One command, one foundation
 
-<div class="prereq">
-<v-clicks>
-
-<div class="prereq-row"><span class="prereq-n">1</span><p>Your applications are <strong>enumerable and shaped the same.</strong> We ship three product types, not infinite ones. A codemod for a shape you have never seen is a wish.</p></div>
-
-<div class="prereq-row"><span class="prereq-n">2</span><p>You own <strong>a seam.</strong> Something they already import, that you control. Without one, every change is surgery on their source.</p></div>
-
-<div class="prereq-row"><span class="prereq-n">3</span><p>You can <strong>test a change without a real repository.</strong> If you have to clone something to know whether your migration works, you will not write enough of them.</p></div>
-
-</v-clicks>
-</div>
+<video class="demo-vid" src="/images/warp-drive-demo.mov" controls muted playsinline preload="metadata" aria-label="Terminal recording: the scaffolding CLI generating a new standard application"></video>
 
 <!--
-⏱ 4:20
+⏱ 4:30 — The only recording in the talk. Press play, then stop talking and let it run.
+Do NOT narrate every prompt — say the two lines below and let the room read the terminal.
 
-If you want to know whether you're in the business I'm about to describe, it's these three.
+So that is what we built. One command.
 
-[click] Enumerable and shaped the same. We generate three kinds of thing, so there are three shapes to reason about. If every team in your company bootstrapped their own app in 2019 from a blog post, you don't have a fleet, you have three hundred special cases and no codemod will survive contact with them.
+[press play] It asks a handful of questions — what kind of product, does it need a router, does it need state — and then it writes the whole foundation. Header wired in, layout, footer, router, store, test setup, lint config, pipeline. The thing every one of those teams had been building by hand.
 
-[click] A seam. This is the one people miss, and I'll spend a whole slide on it later. Something they import that you own. Config behind a preset. A wrapper around a tool. Anything where you can change behaviour by publishing a package instead of editing their file.
+The important part isn't the speed. It's that the app it produces is the same shape as the other four hundred, which is the only reason anything later in this talk is possible.
 
-[click] And you have to be able to test against a fake filesystem. Every migration we ship is a function over an in-memory tree. If testing a codemod means cloning a repo, you'll write five of them. We've written a hundred and fifty-three.
+[when it finishes] That is version one. It is dead now, and the reason it died is the whole second half of this talk: it could create an application, and it could not change one.
+-->
 
-Right. Assume all three are true. Here's what we actually built.
+---
+
+# We did not build a codemod framework
+
+<div class="stack">
+
+  <div class="stack-hero">
+    <span class="stack-mark i-logos-nx" aria-hidden="true"></span>
+    <div>
+      <p class="stack-name">Nx</p>
+      <p class="stack-role">the monorepo tool we were already using</p>
+    </div>
+  </div>
+
+  <ul class="stack-list">
+    <li v-click="1"><span class="stack-k">generators</span><span class="stack-v">scaffold a new application — what you just watched</span></li>
+    <li v-click="2"><span class="stack-k">migrations</span><span class="stack-v">versioned codemods that ship <em>inside</em> the package</span></li>
+    <li v-click="3"><span class="stack-k">packageGroup</span><span class="stack-v">eleven packages move as one version</span></li>
+    <li v-click="4"><span class="stack-k">the Tree</span><span class="stack-v">a virtual filesystem, so a codemod is a pure function you can unit test</span></li>
+    <li v-click="5"><span class="stack-k">findNodes</span><span class="stack-v">AST queries, straight over the TypeScript compiler API</span></li>
+  </ul>
+
+</div>
+
+<p v-click="6" class="punch">Every mechanism in this talk is <span class="accent">one of those five.</span></p>
+
+<!--
+⏱ 4:50 — Sixty seconds. This is the "what is this built on" slide, and it exists so that nothing later looks like magic.
+
+One slide on the substrate, because everything after this is standing on it.
+
+We were already an Nx monorepo. We did not go looking for a codemod framework — and I want to be clear, we never installed one. No jscodeshift, no ts-morph, no Babel. Everything you'll see today is Nx plus two parsers.
+
+Nx gave us five things, and I'd argue any of them alone would have been worth it.
+
+[click] Generators. That's the scaffolding you just watched. Nothing exotic — a function that writes files.
+
+[click] Migrations, and this is the one that changed everything for us. Nx lets a package ship codemods *inside itself*, keyed to the version they belong to. Install version two, and the codemods that get you from one to two come along in the box. We didn't have to build a distribution mechanism, because publishing to npm already was one.
+
+[click] packageGroup. Eleven of our packages travel together, so a team bumps one thing.
+
+[click] The Tree. A virtual filesystem. A migration doesn't touch your disk — it's handed an in-memory tree and returns a new one. Which is exactly why we can have a hundred and fifty-seven test files: every codemod is a pure function.
+
+[click] And findNodes, which is Nx's thin wrapper over the TypeScript compiler API. That's the AST utility the title of this talk is about, and it came with the monorepo tool we were already running.
+
+[click] So: everything in the next twenty minutes is one of those five. If you're on Nx already, you have all of it today and you may not have noticed.
+
+And if you're not on Nx — the ideas port. Versioned codemods shipped with the package, a virtual filesystem so they're testable, and one version number for a group. Those are the three that matter; the brand name is not the point.
 -->

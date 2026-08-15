@@ -79,6 +79,79 @@ approved numbers for the deck; nothing on a slide may cite anything else.
     as user agents; a site can be fully WCAG-compliant yet blocked for agents.
     - https://github.com/w3c/wcag3/issues/636
 
+## Agent plumbing / browser platform (2026)
+
+12. **Harnesses agents drive browsers with** (slide 8) — verified Aug 2026:
+    - **agent-browser** (Vercel Labs, Apache-2.0) — Rust CLI + daemon over CDP;
+      README labels its snapshot output *"Accessibility tree with refs (best
+      for AI)"*; elements are addressed by ref (`@e1`, `@e2`).
+      https://github.com/vercel-labs/agent-browser
+    - **chrome-devtools-mcp** (Google/ChromeDevTools) — `take_snapshot` is
+      documented as *"a text snapshot of the currently selected page based on
+      the a11y tree … along with a unique identifier (uid) … Prefer taking a
+      snapshot over taking a screenshot."*
+      https://github.com/ChromeDevTools/chrome-devtools-mcp/blob/main/docs/tool-reference.md
+    - **Playwright MCP** (Microsoft) — accessibility snapshot is the default,
+      vision is opt-in (already cited in §8).
+    - **browser-use** — merges the DOM with the accessibility tree: its DOM
+      service calls CDP `Accessibility.getFullAXTree` and builds
+      `EnhancedAXNode`s carrying role, name, description and AX properties
+      (`browser_use/dom/service.py`, `dom/views.py`, checked 14 Aug 2026).
+      Vision is **not** the default: `use_vision` defaults to `"auto"` —
+      *"includes screenshot tool but only uses vision when requested"*
+      (https://docs.browser-use.com/customize/agent-settings).
+      Corrected on 14 Aug 2026 — an earlier draft of slide 8 called it
+      "vision + raw DOM", which the source does not support.
+    *Phrasing rule: "the defaults converge on the tree", never "all agent
+    tooling uses only the accessibility tree" — every one of these can still
+    fall back to pixels.*
+
+13. **WebMCP** (slide 9) — site-declared tools for agents.
+    - Proposed by Google + Microsoft engineers; incubated as a draft in the
+      **W3C Web Machine Learning Community Group** — *not* on the W3C
+      Recommendation track. https://github.com/webmachinelearning/webmcp
+    - API: `document.modelContext.registerTool({name, description,
+      inputSchema, execute})`. The entry point moved from
+      `navigator.modelContext` to `document.modelContext` (spec draft
+      21 Jul 2026; `navigator.*` deprecated in Chrome 150) — **re-check the
+      snippet on slide 9 before the talk.**
+      https://developer.chrome.com/docs/ai/webmcp/imperative-api
+    - **Chrome 149 origin trial**, announced at Google I/O 2026, blog post
+      9 Jun 2026. Local testing flag: `chrome://flags/#enable-webmcp-testing`.
+      https://developer.chrome.com/blog/ai-webmcp-origin-trial
+      · https://developer.chrome.com/docs/ai/webmcp
+    - Edge: experimental/behind a flag. Firefox and Safari: participating in
+      spec discussion, no shipping commitments.
+    - Chrome documents WebMCP as a **progressive enhancement**; the explainer
+      states **"WebMCP itself is not designed for ingestion by accessibility
+      technology"**, and that an agent can *"fall back to general-purpose
+      browser automation"* when tools don't cover the task.
+    - Real-world deployment reported as close to zero (Jul 2026) —
+      https://www.spronta.com/blog/state-of-webmcp-july-2026/
+    *Phrasing rules: "draft in a W3C community group", never "W3C standard";
+    "a second channel on top of the page", never "the replacement for the
+    accessibility tree"; never present WebMCP as an accessibility feature.*
+
+14. **OpenClaw** (slide 9) — verified 14 Aug 2026:
+    - Star counts straight from the GitHub API on 14 Aug 2026:
+      `openclaw/openclaw` **386,276** stars, repo created **2025-11-24**;
+      `react/react` **247,258** stars, created **2013-05-24**. The chart is
+      star-history.com (`public/images/star-history-open-react.png`), the same
+      image as the DevDays deck.
+      **These move weekly — re-pull both numbers before the talk:**
+      `curl -s https://api.github.com/search/repositories?q=openclaw`
+    - How it reads a page — https://docs.openclaw.ai/tools/browser and
+      `/tools/browser-control`: the browser tool drives a separate, agent-only
+      browser profile and returns a text snapshot ("a stable UI tree in either
+      AI or ARIA format"); the ARIA snapshot is *"the accessibility tree as
+      structured nodes"*, the role snapshot is a role-based tree with
+      `[ref=e12]` resolved through `getByRole(...)`. Actions target those refs
+      "to keep the agent deterministic and avoid brittle selectors".
+      Screenshots exist but are requested explicitly (`browser screenshot`,
+      or `--labels` for ref-annotated ones).
+    *Phrasing rule: "the snapshot is the default, screenshots are opt-in" —
+    never "OpenClaw never uses vision".*
+
 ## WCAG success criteria used in the deck
 
 Verify wording against https://www.w3.org/WAI/WCAG22/quickref/ —

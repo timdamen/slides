@@ -22,7 +22,7 @@ drawings:
 <div class="cover-wrap">
   <p class="cover-kicker">Frontmania 2026 · AI track</p>
   <h1 class="cover-title">Your biggest new customer<br><span class="ring-accent">can't see pixels</span></h1>
-  <p class="cover-byline">Tim Damen · Focusring · <span class="cover-url">talks.timdamen.io</span></p>
+  <p class="cover-byline">Tim Damen · <span class="cover-url">talks.timdamen.io</span></p>
 </div>
 
 <!--

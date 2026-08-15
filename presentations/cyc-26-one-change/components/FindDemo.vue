@@ -28,7 +28,7 @@
  * Nothing here binds to Slidev's click state. Every number is computed live.
  */
 import { computed, nextTick, onMounted, ref, useId, watch } from 'vue'
-import { countNodes, countTree, parseJs, toTree } from '../utils/ast'
+import { countNodes, countTree, parseJs, parseTs, toTree } from '../utils/ast'
 import type { TreeNode } from '../utils/ast'
 import { changedLineCount, diffLines } from '../utils/diff'
 import { ROUTES_CLEAN, ROUTES_FIXTURES, routesAst, routesLineCounter } from '../utils/transforms'
@@ -626,36 +626,10 @@ interface Span {
 
 // ---------------------------------------------------------------------------
 // A tree whose offsets index the text ON SCREEN
-//
-// acorn does not speak TypeScript, so the same three constructs come out before
-// the parse as everywhere else in this file — but here the cut points are
-// written down, and every offset the tree reports is mapped back through them.
-// That matters: the whole claim is `source.slice(start, end)`, and it would be
-// a lie if `start` counted a `import type` that the audience can see.
-//
-// This is deliberately a second, richer copy of `stripTs` rather than a change
-// to it: `stripTs` feeds the 'outcome' phase's parse check, and that phase is
-// not in question here.
 // ---------------------------------------------------------------------------
-
-interface Cut extends Span {
-  /** Where this cut's seam lands in the stripped string. */
-  strippedStart: number
-}
-
-const CUT_IMPORT_TYPE = /^([ \t]*import)([ \t]+type)(?=[ \t])/gm
-const CUT_ASSERTION = /([\]})\w"'`])([ \t]+as[ \t]+(?:const\b|[A-Za-z_$][\w$.]*(?:[ \t]*\[[ \t]*\])*))/g
-const CUT_ANNOTATION =
-  /((?:const|let|var)[ \t]+[A-Za-z_$][\w$]*)([ \t]*:[ \t]*[A-Za-z_$][\w$.]*(?:[ \t]*\[[ \t]*\])*)(?=[ \t]*=)/g
 
 function lineStartOf(code: string, offset: number): number {
   return code.lastIndexOf('\n', Math.max(0, offset - 1)) + 1
-}
-
-function lineTextOf(code: string, offset: number): string {
-  const start = lineStartOf(code, offset)
-  const end = code.indexOf('\n', offset)
-  return code.slice(start, end === -1 ? code.length : end)
 }
 
 /** 1-based line number of an offset. */
@@ -665,78 +639,24 @@ function lineNoOf(code: string, offset: number): number {
   return line
 }
 
-function cutTypeSyntax(code: string): { code: string; cuts: Cut[] } {
-  const found: Span[] = []
-  const add = (start: number, length: number) => found.push({ start, end: start + length })
-
-  for (const match of code.matchAll(CUT_IMPORT_TYPE)) add((match.index ?? 0) + match[1].length, match[2].length)
-  for (const match of code.matchAll(CUT_ASSERTION)) {
-    const at = (match.index ?? 0) + match[1].length
-    const line = lineTextOf(code, at)
-    // `import { a as b } from '…'` is a rename, not an assertion. acorn speaks
-    // that one, and cutting it would shift every offset after it for nothing.
-    if (/^\s*(?:import|export)\b/.test(line) && /\bfrom\b/.test(line)) continue
-    add(at, match[2].length)
-  }
-  for (const match of code.matchAll(CUT_ANNOTATION)) add((match.index ?? 0) + match[1].length, match[2].length)
-
-  found.sort((a, b) => a.start - b.start)
-
-  const cuts: Cut[] = []
-  let out = ''
-  let cursor = 0
-  let delta = 0
-  for (const span of found) {
-    if (span.start < cursor) continue // overlapping match; keep the first
-    out += code.slice(cursor, span.start)
-    cuts.push({ ...span, strippedStart: span.start - delta })
-    delta += span.end - span.start
-    cursor = span.end
-  }
-  out += code.slice(cursor)
-  return { code: out, cuts }
-}
-
 /**
- * A stripped offset, back in the original text.
+ * The tree, parsed as TypeScript.
  *
- * Strict `<`, not `<=`: an offset sitting exactly on a seam belongs BEFORE the
- * text that was cut there. That is precisely the end of the routes array, which
- * lands on the `]` immediately followed by ` as RouteRecordRaw[]`.
+ * Offsets here are offsets into the file on screen — there is no pre-pass and
+ * nothing is cut out, so every character of `as RouteRecordRaw[]` belongs to a
+ * node and clicking it selects that node rather than falling through to
+ * Program — which is what this pane used to do, because it cut the type syntax
+ * out before handing the text to acorn and then mapped the offsets back.
+ *
+ * `stripTs` further up survives on purpose: it still feeds the 'outcome'
+ * phase's parse check, which is asking a different question.
  */
-function mapBack(offset: number, cuts: Cut[]): number {
-  let delta = 0
-  for (const cut of cuts) {
-    if (cut.strippedStart < offset) delta += cut.end - cut.start
-    else break
-  }
-  return offset + delta
-}
-
-const cut = computed(() => cutTypeSyntax(source.value))
-
-const mParse = computed(() => {
-  try {
-    return parseJs(cut.value.code)
-  } catch (error: any) {
-    return { ast: null, error: error?.message ?? String(error) }
-  }
-})
-
-function remap(node: TreeNode, cuts: Cut[]): TreeNode {
-  return {
-    ...node,
-    start: mapBack(node.start, cuts),
-    end: mapBack(node.end, cuts),
-    children: node.children.map((child) => remap(child, cuts)),
-  }
-}
+const mParse = computed(() => parseTs(source.value))
 
 const mRoot = computed<TreeNode | null>(() => {
   if (!mParse.value.ast) return null
   try {
-    const built = toTree(mParse.value.ast)
-    return built ? remap(built, cut.value.cuts) : null
+    return toTree(mParse.value.ast)
   } catch {
     return null
   }
@@ -826,7 +746,11 @@ const answerNode = computed<MFlat | null>(() => {
   for (const node of mFlat.value) {
     if (node.type !== 'VariableDeclarator') continue
     const named = node.children.some((child) => child.type === 'Identifier' && child.detail === 'routes')
-    const array = node.children.find((child) => child.type === 'ArrayExpression')
+    /* `const routes = [ … ] as RouteRecordRaw[]` puts a TSAsExpression between
+       the declarator and its array. The question is still "which array", so
+       step through the assertion rather than widening what counts as one. */
+    const init = node.children.find((child) => child.type === 'TSAsExpression')
+    const array = (init ?? node).children.find((child) => child.type === 'ArrayExpression')
     if (named && array) return mById.value.get(array.id) ?? null
   }
   return null

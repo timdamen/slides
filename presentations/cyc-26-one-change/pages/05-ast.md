@@ -1,56 +1,49 @@
-# Everything so far was JSON
+# What our migrations actually do
+
+<p class="beat-sub">159 migration files, counted by what they change. A file can appear in more than one row.</p>
 
 <div class="census-bars">
 
-<div class="bar-row"><span class="bar-l">edit the dependency list</span><span class="bar" style="--w:69"></span><span class="bar-n">69</span></div>
-<div class="bar-row"><span class="bar-l">string replace</span><span class="bar" style="--w:48"></span><span class="bar-n">48</span></div>
-<div class="bar-row"><span class="bar-l">read and write JSON</span><span class="bar" style="--w:40"></span><span class="bar-n">40</span></div>
-<div class="bar-row"><span class="bar-l">copy a template file</span><span class="bar" style="--w:25"></span><span class="bar-n">25</span></div>
-<div class="bar-row hot"><span class="bar-l">parse the code</span><span class="bar" style="--w:11"></span><span class="bar-n">11</span></div>
+<div class="bar-row"><span class="bar-l">bump dependencies in package.json</span><span class="bar" style="--w:69"></span><span class="bar-n">69</span></div>
+<div class="bar-row"><span class="bar-l">find and replace in text</span><span class="bar" style="--w:48"></span><span class="bar-n">48</span></div>
+<div class="bar-row"><span class="bar-l">edit other JSON config</span><span class="bar" style="--w:40"></span><span class="bar-n">40</span></div>
+<div class="bar-row"><span class="bar-l">add or overwrite a file</span><span class="bar" style="--w:25"></span><span class="bar-n">25</span></div>
+<div class="bar-row hot"><span class="bar-l">parse the source code (AST)</span><span class="bar" style="--w:11"></span><span class="bar-n">11</span></div>
 
 </div>
 
-<p v-click class="punch">Eleven files out of a hundred and fifty-nine. <span class="accent">Seven percent of the work.</span></p>
-<p v-click class="punch accent">All of the fear.</p>
+<p v-click class="punch-sm">Most of it is dependency and config work. Eleven files parse source code, or seventeen if you count the ones that call our shared AST helpers. Those are the ones the rest of this talk is about.</p>
 
 <!--
-⏱ 14:00 — Act 5. The title act. Land the census as a turn, not an apology.
+⏱ 13:30 — Act 5 opens.
 
-Before I show you a single parser, here is an honest census of what we actually ship.
+159 migration files in the toolkit. This is what they change. A file can appear in more than one row — a migration that bumps a dependency often edits config in the same pass.
 
-Of a hundred and fifty-nine migration files: sixty-nine edit the dependency list. Forty-eight do a string replace. Forty do something to JSON. Twenty-five copy a template in.
+69 bump dependencies in package.json. 48 do a text find-and-replace. 40 edit other JSON. 25 add or overwrite a whole file. 11 parse source code.
 
-[click] Eleven import a parser. Seven percent. Seventeen if you count the ones calling our shared helpers, so call it a tenth either way.
+[click] So parsing is about 7% of what we write, or 11% counting the files that call our shared AST helpers. Most migration work is not AST work.
 
-I could have stood here and implied it was most of them. It isn't, and you'd have found out.
-
-[click] But that seven percent is where every genuinely frightening thing lives. Those are the changes that reach into a file with somebody else's name on it.
-
-Seven percent of the work. All of the fear. Here's how you write one.
+Those eleven are what the rest of the talk covers, because they are the ones that edit code the feature teams own.
 -->
 
 ---
-layout: center
----
+
+# Abstract Syntax Tree
 
 <div class="ast-words">
-  <div v-click class="ast-word"><p class="ast-w accent">Abstract</p><p class="ast-d">Throw away the spelling. Keep the meaning. Whitespace, blank lines, where you put your comments: gone.</p></div>
-  <div v-click class="ast-word"><p class="ast-w accent">Syntax</p><p class="ast-d">The grammar of the language. Not letters. The parser already knows it, because your editor uses the same one.</p></div>
-  <div v-click class="ast-word"><p class="ast-w accent">Tree</p><p class="ast-d">Things inside things. You already write it: <code>{ a: { b: 1 } }</code> is a tree and you never think about it.</p></div>
+  <div v-click class="ast-word"><p class="ast-w accent">Abstract</p><p class="ast-d">The tree records the structure of the code, not how it was typed. Indentation, blank lines, comments and quote style are not in it.</p></div>
+  <div v-click class="ast-word"><p class="ast-w accent">Syntax</p><p class="ast-d">The grammar of the language. Every part of the file gets a label for what it is: a variable declaration, a function call, a string.</p></div>
+  <div v-click class="ast-word"><p class="ast-w accent">Tree</p><p class="ast-d">Nodes inside nodes. A file contains statements, a statement contains an expression, and that expression contains more.</p></div>
 </div>
 
 <!--
-⏱ 14:35 — Entry level, deliberately. Nobody gets left behind here.
+⏱ 14:05 — Entry level. Three words, one click each.
 
-Three words. One at a time, and one of them comes back to bite me later.
+[click] Abstract. The parser keeps the structure and drops how the code was typed: indentation, blank lines, comments, single or double quotes. Worth remembering, because it comes back in the third example.
 
-[click] Abstract. The parser throws away how the code was written and keeps what it means. Your whitespace, your blank lines, where you put a comment, single or double quotes. All discarded. Abstract in the ordinary English sense: the details are gone.
+[click] Syntax. The grammar of the language rather than the characters. Every part of the file gets a label for what it is: this is a variable declaration, this is a function call, this is a string.
 
-Remember that word.
-
-[click] Syntax. The grammar of the language rather than the characters. The difference between "this is a function call" and "these are some brackets".
-
-[click] Tree. Things inside things. If you've written a nested object you've written a tree. There is no third concept.
+[click] Tree. Nodes inside nodes. A file contains statements, a statement contains an expression, that expression contains more. If you have written a nested object, you have written a tree.
 -->
 
 ---
@@ -60,7 +53,7 @@ Remember that word.
 <AstInspector initial-path="VariableDeclarator" />
 
 <!--
-⏱ 15:20 — THE teaching slide. Eighty seconds, do not rush. Everything after this depends on it.
+⏱ 14:50 — THE teaching slide. Eighty seconds, do not rush. Everything after this depends on it.
 
 This is a parser. Left, three lines of a routing file. Right, what the parser handed back.
 
@@ -79,6 +72,44 @@ So a codemod is three steps. Parse: text becomes this. Find: ask a question abou
 Three examples. Same three steps every time.
 
 And if you never write a codemod at all, stop at step two: ask your own repo a question that isn't fooled by the same word appearing in a comment. That's tonight's project.
+-->
+
+---
+
+# The accessibility tree in DevTools
+
+<div class="two-col akin">
+
+  <figure class="akin-shot">
+    <img src="/images/a11y-tree-chrome-devtools.png" alt="The Accessibility panel in Chrome DevTools. A tree of nodes — link &quot;Chrome DevTools&quot; focusable: true, link &quot;Extensions&quot;, generic, contentinfo — with many rows marked Ignored. A Computed Properties pane lists Name, Role: link and Focusable: true for the selected node.">
+    <figcaption>Chrome DevTools &middot; the accessibility tree</figcaption>
+  </figure>
+
+  <ul class="akin-map">
+    <li v-click="1"><span class="akin-k">derived, not written</span><span class="akin-v">The browser builds it from the HTML on the page.</span></li>
+    <li v-click="2"><span class="akin-k">abstract</span><span class="akin-v">Class names, wrapper divs and formatting are not in it. It keeps what it needs.</span></li>
+    <li v-click="3"><span class="akin-k">one label per node</span><span class="akin-v"><code>link</code>, <code>generic</code>, <code>contentinfo</code> — the same job <code>VariableDeclarator</code> does.</span></li>
+    <li v-click="4"><span class="akin-k">you can query it</span><span class="akin-v">axe walks this tree. The CI check from earlier in the talk is a tree search.</span></li>
+  </ul>
+
+</div>
+
+<p v-click="5" class="punch punch-tight">A parser does the same thing for JavaScript instead of HTML.</p>
+
+<!--
+⏱ 16:10 — Forty seconds. The only place the accessibility thread and the parser thread meet.
+
+Quick detour before we write any code. Most of you have opened this panel.
+
+[click] Nobody writes this tree by hand. The browser builds it from the HTML, the same way a parser builds a tree from a source file.
+
+[click] It dropped your class names, your wrapper divs and your formatting, and kept what it needs. That is "abstract" from two slides ago.
+
+[click] Every row carries a label: link, generic, contentinfo. Same job as VariableDeclarator or ArrayExpression.
+
+[click] axe walks this tree. The accessibility check from earlier in the talk is a tree search — I left that out at the time because it would not have meant anything yet.
+
+[click] A parser does the same thing for JavaScript instead of HTML.
 -->
 
 ---
@@ -103,7 +134,7 @@ And if you never write a codemod at all, stop at step two: ask your own repo a q
 </div>
 
 <!--
-⏱ 16:40 — Beat 1 of 4: WHY. Thirty seconds. State the goal and move on — do not explain the technique here.
+⏱ 16:10 — Beat 1 of 4: WHY. Thirty seconds. State the goal and move on — do not explain the technique here.
 
 First one, and the change is genuinely boring, which is why it's a good first one.
 
@@ -125,7 +156,7 @@ So: what are we dealing with?
 <FindDemo phase="plain" />
 
 <!--
-⏱ 17:10 — Beat 2 of 4: the starting point. Fifty seconds. Calm. No comparisons here.
+⏱ 16:40 — Beat 2 of 4: the starting point. Fifty seconds. Calm. No comparisons here.
 The four tabs are the whole point of this slide — introduce them before you touch anything else.
 
 Now, this is the part people skip, and it's the part that decides whether your migration works.
@@ -170,7 +201,7 @@ export default function updateRoutesTyping(tree: Tree) {
 ```
 
 <!--
-⏱ 18:00 — Beat 3 of 4: THE CODE. A minute. This is the slide people photograph — slow down and let them read.
+⏱ 17:30 — Beat 3 of 4: THE CODE. A minute. This is the slide people photograph — slow down and let them read.
 
 That's the whole migration. Fourteen lines, and it runs in three hundred repositories.
 
@@ -192,7 +223,7 @@ A tool that can't tell you it failed will eventually fail quietly in a repositor
 <FindDemo phase="outcome" />
 
 <!--
-⏱ 19:00 — Beat 4 of 4: the result. Seventy seconds.
+⏱ 18:30 — Beat 4 of 4: the result. Seventy seconds.
 
 The four shapes from the census, run through the code you just read.
 
@@ -219,7 +250,7 @@ layout: center
 <p class="mega accent">Edit at the answer.</p>
 
 <!--
-⏱ 20:10 — Ten seconds. Don't explain it. It's a breath before example two.
+⏱ 19:40 — Ten seconds. Don't explain it. It's a breath before example two.
 -->
 
 ---
@@ -244,7 +275,7 @@ layout: center
 </div>
 
 <!--
-⏱ 20:20 — Beat 1 of 4: WHY. Thirty seconds.
+⏱ 19:50 — Beat 1 of 4: WHY. Thirty seconds.
 
 Second one, and it's a different language with a different parser.
 
@@ -264,7 +295,7 @@ Second one, and it's a different language with a different parser.
 <ReachDemo phase="plain" />
 
 <!--
-⏱ 20:50 — Beat 2 of 4: the starting point. Forty-five seconds. Calm.
+⏱ 20:20 — Beat 2 of 4: the starting point. Forty-five seconds. Calm.
 Name each tab out loud. These five names come back on the result slide, and if the room hasn't met them here they will not follow the grid.
 
 Same exercise as last time. Before writing anything, go and look at what's actually in the estate. A heading turns up in five shapes.
@@ -309,7 +340,7 @@ export default function addTagClasses(tree: Tree, path: string) {
 ```
 
 <!--
-⏱ 21:35 — Beat 3 of 4: THE CODE. Fifty-five seconds.
+⏱ 21:05 — Beat 3 of 4: THE CODE. Fifty-five seconds.
 
 Same three steps. Different parser.
 
@@ -331,7 +362,7 @@ That last line is idempotency, and it's a hard requirement for us: a migration t
 <ReachDemo phase="outcome" />
 
 <!--
-⏱ 22:30 — Beat 4 of 4: the result. A minute. Let the grid do the arguing.
+⏱ 22:00 — Beat 4 of 4: the result. A minute. Let the grid do the arguing.
 
 The five shapes from two slides ago, run through the code you just read. Every line of this is computed while you watch.
 
@@ -348,6 +379,8 @@ Look back at the goal: add one class to specific elements, change nothing else. 
 When you ask a stranger to approve a change across three hundred files, "here's what I changed" is half the answer. "Here's what I left alone, and here's how I knew" is the other half.
 -->
 
+---
+hide: true
 ---
 
 # Example three · the goal
@@ -370,7 +403,7 @@ When you ask a stranger to approve a change across three hundred files, "here's 
 </div>
 
 <!--
-⏱ 23:30 — Beat 1 of 4: WHY. Thirty seconds. Do not foreshadow the failure; the goal is enough.
+⏱ 23:00 — Beat 1 of 4: WHY. Thirty seconds. Do not foreshadow the failure; the goal is enough.
 
 Last one, and it is by a distance the smallest change in this talk.
 
@@ -386,13 +419,15 @@ Because I am not opening a pull request against my own code. I'm opening one aga
 -->
 
 ---
+hide: true
+---
 
 # What we are dealing with
 
 <PrintDemo phase="plain" />
 
 <!--
-⏱ 24:00 — Beat 2 of 4: the starting point. A minute. Do the two searches here; this is the setup for everything that follows.
+⏱ 23:30 — Beat 2 of 4: the starting point. A minute. Do the two searches here; this is the setup for everything that follows.
 
 Here's the entry file. Thirty-five lines. Eleven of them are blank — they're banded on the left — and there's a comment explaining why the shell mounts once.
 
@@ -413,6 +448,8 @@ That's the word from ten minutes ago. Abstract.
 Hold onto that, because it decides which of the next two lines of code I write.
 -->
 
+---
+hide: true
 ---
 
 # The migration · two endings
@@ -435,7 +472,7 @@ tree.write(path, applyChangesToString(src, [
 <p v-click class="punch">Both are correct. <span class="accent">One of them is a different file.</span></p>
 
 <!--
-⏱ 25:00 — Beat 3 of 4: THE CODE. Fifty-five seconds. The whole example is the difference between two lines.
+⏱ 24:30 — Beat 3 of 4: THE CODE. Fifty-five seconds. The whole example is the difference between two lines.
 
 Same three steps again, and the parse and the find are unremarkable.
 
@@ -451,13 +488,15 @@ It is the obvious thing to do. It's what the API most wants you to do. And you a
 -->
 
 ---
+hide: true
+---
 
 # The result
 
 <PrintDemo phase="outcome" />
 
 <!--
-⏱ 25:55 — Beat 4 of 4: the result. Sixty-five seconds. The signature moment. Let the counter sit.
+⏱ 25:25 — Beat 4 of 4: the result. Sixty-five seconds. The signature moment. Let the counter sit.
 
 Three ways home, measured.
 
@@ -478,6 +517,7 @@ I know which of these we shipped first, and it wasn't (b). There is a file in a 
 
 ---
 layout: center
+hide: true
 ---
 
 <p class="mega">Parse to <span class="accent">locate.</span></p>
@@ -488,7 +528,7 @@ layout: center
 <p class="house-rule accent" v-click>A six-line diff gets merged. A four-hundred-line diff gets ignored.</p>
 
 <!--
-⏱ 27:00 — The house rule. Forty seconds.
+⏱ 26:30 — The house rule. Forty seconds.
 
 [click] Two hundred and three lines, seven functions, and not one of them regenerates a file. They find nodes and write bytes at offsets. One copies its indentation off the node it's inserting next to, so the formatter has nothing to argue with on the next commit.
 

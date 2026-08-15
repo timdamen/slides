@@ -7,7 +7,7 @@ layout: center
 <p class="mega accent" v-click>It means our robot <span class="underline-accent">gave up.</span></p>
 
 <!--
-⏱ 10:35 — Act 4. Keeping the promise. This act is short and it is the one that gets squeezed on stage. Don't let it.
+⏱ 10:05 — Act 4. Keeping the promise. This act is short and it is the one that gets squeezed on stage. Don't let it.
 
 Semver, in our system, does not mean what it means in yours.
 
@@ -27,7 +27,7 @@ Which brings me to my favourite thing we ever shipped.
 <UpdateRun mode="gate" />
 
 <!--
-⏱ 11:25 — Demo, sixty seconds. Toggle the blocker off at the end to show the other outcome.
+⏱ 10:55 — Demo, sixty seconds. Toggle the blocker off at the end to show the other outcome.
 
 A deprecated end-to-end testing framework had to go before anyone could cross into version two.
 
@@ -70,7 +70,7 @@ Some changes should cost a human thirty minutes of attention. If you automate th
 </div>
 
 <!--
-⏱ 12:25
+⏱ 11:55
 
 Two invariants, and I've never seen either of them written down anywhere outside our repo, so I'll give them to you.
 
@@ -95,7 +95,7 @@ layout: center
 <p class="src-note" v-click>Six scenarios. Every release.</p>
 
 <!--
-⏱ 13:10
+⏱ 12:40
 
 Last one in this act, and it's the answer to the most obvious hostile question in this room, which is: how do you know you didn't just break three hundred applications?
 

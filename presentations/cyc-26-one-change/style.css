@@ -23,13 +23,13 @@
   --bg: #0f1115;
   --panel: #171a21;
   --text: #e9ecef;
-  --dim: #adb5bd;
+  --dim: #dedede;
   --blue: #74c0fc;
   --yellow: #ffd43b;
   --red: #ff8787;
   --green: #69db7c;
   --purple: #b197fc;
-  --border: #39404d;
+  --border: #cbcbcb;
 }
 
 .slidev-layout {
@@ -63,6 +63,11 @@ button:has(> button.slidev-icon-btn) {
   margin-bottom: 1.1rem;
   color: var(--text);
 }
+
+.slidev-layout h1 + p{
+  opacity: 1;
+}
+
 
 .accent { color: var(--blue); }
 .dim { color: var(--dim); }
@@ -309,6 +314,9 @@ code { color: var(--yellow); }
 /* ---- 03 landing ---- */
 .seam pre { font-size: 1rem !important; }
 
+.wrapper pre { font-size: 1rem !important; line-height: 1.5; }
+.slidev-layout .wrapper .punch { margin-top: 0.7rem; }
+
 .slidev-layout .two-rule {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -362,11 +370,11 @@ code { color: var(--yellow); }
 .census-bars { display: flex; flex-direction: column; gap: 0.55rem; }
 .slidev-layout .bar-row {
   display: grid;
-  grid-template-columns: 15rem 1fr 3rem;
+  grid-template-columns: 18rem 1fr 3rem;
   gap: 1rem;
   align-items: center;
 }
-.bar-l { font-size: 1.02rem; color: var(--dim); text-align: right; }
+.bar-l { font-size: 1.02rem; color: var(--dim); text-align: right; white-space: nowrap; }
 .slidev-layout .bar {
   height: 1.35rem;
   border-radius: 3px;
@@ -509,3 +517,202 @@ code { color: var(--yellow); }
   margin-bottom: 0.7rem;
   max-width: 82ch;
 }
+
+/* ---- 01 the wireframes: same shape, different foundation ---- */
+.slidev-layout .wire-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.2rem;
+  margin-top: 0.4rem;
+}
+.slidev-layout .wire {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+/* Deliberately a wireframe, not a screenshot: the point is that the silhouette
+   is identical everywhere, and a real screenshot would invite the room to read
+   the content instead of the shape. */
+.slidev-layout .wire-frame {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  padding: 5px;
+  background-color: var(--panel);
+}
+.slidev-layout .wire-h,
+.slidev-layout .wire-f {
+  background-color: #2b3340;
+  color: var(--dim);
+  text-align: center;
+  font-size: 0.95rem;
+  line-height: 2.1;
+  border-radius: 3px;
+}
+.slidev-layout .wire-b {
+  background-color: #1d232c;
+  color: var(--dim);
+  text-align: center;
+  font-size: 0.95rem;
+  border-radius: 3px;
+  height: 9.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* The header is the giveaway: one bank, one header, on every product. */
+.slidev-layout .wire-h { border-bottom: 2px solid var(--blue); }
+
+.slidev-layout .wire-stack {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 0.5rem;
+}
+.slidev-layout .wire-stack li {
+  font-family: var(--slidev-code-font-family, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace);
+  font-size: 0.95rem;
+  line-height: 1.35;
+  color: var(--yellow);
+}
+
+/* Layout variants inside the frame. The chrome is identical everywhere; the
+   layout comes in a handful of known shapes. That is the argument for a
+   scaffold: there were only ever a few layouts, and forty implementations. */
+.slidev-layout .wire-b {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  /* Beats the align-items:center on the earlier .wire-b rule, which was written
+     for a single centred "layout" label and leaves these panels as thin bars. */
+  align-items: stretch;
+  justify-content: stretch;
+}
+.slidev-layout .wire-side,
+.slidev-layout .wire-main,
+.slidev-layout .wire-rail {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  background-color: #262d38;
+  color: var(--dim);
+  font-size: 0.85rem;
+}
+.slidev-layout .wire-main { flex: 1; }
+.slidev-layout .wire-side { flex: 0 0 26%; }
+.slidev-layout .wire-rail { flex: 0 0 32%; }
+
+/* ---- the CLI demo recording ---- */
+.slidev-layout .demo-vid {
+  display: block;
+  width: 100%;
+  max-height: 385px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background-color: #000;
+  object-fit: contain;
+}
+
+/* ---- 01 the substrate: what Nx gives you ---- */
+.slidev-layout .stack { display: flex; flex-direction: column; gap: 0.9rem; }
+.slidev-layout .stack-hero {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+/* The real Nx mark (i-logos-nx). The logo is mostly #012f55 navy, which is
+   invisible on our dark --bg, so it sits on a light chip. */
+.slidev-layout .stack-mark {
+  display: inline-block;
+  /* 4:2.5 matches the icon's 256x160 viewBox, so background-size:100% 100%
+     (set by i-logos-nx) does not distort it. */
+  width: 4rem;
+  height: 2.5rem;
+  flex: none;
+  background-color: #fff;
+  border-radius: 2px;
+  /* The chip's padding, as a ring — real padding would stretch the artwork. */
+  box-shadow: 0 0 0 0.5rem #fff;
+  margin: 0.5rem;
+}
+.slidev-layout .stack-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+.slidev-layout .stack-role { font-size: 1rem; color: var(--dim); line-height: 1.3; }
+
+.slidev-layout .stack-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.slidev-layout .stack-list li {
+  display: grid;
+  grid-template-columns: 9.5rem 1fr;
+  gap: 1rem;
+  align-items: baseline;
+  border-left: 4px solid var(--blue);
+  padding-left: 0.9rem;
+}
+.slidev-layout .stack-k {
+  font-family: var(--slidev-code-font-family, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace);
+  font-size: 1.02rem;
+  color: var(--yellow);
+}
+.slidev-layout .stack-v { font-size: 1.02rem; line-height: 1.4; }
+
+/* ---- 05 the tree you already read (a11y tree vs AST) ---- */
+.slidev-layout .akin {
+  grid-template-columns: 1.45fr 1fr;
+  gap: 1.3rem;
+  align-items: center;
+  margin-top: 0.4rem;
+}
+/* No frame: the screenshot ships its own window chrome and drop shadow, so a
+   border here would just outline the shadow's dead space. */
+.slidev-layout .akin-shot { margin: 0; }
+.slidev-layout .akin-shot img {
+  display: block;
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  object-position: left center;
+}
+.slidev-layout .akin-shot figcaption {
+  margin-top: 0.15rem;
+  font-size: 0.85rem;
+  color: var(--dim);
+}
+.slidev-layout .akin-map {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.slidev-layout .akin-map li {
+  border-left: 4px solid var(--blue);
+  padding-left: 0.9rem;
+}
+.slidev-layout .akin-k {
+  display: block;
+  font-family: var(--slidev-code-font-family, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace);
+  font-size: 0.95rem;
+  color: var(--yellow);
+}
+.slidev-layout .akin-v {
+  display: block;
+  font-size: 0.98rem;
+  line-height: 1.4;
+}
+.slidev-layout .punch-tight { margin-top: 0.4rem; }

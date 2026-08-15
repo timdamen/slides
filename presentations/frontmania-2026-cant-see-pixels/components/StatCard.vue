@@ -28,8 +28,10 @@ defineProps<{
   gap: 4px;
 }
 .stat-value {
-  font-size: 2.1rem;
-  font-weight: 800;
+  /* Sits at h1 size (1.6rem) rather than above it: the accent colour carries
+     the emphasis, not the size. Matches the deck's quiet-heading scale. */
+  font-size: 1.6rem;
+  font-weight: 700;
   line-height: 1.1;
   color: #ffd43b;
 }

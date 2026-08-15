@@ -69,6 +69,9 @@ importers:
 
   presentations/cyc-26-one-change:
     dependencies:
+      '@iconify-json/logos':
+        specifier: 'catalog:'
+        version: 1.2.11
       '@slidev/cli':
         specifier: 'catalog:'
         version: 52.14.2(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.1)(@nuxt/kit@3.21.2(magicast@0.5.2))(@types/markdown-it@14.1.2)(@types/node@22.19.15)(@vue/compiler-sfc@3.5.33)(lightningcss@1.32.0)(magicast@0.5.2)(markdown-it-async@2.2.0)(markdown-it@14.1.1)(playwright-chromium@1.58.2)(postcss@8.5.10)(terser@5.46.1)
@@ -170,74 +173,6 @@ importers:
       vue:
         specifier: 'catalog:'
         version: 3.5.31(typescript@5.9.3)
-
-  presentations/test:
-    dependencies:
-      '@slidev/cli':
-        specifier: 'catalog:'
-        version: 52.14.2(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.1)(@nuxt/kit@3.21.2(magicast@0.5.2))(@types/markdown-it@14.1.2)(@types/node@22.19.15)(@vue/compiler-sfc@3.5.33)(lightningcss@1.32.0)(magicast@0.5.2)(markdown-it-async@2.2.0)(markdown-it@14.1.1)(playwright-chromium@1.58.2)(postcss@8.5.10)(terser@5.46.1)
-      '@slidev/theme-default':
-        specifier: 'catalog:'
-        version: 0.25.0
-      '@supaslidev/shared':
-        specifier: workspace:*
-        version: link:../../packages/shared
-      '@vue/compiler-sfc':
-        specifier: catalog:core
-        version: 3.5.33
-      acorn:
-        specifier: 'catalog:'
-        version: 8.18.0
-      acorn-walk:
-        specifier: 'catalog:'
-        version: 8.3.5
-      astring:
-        specifier: 'catalog:'
-        version: 1.9.0
-      vue:
-        specifier: 'catalog:'
-        version: 3.5.31(typescript@5.9.3)
-    devDependencies:
-      axe-core:
-        specifier: 'catalog:'
-        version: 4.12.1
-      playwright-chromium:
-        specifier: 'catalog:'
-        version: 1.58.2
-
-  presentations/test1:
-    dependencies:
-      '@slidev/cli':
-        specifier: 'catalog:'
-        version: 52.14.2(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.1)(@nuxt/kit@3.21.2(magicast@0.5.2))(@types/markdown-it@14.1.2)(@types/node@22.19.15)(@vue/compiler-sfc@3.5.33)(lightningcss@1.32.0)(magicast@0.5.2)(markdown-it-async@2.2.0)(markdown-it@14.1.1)(playwright-chromium@1.58.2)(postcss@8.5.10)(terser@5.46.1)
-      '@slidev/theme-default':
-        specifier: 'catalog:'
-        version: 0.25.0
-      '@supaslidev/shared':
-        specifier: workspace:*
-        version: link:../../packages/shared
-      '@vue/compiler-sfc':
-        specifier: catalog:core
-        version: 3.5.33
-      acorn:
-        specifier: 'catalog:'
-        version: 8.18.0
-      acorn-walk:
-        specifier: 'catalog:'
-        version: 8.3.5
-      astring:
-        specifier: 'catalog:'
-        version: 1.9.0
-      vue:
-        specifier: 'catalog:'
-        version: 3.5.31(typescript@5.9.3)
-    devDependencies:
-      axe-core:
-        specifier: 'catalog:'
-        version: 4.12.1
-      playwright-chromium:
-        specifier: 'catalog:'
-        version: 1.58.2
 
   presentations/utahjs:
     dependencies:

@@ -7,7 +7,6 @@
     <div><dt>Name</dt><dd>Alex's agent</dd></div>
     <div><dt>Task</dt><dd>buy trail-running shoes, size 43</dd></div>
     <div><dt>Budget</dt><dd>€200</dd></div>
-    <div><dt>Patience</dt><dd>0</dd></div>
     <div><dt>Eyes</dt><dd>none</dd></div>
     </v-clicks>
   </dl>
@@ -43,7 +42,7 @@ Every UX course starts with a persona. Here's the one nobody designed for.
 </v-clicks>
 </div>
 
-<p v-click class="punch">This customer segment grew faster last year than mobile did in 2010.<br><span class="dim">(That's rhetoric, not a chart. But you were there for mobile — you know how this movie goes.)</span></p>
+<p v-click class="punch">This customer segment grew faster last year than mobile did in 2010.</p>
 
 <!--
 [click] Three numbers, so you know I'm not selling a vibe. Adobe measured AI-referred traffic to US retail almost quadrupling year over year.
@@ -57,18 +56,15 @@ Every UX course starts with a persona. Here's the one nobody designed for.
 
 ---
 
-# The next 35 minutes
+# The next 30 minutes
 
 <v-clicks>
 
-- 🌳 How agents **actually read** your site — spoiler: not with their eyes
-- 💥 Where they **fail**, live, on markup that looks like last sprint
-- 🏷️ Why every failure has a **WCAG number** printed on it
-- 📈 The **exec-ready business case** — one screenshot-able slide
+- 👀 How agents **actually read** your web app
+- ⚠️ Where they **fail**
+- 🏷️ Why every a lot of failures have something todo with WCAG violations
 
 </v-clicks>
-
-<p v-click class="small-print">Spoiler: you've had the spec since 2008.</p>
 
 <!--
 The promise, so you can decide whether to stay or go get coffee.

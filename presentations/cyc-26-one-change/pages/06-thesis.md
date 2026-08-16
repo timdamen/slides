@@ -48,13 +48,10 @@ That's what all of this is. The one-line script, the four commands, the frozen h
 -->
 
 ---
-layout: center
+layout: default
 ---
 
-<div class="cover-wrap">
-  <h1 class="cover-title">Thank you</h1>
-  <p class="cover-byline">Tim Damen · <span class="cover-url">talks.timdamen.io</span></p>
-</div>
+<OutroSlide title="Thank you" />
 
 <!--
 ⏱ 29:20 — Last line. Say it and stop.

@@ -28,29 +28,14 @@ Everything I showed you tonight works because of a data structure that was built
 -->
 
 ---
-layout: center
+layout: default
 ---
 
-# Thanks
+<OutroSlide>
 
-<div class="thanks-grid">
+All sources in the deck repo: SOURCES.md — every number, dated.
 
-<div class="thanks-links">
-
-- 🎤 Slides: <strong>talks.timdamen.io</strong> <!-- TODO(Tim): confirm final URL + provide QR target -->
-- 🏢 <strong>Focusring B.V.</strong> — focusring.io
-- 🎙 <strong>Focustrap</strong> — the accessibility podcast
-- 🦋 @timdamen — most platforms
-
-</div>
-
-<div class="qr-placeholder">
-  <p>⬛ QR code<br><span class="dim">→ published deck</span></p>
-</div>
-
-</div>
-
-<p class="src-note">All sources in the deck repo: SOURCES.md — every number, dated.</p>
+</OutroSlide>
 
 <!--
 Deck is live at talks.timdamen.io — the demos in it actually run, so you can point the DevTools accessibility pane at the deck about the accessibility tree. Every statistic has its source and date in the repo, in SOURCES.md — check my work.

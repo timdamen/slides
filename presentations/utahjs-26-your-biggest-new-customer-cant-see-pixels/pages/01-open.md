@@ -27,6 +27,24 @@ Every UX course starts with a persona. Here's the one nobody designed for.
 -->
 
 ---
+layout: image-right
+image: /images/tim-speaking.png
+---
+
+# Tim Damen
+
+<br>
+<div class="text-sm leading-10">
+🧑‍💻 Web platform tech lead<br>
+🇳🇱 Working as an engineer in the Netherlands <br>
+♿️ Passionate about making the web work for <strong>everyone</strong> <br>
+🧩 Contributor to <span class="i-logos-nuxt-icon inline-block align-middle" /> <strong>Nuxt</strong>, <strong>@nuxt/a11y</strong>, and more <br>
+🔧 Building <strong>WCAGify</strong> — open source accessibility tooling <br>
+🧑‍🧑‍🧒‍🧒 Husband and father of two 👧🏼🧒🏼 <br>
+🧗🏼‍♂️ Love to go outdoors and explore
+</div>
+
+---
 
 # The receipts
 

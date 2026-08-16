@@ -91,10 +91,8 @@ image: /images/tim-speaking.png
 🇳🇱 Working as an engineer in the Netherlands <br>
 ♿️ Passionate about making the web work for <strong>everyone</strong> <br>
 🧩 Contributor to <span class="i-logos-nuxt-icon inline-block align-middle" /> <strong>Nuxt</strong>, <strong>@nuxt/a11y</strong>, and more <br>
-🔧 Building <strong>WCAGify</strong> — open source accessibility tooling
-
-🧑‍🧑‍🧒‍🧒 Husband and father of two 👧🏼🧒🏼
-
+🔧 Building <strong>WCAGify</strong> — open source accessibility tooling <br>
+🧑‍🧑‍🧒‍🧒 Husband and father of two 👧🏼🧒🏼 <br>
 🧗🏼‍♂️ Love to go outdoors and explore
 </div>
 

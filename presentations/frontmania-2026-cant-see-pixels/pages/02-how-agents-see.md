@@ -176,7 +176,7 @@ Receipts from the people actually building these agents — because "trust me" i
 
 # 🦞 OpenClaw — and how it reads a page
 
-<div class="two-col-loose shot-right">
+<div class="two-col-loose">
 
 <div>
 

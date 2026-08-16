@@ -9,9 +9,9 @@
   },
   "dependencies": {
     "@slidev/cli": "catalog:",
-    "@slidev/theme-default": "catalog:",
     "@supaslidev/shared": "workspace:*",
     "dom-accessibility-api": "^0.7.0",
+    "slidev-theme-supa11y": "catalog:",
     "vue": "catalog:"
   },
   "devDependencies": {

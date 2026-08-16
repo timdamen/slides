@@ -1,5 +1,5 @@
 ---
-theme: default
+theme: supa11y
 addons:
   - '@supaslidev/shared'
 title: Your Biggest New Customer Can't See Pixels

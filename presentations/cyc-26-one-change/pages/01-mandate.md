@@ -92,6 +92,7 @@ image: /images/tim-speaking.png
 ♿️ Passionate about making the web work for <strong>everyone</strong> <br>
 🧩 Contributor to <span class="i-logos-nuxt-icon inline-block align-middle" /> <strong>Nuxt</strong>, <strong>@nuxt/a11y</strong>, and more <br>
 🔧 Building <strong>WCAGify</strong> — open source accessibility tooling
+
 🧑‍🧑‍🧒‍🧒 Husband and father of two 👧🏼🧒🏼
 
 🧗🏼‍♂️ Love to go outdoors and explore

@@ -1,21 +1,16 @@
 {
-  "name": "@supaslidev/cyc-26-one-change",
+  "name": "@supaslidev/utahjs-26-your-biggest-new-customer-cant-see-pixels",
   "private": true,
   "type": "module",
   "scripts": {
     "build": "slidev build",
     "dev": "slidev --open",
-    "export": "slidev export",
-    "audit": "slidev build && node scripts/a11y-audit.mjs"
+    "export": "slidev export"
   },
   "dependencies": {
-    "@iconify-json/logos": "catalog:",
     "@slidev/cli": "catalog:",
     "@supaslidev/shared": "workspace:*",
-    "@vue/compiler-sfc": "catalog:core",
-    "acorn": "catalog:",
-    "acorn-walk": "catalog:",
-    "astring": "catalog:",
+    "dom-accessibility-api": "^0.7.0",
     "slidev-theme-supa11y": "catalog:",
     "vue": "catalog:"
   },

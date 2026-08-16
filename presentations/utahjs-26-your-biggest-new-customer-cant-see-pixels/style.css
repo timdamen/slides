@@ -100,6 +100,15 @@ button:has(> button.slidev-icon-btn) {
 .dim { color: var(--fm-muted); font-weight: 400; font-size: 0.85em; }
 .small-print { color: var(--fm-muted); font-size: 0.8rem; margin-top: 1.6rem; font-style: italic; }
 .src-note { color: var(--fm-muted); font-size: 0.62rem; margin-top: 0.9rem; }
+.src-note a {
+  color: inherit;
+  text-decoration: underline dotted;
+  text-underline-offset: 2px;
+}
+.src-note a:hover,
+.src-note a:focus-visible {
+  color: var(--fm-ring);
+}
 
 /* ---- persona (slide 2) ---- */
 .persona-card {

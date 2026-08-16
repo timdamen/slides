@@ -25,6 +25,8 @@ Every one of those customers reads your site through the accessibility tree firs
 -->
 
 ---
+hide: true
+---
 
 # What to do Monday
 
@@ -55,6 +57,8 @@ Every one of those customers reads your site through the accessibility tree firs
 [click] And start tagging AI referrals in analytics. You cannot make the case for this customer segment if you can't see it. It's growing either way — the only question is whether it's in your dashboard.
 -->
 
+---
+hide: true
 ---
 
 # The stakes, in court

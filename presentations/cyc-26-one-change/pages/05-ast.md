@@ -12,8 +12,6 @@
 
 </div>
 
-<p v-click class="punch-sm">Most of it is dependency and config work. Eleven files parse source code, or seventeen if you count the ones that call our shared AST helpers. Those are the ones the rest of this talk is about.</p>
-
 <!--
 ⏱ 13:30 — Act 5 opens.
 
@@ -124,11 +122,9 @@ Quick detour before we write any code. Most of you have opened this panel.
 <div class="goal">
 <v-clicks>
 
-<p class="goal-now">Today every app writes its routes like this:<br><code>const routes = [ … ] as RouteRecordRaw[]</code></p>
+<p class="goal-now">Every app started out as this:<br><code>const routes = [ … ] as RouteRecordRaw[]</code></p>
 
 <p class="goal-want">The router's next major only type-checks the other form:<br><code>const routes: RouteRecordRaw[] = [ … ]</code></p>
-
-<p class="goal-line">Move the type. In every application. <span class="accent">Without touching a single route.</span></p>
 
 </v-clicks>
 </div>
@@ -153,7 +149,7 @@ So: what are we dealing with?
 
 <p class="beat-sub">The <span class="accent">four shapes</span> a routes file actually takes across the estate.</p>
 
-<FindDemo phase="plain" />
+<FindDemo phase="plain" filename="src/router/routes.ts" />
 
 <!--
 ⏱ 16:40 — Beat 2 of 4: the starting point. Fifty seconds. Calm. No comparisons here.
@@ -182,7 +178,7 @@ The goal turns into something very concrete: insert at the end of one node, dele
 
 # The migration
 
-```ts {all|2-4|6-9|11-14|9}
+```ts {all|2-4|6|7-9|11-14|9}
 export default function updateRoutesTyping(tree: Tree) {
   const path = 'src/router/routes.ts'
   const src = tree.read(path, 'utf-8')
@@ -205,11 +201,13 @@ export default function updateRoutesTyping(tree: Tree) {
 
 That's the whole migration. Fourteen lines, and it runs in three hundred repositories.
 
-[click] Read the file off a virtual filesystem. Not the real disk — an in-memory tree, which is why we can test this without cloning anything.
+[click] Read the file off a virtual filesystem. Not the real disk — an in-memory tree, which is why we can test this without cloning anything. And if the file isn't there, we're done before we started.
 
-[click] PARSE, then FIND. One call to create the source file. Then: give me every variable declaration, and hand me the one called routes. That's the structural question. I never search the text.
+[click] PARSE. One call, and the text becomes the tree you were clicking through a slide ago.
 
-[click] EDIT. Two changes, each at an offset the node gave me. Insert the annotation where the name ends. Delete the assertion where the array ends. Everything between those two points — every route, every comment, every blank line the team put there — is untouched, because I never rebuilt the file. I changed two spots in it.
+[click] FIND. Give me every variable declaration, and hand me the one called routes. That's the structural question. I never search the text.
+
+[click] EDIT. Two changes, each at an offset the node gave me. Insert the annotation where the name ends — you watched that node end on exactly that character on the last slide. Delete the assertion where the array ends: twenty characters, which is exactly " as RouteRecordRaw[]". Everything between those two points — every route, every comment, every blank line the team put there — is untouched, because I never rebuilt the file. I changed two spots in it.
 
 [click] And this line is the one I'd argue is the most important in the whole talk. If there is no declarator called routes, we stop. We don't guess, we don't fall back to a regex, we don't do our best. We leave the file exactly as we found it and report that we skipped it.
 
@@ -321,7 +319,7 @@ So "does this heading already have the class h1" is a lookup on that list. And "
 
 # The migration
 
-```ts {all|2-3|5-6|7-10|12}
+```ts {all|2-4|6|7-11|14|10}
 export default function addTagClasses(tree: Tree, path: string) {
   const src = tree.read(path, 'utf-8')
   const { descriptor } = parse(src)
@@ -344,15 +342,15 @@ export default function addTagClasses(tree: Tree, path: string) {
 
 Same three steps. Different parser.
 
-[click] PARSE. This is the Vue single-file component compiler, and it's already in your node_modules, because it's the thing that compiles your components. You are not adding a dependency to do this.
+[click] PARSE. This is the Vue single-file component compiler, and it's already in your node_modules, because it's the thing that compiles your components. You are not adding a dependency to do this. And if the file has no template block, we stop before we start — same rule as last time.
 
 [click] Collect edits, don't apply them. This matters: if I edited the string as I walked, every edit would shift the offsets of the ones after it. So I gather them all first and apply them in one pass, back to front.
 
-[click] FIND. Walk the elements. Skip anything that isn't a heading or a paragraph. Get the class attribute — as an object, not a substring. And if it already has the exact class, skip it, which is what makes this safe to run twice.
-
-That last line is idempotency, and it's a hard requirement for us: a migration that changes something on the second run will eventually run twice somewhere real.
+[click] FIND. Walk the elements. Skip anything that isn't a heading or a paragraph. Get the class attribute — as an object the element owns, not a substring. If the exact class is already there, walk on. Otherwise push an edit built from the node's own offsets.
 
 [click] EDIT. One write, all the offsets at once.
+
+[click] And back up to this line, because every example in this talk has one line that matters more than the rest. If the class is already there, this migration writes nothing. That's idempotency, and it's a hard requirement for us: a migration that changes something on the second run will eventually run twice somewhere real.
 -->
 
 ---

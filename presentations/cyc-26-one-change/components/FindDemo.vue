@@ -1304,18 +1304,6 @@ onMounted(() => {
       </div>
 
       <!-- the goal from beat one, as a number ------------------------- -->
-      <p class="fd__ofoot">
-        <span class="fd__ogoal">Without touching a single route.</span>
-        <span class="fd__ostat">
-          <strong>{{ totals.routes }}</strong> routes across these {{ report.length }} files
-        </span>
-        <span
-          class="fd__ostat"
-          :class="totals.touched === 0 ? 'fd__ostat--kept' : 'fd__ostat--hit'"
-        >
-          <strong>{{ totals.touched }}</strong> rewritten
-        </span>
-      </p>
     </template>
 
     <!-- =================================================================

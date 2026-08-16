@@ -1,6 +1,7 @@
 ---
 layout: center
 class: ending-slide
+hide: true
 ---
 
 <div class="ending">
@@ -29,6 +30,7 @@ Everything I showed you tonight works because of a data structure that was built
 
 ---
 layout: center
+hide: true
 ---
 
 # Thanks

@@ -3,6 +3,7 @@ import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue'
 import { simScripts, type SimAction } from '../snippets/demoScripts'
 import { snippets, wrapSnippet } from '../snippets/demos'
 import { queryByRoleName } from '../utils/a11y'
+import { useColumnResize, useHeightResize } from '../utils/resizable'
 
 const props = withDefaults(defineProps<{
   task?: 'checkout' | 'add-to-cart'
@@ -151,6 +152,10 @@ async function stepOnce() {
   running.value = false
 }
 
+const columns = useColumnResize([1, 1.25])
+const heightCtl = useHeightResize(Number.parseInt(props.height ?? '350', 10) || 350)
+const dragging = computed(() => columns.dragging.value || heightCtl.dragging.value)
+
 function reset(variant?: 'broken' | 'fixed') {
   cancelled = true
   timers.forEach(clearTimeout)
@@ -166,7 +171,7 @@ function reset(variant?: 'broken' | 'fixed') {
 </script>
 
 <template>
-  <div class="agent-sim" :style="height ? { '--as-height': height } : {}">
+  <div class="agent-sim" :class="{ dragging }" :style="{ '--as-height': `${heightCtl.heightPx.value}px` }">
     <div class="as-toolbar">
       <div role="group" aria-label="Form variant" class="as-variants">
         <button
@@ -186,19 +191,42 @@ function reset(variant?: 'broken' | 'fixed') {
         <button type="button" :disabled="running || finished" @click="run">▶ Run</button>
         <button type="button" :disabled="running || finished" @click="stepOnce">Step</button>
         <button type="button" @click="reset()">Reset</button>
+        <button type="button" aria-label="Equal pane widths" @click="columns.equalize()">Equal</button>
       </div>
     </div>
 
-    <div class="as-panes">
+    <div class="as-panes" :style="{ gridTemplateColumns: columns.gridTemplate.value }">
       <div class="as-pane">
-        <div class="as-pane-title">Veldloper checkout</div>
+        <div class="as-pane-title">
+          <span>Veldloper checkout</span>
+          <button
+            type="button" class="as-max" :class="{ active: columns.maximized.value === 0 }"
+            :aria-pressed="columns.maximized.value === 0" aria-label="Maximize checkout pane"
+            @click="columns.maximize(0)"
+          >⤢</button>
+        </div>
         <iframe
           ref="frame" :key="frameKey" class="as-preview" :srcdoc="docHtml"
           title="Demo checkout form the simulated agent operates on"
         />
       </div>
+      <div
+        class="as-divider" role="separator" tabindex="0" aria-orientation="vertical"
+        aria-label="Resize checkout and agent log panes" :aria-valuenow="columns.percent(0)"
+        aria-valuemin="0" aria-valuemax="100"
+        @pointerdown="columns.startDrag(0, $event)" @keydown="columns.onKey(0, $event)"
+      >
+        <span class="as-grip" aria-hidden="true" />
+      </div>
       <div class="as-pane">
-        <div class="as-pane-title">Agent log</div>
+        <div class="as-pane-title">
+          <span>Agent log</span>
+          <button
+            type="button" class="as-max" :class="{ active: columns.maximized.value === 1 }"
+            :aria-pressed="columns.maximized.value === 1" aria-label="Maximize agent log pane"
+            @click="columns.maximize(1)"
+          >⤢</button>
+        </div>
         <div ref="logEl" class="as-log" role="log" aria-label="Simulated agent reasoning log">
           <div v-for="(line, i) in log" :key="i" class="as-line" :class="line.kind">
             {{ line.text }}
@@ -208,6 +236,15 @@ function reset(variant?: 'broken' | 'fixed') {
           </div>
         </div>
       </div>
+    </div>
+
+    <div
+      class="as-hresize" role="separator" tabindex="0" aria-orientation="horizontal"
+      aria-label="Resize demo height" :aria-valuenow="Math.round(heightCtl.heightPx.value)"
+      :aria-valuemin="heightCtl.min" :aria-valuemax="heightCtl.max"
+      @pointerdown="heightCtl.startDrag($event)" @keydown="heightCtl.onKey($event)"
+    >
+      <span class="as-grip" aria-hidden="true" />
     </div>
     <p class="as-disclaimer">simulated agent — scripted demo, real DOM queries (role + accessible name)</p>
   </div>
@@ -248,15 +285,52 @@ function reset(variant?: 'broken' | 'fixed') {
 }
 .agent-sim button:disabled { opacity: 0.45; cursor: not-allowed; }
 .agent-sim button:focus-visible { outline: 3px solid #ffd43b; outline-offset: 2px; }
-.as-panes { display: grid; grid-template-columns: 1fr 1.25fr; gap: 8px; }
+.as-panes { display: grid; /* columns come from useColumnResize via inline style */ }
 .as-pane { display: flex; flex-direction: column; min-width: 0; }
+.as-divider {
+  cursor: col-resize;
+  touch-action: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+.as-divider .as-grip { width: 4px; height: 44px; }
+.as-hresize {
+  cursor: ns-resize;
+  touch-action: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 12px;
+  margin-top: 4px;
+  border-radius: 4px;
+}
+.as-hresize .as-grip { height: 4px; width: 56px; }
+.as-grip { background: #6a7484; border-radius: 2px; }
+.as-divider:hover .as-grip,
+.as-hresize:hover .as-grip,
+.as-divider:focus-visible .as-grip,
+.as-hresize:focus-visible .as-grip { background: #74c0fc; }
+.as-divider:focus-visible,
+.as-hresize:focus-visible { outline: 3px solid #ffd43b; outline-offset: 1px; }
+.agent-sim.dragging { user-select: none; }
 .as-pane-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
   font-weight: 700;
   color: #9aa4b2;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   font-size: 0.62rem;
   margin-bottom: 4px;
+}
+.as-max {
+  padding: 2px 6px;
+  line-height: 1;
+  border-radius: 4px;
 }
 .as-preview {
   height: var(--as-height);

@@ -8,3 +8,9 @@ dist
 deploy
 .output
 .vercel
+
+# Exported PDFs are build artifacts, not source (44MB and growing).
+exports/
+
+# Slidev PDF exports live next to the deck; they are artifacts, not source.
+presentations/*/slides-export.pdf

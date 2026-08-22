@@ -29,7 +29,7 @@ Those eleven are what the rest of the talk covers, because they are the ones tha
 # Abstract Syntax Tree
 
 <div class="ast-words">
-  <div v-click class="ast-word"><p class="ast-w accent">Abstract</p><p class="ast-d">The tree records the structure of the code, not how it was typed. Indentation, blank lines, comments and quote style are not in it.</p></div>
+  <div v-click class="ast-word"><p class="ast-w accent">Abstract</p><p class="ast-d">Structure only. The parser drops indentation, blank lines, comments and quote style. Two files that differ only in formatting get the same tree.</p></div>
   <div v-click class="ast-word"><p class="ast-w accent">Syntax</p><p class="ast-d">The grammar of the language. Every part of the file gets a label for what it is: a variable declaration, a function call, a string.</p></div>
   <div v-click class="ast-word"><p class="ast-w accent">Tree</p><p class="ast-d">Nodes inside nodes. A file contains statements, a statement contains an expression, and that expression contains more.</p></div>
 </div>
@@ -37,7 +37,7 @@ Those eleven are what the rest of the talk covers, because they are the ones tha
 <!--
 ⏱ 14:05 — Entry level. Three words, one click each.
 
-[click] Abstract. The parser keeps the structure and drops how the code was typed: indentation, blank lines, comments, single or double quotes. Worth remembering, because it comes back in the third example.
+[click] Abstract. The parser keeps structure and drops formatting: indentation, blank lines, comments, single or double quotes. Two files that differ only in formatting get the same tree. Worth remembering, because it comes back in the third example.
 
 [click] Syntax. The grammar of the language rather than the characters. Every part of the file gets a label for what it is: this is a variable declaration, this is a function call, this is a string.
 
@@ -79,7 +79,10 @@ And if you never write a codemod at all, stop at step two: ask your own repo a q
 <div class="two-col akin">
 
   <figure class="akin-shot">
-    <img src="/images/a11y-tree-chrome-devtools.png" alt="The Accessibility panel in Chrome DevTools. A tree of nodes — link &quot;Chrome DevTools&quot; focusable: true, link &quot;Extensions&quot;, generic, contentinfo — with many rows marked Ignored. A Computed Properties pane lists Name, Role: link and Focusable: true for the selected node.">
+    <img src="/images/a11y-tree-chrome-devtools.png" 
+width="750px"
+height="100%"
+alt="The Accessibility panel in Chrome DevTools. A tree of nodes — link &quot;Chrome DevTools&quot; focusable: true, link &quot;Extensions&quot;, generic, contentinfo — with many rows marked Ignored. A Computed Properties pane lists Name, Role: link and Focusable: true for the selected node.">
     <figcaption>Chrome DevTools &middot; the accessibility tree</figcaption>
   </figure>
 
@@ -182,12 +185,12 @@ The goal turns into something very concrete: insert at the end of one node, dele
 export default function updateRoutesTyping(tree: Tree) {
   const path = 'src/router/routes.ts'
   const src = tree.read(path, 'utf-8')
-  if (!src) return
+  if (!src) return logger.warn(`${path}: file not found, skipped`)
 
   const sf = ts.createSourceFile(path, src, ts.ScriptTarget.Latest, true)
   const decl = findNodes(sf, ts.SyntaxKind.VariableDeclaration)
     .find((n) => n.name.getText() === 'routes')
-  if (!decl) return
+  if (!decl) return logger.warn(`${path}: no routes declaration, skipped`)
 
   tree.write(path, applyChangesToString(src, [
     { type: ChangeType.Insert, index: decl.name.getEnd(), text: ': RouteRecordRaw[]' },
@@ -196,20 +199,29 @@ export default function updateRoutesTyping(tree: Tree) {
 }
 ```
 
+<style>
+/* The two warn lines and the Insert line run ~88 characters; at the theme's
+   0.95rem they clip on the right edge of the canvas. 0.9rem fits all of them. */
+.slidev-layout pre,
+.slidev-layout .slidev-code {
+  font-size: 0.9rem !important;
+}
+</style>
+
 <!--
 ⏱ 17:30 — Beat 3 of 4: THE CODE. A minute. This is the slide people photograph — slow down and let them read.
 
 That's the whole migration. Fourteen lines, and it runs in three hundred repositories.
 
-[click] Read the file off a virtual filesystem. Not the real disk — an in-memory tree, which is why we can test this without cloning anything. And if the file isn't there, we're done before we started.
+[click] READ the file and if the file isn't there, we log that and stop.
 
 [click] PARSE. One call, and the text becomes the tree you were clicking through a slide ago.
 
-[click] FIND. Give me every variable declaration, and hand me the one called routes. That's the structural question. I never search the text.
+[click] FIND. Give me every variable declaration, hand me the one called routes.
 
-[click] EDIT. Two changes, each at an offset the node gave me. Insert the annotation where the name ends — you watched that node end on exactly that character on the last slide. Delete the assertion where the array ends: twenty characters, which is exactly " as RouteRecordRaw[]". Everything between those two points — every route, every comment, every blank line the team put there — is untouched, because I never rebuilt the file. I changed two spots in it.
+[click] EDIT. Two changes, each at an offset the declaration node gave me. Insert it where the name ends so everything between those two points: every route, every comment, every blank line the team put there — is untouched.
 
-[click] And this line is the one I'd argue is the most important in the whole talk. If there is no declarator called routes, we stop. We don't guess, we don't fall back to a regex, we don't do our best. We leave the file exactly as we found it and report that we skipped it.
+[click] no routes declaration so skip. 
 
 A tool that can't tell you it failed will eventually fail quietly in a repository you have never opened.
 -->
@@ -242,6 +254,7 @@ And the number along the bottom is the goal, measured: nine routes across these 
 
 ---
 layout: center
+hide: true
 ---
 
 <p class="mega">Ask the tree a question.</p>
@@ -323,7 +336,7 @@ So "does this heading already have the class h1" is a lookup on that list. And "
 export default function addTagClasses(tree: Tree, path: string) {
   const src = tree.read(path, 'utf-8')
   const { descriptor } = parse(src)
-  if (!descriptor.template) return
+  if (!descriptor.template) return logger.warn(`${path}: no template block, skipped`)
 
   const edits: StringChange[] = []
   walkElements(descriptor.template.ast, (el) => {
@@ -337,12 +350,21 @@ export default function addTagClasses(tree: Tree, path: string) {
 }
 ```
 
+<style>
+/* The warn line runs ~87 characters; at the theme's 0.95rem it clips on the
+   right edge of the canvas. 0.9rem fits, and matches the example-one slide. */
+.slidev-layout pre,
+.slidev-layout .slidev-code {
+  font-size: 0.9rem !important;
+}
+</style>
+
 <!--
 ⏱ 21:05 — Beat 3 of 4: THE CODE. Fifty-five seconds.
 
 Same three steps. Different parser.
 
-[click] PARSE. This is the Vue single-file component compiler, and it's already in your node_modules, because it's the thing that compiles your components. You are not adding a dependency to do this. And if the file has no template block, we stop before we start — same rule as last time.
+[click] PARSE. This is the Vue single-file component compiler, and it's already in your node_modules, because it's the thing that compiles your components. You are not adding a dependency to do this. And if the file has no template block, we log that and stop — same rule as last time.
 
 [click] Collect edits, don't apply them. This matters: if I edited the string as I walked, every edit would shift the offsets of the ones after it. So I gather them all first and apply them in one pass, back to front.
 

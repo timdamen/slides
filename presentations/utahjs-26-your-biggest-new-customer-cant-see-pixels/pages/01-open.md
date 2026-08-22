@@ -4,7 +4,7 @@
   <div class="persona-avatar" aria-hidden="true">🤖</div>
   <dl class="persona-facts">
     <v-clicks>
-    <div><dt>Name</dt><dd>Alex's agent</dd></div>
+    <div><dt>Name</dt><dd>Tim's agent</dd></div>
     <div><dt>Task</dt><dd>buy trail-running shoes, size 43</dd></div>
     <div><dt>Budget</dt><dd>€200</dd></div>
     <div><dt>Eyes</dt><dd>none</dd></div>
@@ -46,7 +46,7 @@ image: /images/tim-speaking.png
 
 ---
 
-# The receipts
+# The hype? Continues
 
 <div class="stat-grid">
 <v-clicks>

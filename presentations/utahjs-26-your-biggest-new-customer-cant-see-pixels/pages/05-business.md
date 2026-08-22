@@ -1,4 +1,4 @@
-# The slide for management
+# Numbers again
 
 <div class="exec-grid">
 
@@ -24,6 +24,8 @@ For twenty years the accessibility business case was ethics, lawsuits, and "it's
 Every one of those customers reads your site through the accessibility tree first. One sentence for the exec: accessibility is now conversion infrastructure. Not compliance. Not charity. The plumbing your next revenue segment flows through.
 -->
 
+---
+hide: true
 ---
 
 # What to do Monday
@@ -55,6 +57,8 @@ Every one of those customers reads your site through the accessibility tree firs
 [click] And start tagging AI referrals in analytics. You cannot make the case for this customer segment if you can't see it. It's growing either way — the only question is whether it's in your dashboard.
 -->
 
+---
+hide: true
 ---
 
 # The stakes, in court

@@ -1,6 +1,7 @@
 ---
 layout: center
 class: ending-slide
+hide: true
 ---
 
 <div class="ending">
@@ -33,8 +34,6 @@ layout: default
 
 <OutroSlide>
 
-All sources in the deck repo: SOURCES.md — every number, dated.
-
 </OutroSlide>
 
 <!--
@@ -45,6 +44,7 @@ If you fix one form because of tonight, tell me about it on the podcast. Questio
 
 ---
 routeAlias: bonus
+hide: true
 ---
 
 # Bonus: yes, we checked

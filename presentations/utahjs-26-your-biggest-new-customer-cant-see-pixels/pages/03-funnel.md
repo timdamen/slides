@@ -47,7 +47,7 @@ funnel: 1
 
 <div v-click>
 
-<StatCard value="66%" label="machine-readable share of the average US product page — a third of your money page is invisible" source="Adobe" date="2026" href="https://mohammedshehu.com/agentic-commerce-statistics/" />
+<StatCard value="66%" label="machine-readable share of the average US product page" source="Adobe" date="2026" href="https://mohammedshehu.com/agentic-commerce-statistics/" />
 
 </div>
 

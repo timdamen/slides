@@ -2,7 +2,7 @@
 
 <div class="seam">
 
-```json {*}{lines:false}
+```json
 // tsconfig.ts
 "paths": {
   "@playwright/test": ["./platform/test.ts"]
@@ -11,7 +11,8 @@
 
 <div v-click="1">
 
-```ts {*}{lines:false}
+```ts
+// platform/test.ts
 import { test as base } from '@playwright/test'
 import { scanForViolations } from '@platform/a11y'
 
@@ -25,8 +26,6 @@ export const test = base.extend({
 ```
 
 </div>
-
-<p v-click="2" class="punch">Every test file in every app <span class="accent">already imports that specifier.</span></p>
 
 </div>
 
@@ -76,6 +75,7 @@ The accessibility rollout was mostly the cheap door. Two scripts, one alias, a c
 
 ---
 layout: center
+hide: true
 ---
 
 <p class="verdict-green">Deadline met</p>

@@ -51,13 +51,11 @@ Those eleven are what the rest of the talk covers, because they are the ones tha
 <AstInspector initial-path="VariableDeclarator" />
 
 <!--
-⏱ 14:50 — THE teaching slide. Eighty seconds, do not rush. Everything after this depends on it.
+⏱ 14:50 — 
 
-This is a parser. Left, three lines of a routing file. Right, what the parser handed back.
+This is an AST parser visualisation. Left, three lines of a routing file. Right, the output of the parser.
 
-It is not a diagram. It is the actual object, and every row has a name and two numbers.
-
-[click Identifier routes] I am an Identifier, I start at character six, I end at twelve. And six to twelve is exactly the word routes. Not roughly. Exactly.
+[click Identifier routes] This is an Identifier, It starts at character six, and ends at twelve. And six to twelve is exactly the word routes. This is how codemods are able to target part of the code consistently.
 
 [click ArrayExpression] This one is the array.
 
@@ -65,11 +63,12 @@ A node is a label plus two numbers that point back into your text. The tree is a
 
 [click into the source] And it goes both ways. Click a character, it finds the smallest node containing it.
 
-So a codemod is three steps. Parse: text becomes this. Find: ask a question about structure, not about text. Edit: take the two numbers and change the original string between them.
+So a codemod is three steps. 
+- FIRST Parse: text becomes this. 
+- SECOND Find: ask a question about structure, not about text. 
+- THRID Edit: take the two numbers and change the original string between them.
 
-Three examples. Same three steps every time.
-
-And if you never write a codemod at all, stop at step two: ask your own repo a question that isn't fooled by the same word appearing in a comment. That's tonight's project.
+Now lets see some example codemods
 -->
 
 ---
@@ -80,13 +79,13 @@ And if you never write a codemod at all, stop at step two: ask your own repo a q
 
   <figure class="akin-shot">
     <img src="/images/a11y-tree-chrome-devtools.png" alt="The Accessibility panel in Chrome DevTools. A tree of nodes — link &quot;Chrome DevTools&quot; focusable: true, link &quot;Extensions&quot;, generic, contentinfo — with many rows marked Ignored. A Computed Properties pane lists Name, Role: link and Focusable: true for the selected node.">
-    <figcaption>Chrome DevTools &middot; the accessibility tree</figcaption>
+    <figcaption>Chrome DevTools &middot; accessibility tree</figcaption>
   </figure>
 
   <ul class="akin-map">
-    <li v-click="1"><span class="akin-k">derived, not written</span><span class="akin-v">The browser builds it from the HTML on the page.</span></li>
+    <li v-click="1"><span class="akin-k">derived</span><span class="akin-v">The browser builds it from the HTML on the page.</span></li>
     <li v-click="2"><span class="akin-k">abstract</span><span class="akin-v">Class names, wrapper divs and formatting are not in it. It keeps what it needs.</span></li>
-    <li v-click="3"><span class="akin-k">one label per node</span><span class="akin-v"><code>link</code>, <code>generic</code>, <code>contentinfo</code> — the same job <code>VariableDeclarator</code> does.</span></li>
+    <li v-click="3"><span class="akin-k">one label per node</span><span class="akin-v"><code>link</code>, <code>button</code>, <code>heading</code></span></li>
     <li v-click="4"><span class="akin-k">you can query it</span><span class="akin-v">axe walks this tree. The CI check from earlier in the talk is a tree search.</span></li>
   </ul>
 

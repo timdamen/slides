@@ -3,13 +3,13 @@ layout: center
 ---
 
 <div class="one-line">
-  <p class="one-line-kicker">The entire contract between us and three hundred teams</p>
+  <p class="one-line-kicker">The contract between us and three hundred apps</p>
 
 ```json
-"update:platform": "npx --yes @platform/updater@latest"
+"update:platform": "npx @platform/updater@latest"
 ```
 
-  <p class="one-line-sub">Every application is born with it. Everything else in this talk hangs off that string.</p>
+  <p class="one-line-sub">Every new scaffolded app is born with it.</p>
 </div>
 
 <!--

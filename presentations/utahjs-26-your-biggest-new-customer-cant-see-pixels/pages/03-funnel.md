@@ -347,7 +347,7 @@ class: centerpiece
 funnel: 5
 ---
 
-# Confirm — does it know it worked?
+# Confirm - does it know it worked?
 
 <div class="confirm-story">
 

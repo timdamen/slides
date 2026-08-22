@@ -46,7 +46,7 @@ image: /images/tim-speaking.png
 
 ---
 
-# The receipts
+# Some numbers
 
 <div class="stat-grid">
 <v-clicks>
@@ -80,7 +80,7 @@ image: /images/tim-speaking.png
 
 - 👀 How agents **actually read** your web app
 - ⚠️ Where they **fail**
-- 🏷️ Why every a lot of failures have something todo with WCAG violations
+- 🏷️ Why a lot of failures have something todo with WCAG violations
 
 </v-clicks>
 

@@ -203,12 +203,13 @@ So: what are we dealing with?
 <FindDemo phase="plain" filename="src/router/routes.ts" />
 
 <!--
-⏱ 16:40 — Beat 2 of 4: the starting point. Fifty seconds. Calm. No comparisons here.
-The four tabs are the whole point of this slide — introduce them before you touch anything else.
+⏱ 16:40 — Beat 2 of 4: the starting point.
 
-Now, this is the part people skip, and it's the part that decides whether your migration works.
+Now, this is the part is an important part when writing codemods! They are deterministic and they should work as expected. That is why we research always very well before we start to create a codemod.
 
-You do not sit down and imagine what the file looks like. You go and look. We grepped every repository in the estate for this file, and it comes in four shapes. These four. That's not a test suite I invented — it's a census.
+CURRENT + FUTURE
+
+What we found is that:
 
 [tab 1] Most of them look like this. The tidy one.
 
@@ -217,12 +218,6 @@ You do not sit down and imagine what the file looks like. You go and look. We gr
 [tab 3] Some have a bracket inside a comment.
 
 [tab 4] And a few don't declare the routes in this file at all — they import them from somewhere else.
-
-There's a comment in the real migration that says, more or less, "from searching through the repositories, these are the shapes". I'd frame that as the actual lesson of this slide: your test fixtures are not hypotheticals. They are inventory.
-
-So — the file, and its tree. Two things to notice. [select the array] The array is a node, with a start and an end. And the name is a node too, ending exactly where the annotation needs to go.
-
-The goal turns into something very concrete: insert at the end of one node, delete at the end of another. And it has to hold for all four shapes.
 -->
 
 ---
@@ -233,12 +228,12 @@ The goal turns into something very concrete: insert at the end of one node, dele
 export default function updateRoutesTyping(tree: Tree) {
   const path = 'src/router/routes.ts'
   const src = tree.read(path, 'utf-8')
-  if (!src) return
+  if (!src) return logger.warn(`${path} not found, nothing to change`)
 
   const sf = ts.createSourceFile(path, src, ts.ScriptTarget.Latest, true)
   const decl = findNodes(sf, ts.SyntaxKind.VariableDeclaration)
     .find((n) => n.name.getText() === 'routes')
-  if (!decl) return
+  if (!decl) return logger.warn(`no routes declaration in ${path}, skipped`)
 
   tree.write(path, applyChangesToString(src, [
     { type: ChangeType.Insert, index: decl.name.getEnd(), text: ': RouteRecordRaw[]' },
@@ -248,21 +243,20 @@ export default function updateRoutesTyping(tree: Tree) {
 ```
 
 <!--
-⏱ 17:30 — Beat 3 of 4: THE CODE. A minute. This is the slide people photograph — slow down and let them read.
+⏱ 17:30 — Beat 3 of 4: THE CODE.
 
-That's the whole migration. Fourteen lines, and it runs in three hundred repositories.
+Part of the code of the codemod.
 
-[click] Read the file off a virtual filesystem. Not the real disk — an in-memory tree, which is why we can test this without cloning anything. And if the file isn't there, we're done before we started.
+[click] Read the file off the filesystem. If it isn't there, one line of warning and we stop.
 
-[click] PARSE. One call, and the text becomes the tree you were clicking through a slide ago.
+[click] 1. PARSE. the code turns into the AST.
 
-[click] FIND. Give me every variable declaration, and hand me the one called routes. That's the structural question. I never search the text.
+[click] 2. FIND. Give me every variable declaration, than hand me the one called routes. And if there isn't one, same thing — say so, change nothing. Three hundred repositories: the ones that don't match have to survive the run untouched.
 
-[click] EDIT. Two changes, each at an offset the node gave me. Insert the annotation where the name ends — you watched that node end on exactly that character on the last slide. Delete the assertion where the array ends: twenty characters, which is exactly " as RouteRecordRaw[]". Everything between those two points — every route, every comment, every blank line the team put there — is untouched, because I never rebuilt the file. I changed two spots in it.
+[click] 3. EDIT. Two changes, each at an offset the node gave me. 
 
-[click] And this line is the one I'd argue is the most important in the whole talk. If there is no declarator called routes, we stop. We don't guess, we don't fall back to a regex, we don't do our best. We leave the file exactly as we found it and report that we skipped it.
-
-A tool that can't tell you it failed will eventually fail quietly in a repository you have never opened.
+1. Insert the where the name ends
+2. Delete the where the array ends: twenty characters, which is exactly " as RouteRecordRaw[]"
 -->
 
 ---
@@ -319,15 +313,18 @@ hide: true
 
 # What we are dealing with
 
-<p class="beat-sub">The <span class="accent">five shapes</span> a heading takes across the estate.</p>
+<p class="beat-sub">The <span class="accent">five shapes</span> a heading takes across the organisation.</p>
 
 <ReachDemo phase="plain" />
 
 <!--
-⏱ 20:20 — Beat 2 of 4: the starting point. Forty-five seconds. Calm.
-Name each tab out loud. These five names come back on the result slide, and if the room hasn't met them here they will not follow the grid.
+⏱ 20:20 — Beat 2 of 4: the starting point.
 
-Same exercise as last time. Before writing anything, go and look at what's actually in the estate. A heading turns up in five shapes.
+Same thing as last time. Before writing anything, go and look at what's actually in the repos.
+
+A heading turns up in five shapes.
+
+CURRENT + FUTURE
 
 [substring] This one has a class called my-h1. Contains the letters h-1, is not the class h1.
 
@@ -354,7 +351,7 @@ So "does this heading already have the class h1" is a lookup on that list. And "
 export default function addTagClasses(tree: Tree, path: string) {
   const src = tree.read(path, 'utf-8')
   const { descriptor } = parse(src)
-  if (!descriptor.template) return
+  if (!descriptor.template) return logger.warn(`${path} has no template, skipped`)
 
   const edits: StringChange[] = []
   walkElements(descriptor.template.ast, (el) => {
@@ -373,17 +370,16 @@ export default function addTagClasses(tree: Tree, path: string) {
 
 Same three steps. Different parser.
 
-[click] PARSE. This is the Vue single-file component compiler. So here we used something LIKE the AST. Let's call it the VUE AST.
+[click] 1. PARSE. This is the Vue single-file component compiler. So here we used something LIKE the AST. Let's call it the VUE AST.
 
-[click] setup for colleting the edits
+[click] setup for collecting the edits
 
-[click] FIND. Walk the elements. 
+[click] 2. FIND. Walk the elements. 
 1. Skip anything that isn't in our TARGET_TAGS.
-2. Get the class attribute. If the exact class is already there, walk on. 
-3. If the class is already there, this migration writes nothing.
-4. Otherwise push an edit built from the node's own offsets.
+2. Get the class attribute. If the exact class is already there, we walk on.
+3. Otherwise push an edit built from the node's own offsets.
 
-[click] EDIT. One write, all the offsets at once.
+[click] 3. EDIT. One write, all the offsets at once.
 -->
 
 ---

@@ -5,7 +5,7 @@
 
 <p>One script, once a sprint, and an app is update with the latest and greatest via codemods</p>
 <p>Standardized FE ecosystem and ways to govern it</p>
-<p>Shared and aligned frontend stack over among the organisation</p>
+<p>Shared and aligned frontend stack among the organisation</p>
 <p>Faster time to market</p>
 
 

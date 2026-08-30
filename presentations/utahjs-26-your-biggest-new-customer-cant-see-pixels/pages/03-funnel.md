@@ -252,7 +252,7 @@ funnel: 3
 <div class="decide-bottom">
 
 <div v-click class="research-note">
-  <strong>CHI 2026 (UC Berkeley + U. Michigan):</strong> a state-of-the-art computer-use agent completed <strong>78.3%</strong> of tasks — but only <strong>41.7%</strong> when restricted to keyboard-only navigation. Agents inherit the keyboard fragility we've been warning about.
+  <strong>CHI 2026 (UC Berkeley + U. Michigan):</strong> a state-of-the-art computer-use agent completed <strong>78.3%</strong> of tasks — but only <strong>41.7%</strong> when restricted to keyboard-only navigation.
   <span class="src-note">A11y-CUA · <a href="https://arxiv.org/abs/2602.09310" target="_blank" rel="noopener noreferrer">arxiv 2602.09310</a></span>
 </div>
 

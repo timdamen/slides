@@ -1,3 +1,7 @@
+---
+hide: true
+---
+
 # What our migrations actually do
 
 <p class="beat-sub">159 migration files, counted by what they change. A file can appear in more than one row.</p>
@@ -29,21 +33,29 @@ Those eleven are what the rest of the talk covers, because they are the ones tha
 # Abstract Syntax Tree
 
 <div class="ast-words">
-  <div v-click class="ast-word"><p class="ast-w accent">Abstract</p><p class="ast-d">The tree records the structure of the code, not how it was typed. Indentation, blank lines, comments and quote style are not in it.</p></div>
-  <div v-click class="ast-word"><p class="ast-w accent">Syntax</p><p class="ast-d">The grammar of the language. Every part of the file gets a label for what it is: a variable declaration, a function call, a string.</p></div>
-  <div v-click class="ast-word"><p class="ast-w accent">Tree</p><p class="ast-d">Nodes inside nodes. A file contains statements, a statement contains an expression, and that expression contains more.</p></div>
+  <div v-click class="ast-word"><p class="ast-w accent">Abstract</p><p class="ast-d">It keeps what the code means, not how it looks. No node holds the spaces around the equals sign.</p></div>
+  <div v-click class="ast-word"><p class="ast-w accent">Syntax</p><p class="ast-d">Every node is named after a rule of the language: VariableDeclaration, Identifier, Literal.</p></div>
+  <div v-click class="ast-word"><p class="ast-w accent">Tree</p><p class="ast-d">Nodes sit inside nodes. Four levels on the right, from the whole file down to the string.</p></div>
 </div>
 
+<AstInspector source='var AST = "is Tree";' initial-path="Literal" :height="215" compact />
+
 <!--
-⏱ 14:05 — Entry level. Three words, one click each.
+⏱ 14:05 — Entry level. Three words, one click each, against one line of code.
 
-[click] Abstract. The parser keeps the structure and drops how the code was typed: indentation, blank lines, comments, single or double quotes. Worth remembering, because it comes back in the third example.
+Twenty characters on the left. The parser's answer on the right. Small enough to read every row of it.
 
-[click] Syntax. The grammar of the language rather than the characters. Every part of the file gets a label for what it is: this is a variable declaration, this is a function call, this is a string.
+[click] Abstract. Structure in, typing out: indentation, blank lines, comments, single or double quotes. Write this same line with single quotes and you get the same tree back. Worth remembering, because it is the whole of the third example.
 
-[click] Tree. Nodes inside nodes. A file contains statements, a statement contains an expression, that expression contains more. If you have written a nested object, you have written a tree.
+[click] Syntax. Those three names are not mine, they are the language's. Every node on the right is named after a rule in the JavaScript grammar, which is why two different parsers agree on what to call things.
+
+[click] Tree. Nodes inside nodes, going as deep as the code does. Four levels here for one line. If you have written a nested object, you have written a tree.
+
+Click a row, and the characters it owns light up in the code. That is the next slide, so do not spend long here.
 -->
 
+---
+hide: true
 ---
 
 # A node is a label and two numbers
@@ -72,7 +84,47 @@ Now lets see some example codemods
 -->
 
 ---
+hide: true
+---
+# The accessibility tree in DevTools
 
+<div class="two-col akin">
+
+  <figure class="akin-shot">
+    <img src="/images/a11y-tree-chrome-devtools.png" alt="The Accessibility panel in Chrome DevTools. A tree of nodes — link &quot;Chrome DevTools&quot; focusable: true, link &quot;Extensions&quot;, generic, contentinfo — with many rows marked Ignored. A Computed Properties pane lists Name, Role: link and Focusable: true for the selected node.">
+    <figcaption>Chrome DevTools &middot; accessibility tree</figcaption>
+  </figure>
+
+  <ul class="akin-map">
+    <li v-click="1"><span class="akin-k">derived</span><span class="akin-v">The browser builds it from the HTML on the page.</span></li>
+    <li v-click="2"><span class="akin-k">abstract</span><span class="akin-v">Class names, wrapper divs and formatting are not in it. It keeps what it needs.</span></li>
+    <li v-click="3"><span class="akin-k">one label per node</span><span class="akin-v"><code>link</code>, <code>button</code>, <code>heading</code></span></li>
+    <li v-click="4"><span class="akin-k">you can query it</span><span class="akin-v">axe walks this tree. The CI check from earlier in the talk is a tree search.</span></li>
+  </ul>
+
+</div>
+
+<p v-click="5" class="punch punch-tight">A parser does the same thing for JavaScript instead of HTML.</p>
+
+<!--
+⏱ 16:10 — Forty seconds. The only place the accessibility thread and the parser thread meet.
+
+Quick detour before we write any code. Most of you have opened this panel.
+
+[click] Nobody writes this tree by hand. The browser builds it from the HTML, the same way a parser builds a tree from a source file.
+
+[click] It dropped your class names, your wrapper divs and your formatting, and kept what it needs. That is "abstract" from two slides ago.
+
+[click] Every row carries a label: link, generic, contentinfo. Same job as VariableDeclarator or ArrayExpression.
+
+[click] axe walks this tree. The accessibility check from earlier in the talk is a tree search — I left that out at the time because it would not have meant anything yet.
+
+[click] A parser does the same thing for JavaScript instead of HTML.
+-->
+
+---
+hide: true
+---
 # The accessibility tree in DevTools
 
 <div class="two-col akin">
@@ -241,6 +293,7 @@ And the number along the bottom is the goal, measured: nine routes across these 
 
 ---
 layout: center
+hide: true
 ---
 
 <p class="mega">Ask the tree a question.</p>
@@ -251,36 +304,15 @@ layout: center
 -->
 
 ---
+layout: center
+hide: true
+---
 
-# Example two · the goal
-
-<div class="ex-header">
-  <span class="ex-tag">Vue single-file component compiler</span>
-  <span class="ex-goal">thousands of elements · every app</span>
-</div>
-
-<div class="goal">
-<v-clicks>
-
-<p class="goal-now">The design system's new major styles headings <strong>by class</strong>, not by tag.</p>
-
-<p class="goal-want">So every <code>h1</code>–<code>h4</code>, <code>p</code> and <code>label</code> in every component needs its own tag name as a class:<br><code>&lt;h1 class="h1"&gt;</code></p>
-
-<p class="goal-line">Add one class to specific elements. <span class="accent">Change nothing else in the markup.</span></p>
-
-</v-clicks>
-</div>
+<p class="mega">Ask the tree a question.</p>
+<p class="mega accent">Edit at the answer.</p>
 
 <!--
-⏱ 19:50 — Beat 1 of 4: WHY. Thirty seconds.
-
-Second one, and it's a different language with a different parser.
-
-[click] The design system went to a new major, and the new one styles typography by class instead of by tag. Good decision, by the way — it means a heading can look like a heading without being an h1.
-
-[click] Which means every heading and paragraph in every component needs to carry its own tag name as a class.
-
-[click] That's the goal. Thousands of elements, across every application. Add one class to the elements that need it, and leave the markup otherwise exactly as it was.
+⏱ 19:40 — Ten seconds. Don't explain it. It's a breath before example two.
 -->
 
 ---
@@ -318,7 +350,7 @@ So "does this heading already have the class h1" is a lookup on that list. And "
 
 # The migration
 
-```ts {all|2-4|6|7-11|14|10}
+```ts {all|2-4|6|7-11|14}
 export default function addTagClasses(tree: Tree, path: string) {
   const src = tree.read(path, 'utf-8')
   const { descriptor } = parse(src)
@@ -341,15 +373,17 @@ export default function addTagClasses(tree: Tree, path: string) {
 
 Same three steps. Different parser.
 
-[click] PARSE. This is the Vue single-file component compiler, and it's already in your node_modules, because it's the thing that compiles your components. You are not adding a dependency to do this. And if the file has no template block, we stop before we start — same rule as last time.
+[click] PARSE. This is the Vue single-file component compiler. So here we used something LIKE the AST. Let's call it the VUE AST.
 
-[click] Collect edits, don't apply them. This matters: if I edited the string as I walked, every edit would shift the offsets of the ones after it. So I gather them all first and apply them in one pass, back to front.
+[click] setup for colleting the edits
 
-[click] FIND. Walk the elements. Skip anything that isn't a heading or a paragraph. Get the class attribute — as an object the element owns, not a substring. If the exact class is already there, walk on. Otherwise push an edit built from the node's own offsets.
+[click] FIND. Walk the elements. 
+1. Skip anything that isn't in our TARGET_TAGS.
+2. Get the class attribute. If the exact class is already there, walk on. 
+3. If the class is already there, this migration writes nothing.
+4. Otherwise push an edit built from the node's own offsets.
 
 [click] EDIT. One write, all the offsets at once.
-
-[click] And back up to this line, because every example in this talk has one line that matters more than the rest. If the class is already there, this migration writes nothing. That's idempotency, and it's a hard requirement for us: a migration that changes something on the second run will eventually run twice somewhere real.
 -->
 
 ---

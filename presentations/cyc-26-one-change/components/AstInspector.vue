@@ -934,6 +934,14 @@ defineExpose({ fact, selected, selectNode, pickOffset, reset })
   font-size: 0.85rem;
   color: var(--purple, #b197fc);
   margin-left: 0.5ch;
+  /* Shrinks before the range does. A role is one unbreakable token, so without
+     this a deep row (`VariableDeclarator declarations[0]`) pushes start–end off
+     the right edge of the panel — on the slide whose whole claim is that a node
+     is a label and two numbers. */
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .ai__rnums {
   flex: none;

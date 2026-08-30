@@ -32,11 +32,7 @@ Everything I showed you tonight works because of a data structure that was built
 layout: default
 ---
 
-<OutroSlide>
-
-All sources in the deck repo: SOURCES.md — every number, dated.
-
-</OutroSlide>
+<OutroSlide title="Thank you" />
 
 <!--
 Deck is live at talks.timdamen.io — the demos in it actually run, so you can point the DevTools accessibility pane at the deck about the accessibility tree. Every statistic has its source and date in the repo, in SOURCES.md — check my work.

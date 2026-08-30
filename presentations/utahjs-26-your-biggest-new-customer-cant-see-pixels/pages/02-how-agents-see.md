@@ -307,6 +307,76 @@ Elements panel, Accessibility pane — and the good stuff is behind the settings
 
 ---
 
+# The original users of this tree
+
+<p class="at-lead">The browser has exposed this tree since about 2000. Until 2024 everything reading it was assistive technology, driven by a person.</p>
+
+<div class="at-grid">
+<v-clicks>
+
+<figure class="at-card at-card-reader">
+  <img src="/images/at-screen-reader.jpg" alt="A blind woman at a conference sits at her laptop wearing earbuds, one hand on the keyboard and the other on the braille display in front of it." />
+  <figcaption>
+    <h3>Screen readers</h3>
+    <p>Announce the <strong>role, name and state</strong> of every node. JAWS, NVDA, VoiceOver, TalkBack.</p>
+  </figcaption>
+</figure>
+
+<figure class="at-card at-card-braille">
+  <img src="/images/at-braille-display.jpg" alt="A hand resting on the braille cells of a Braille terminal that sits in front of a laptop keyboard." />
+  <figcaption>
+    <h3>Braille displays</h3>
+    <p>The same names, raised as dots under the fingers — 40–80 cells at a time.</p>
+  </figcaption>
+</figure>
+
+<figure class="at-card at-card-switch">
+  <img src="/images/at-switch-access.jpg" alt="A person at a desk operating an Xbox Adaptive Controller with large buttons and an oversized joystick." />
+  <figcaption>
+    <h3>Switch access</h3>
+    <p>One or two controls step through the focusable elements, in tree order.</p>
+  </figcaption>
+</figure>
+
+<figure class="at-card at-card-sippuff">
+  <img src="/images/at-sip-and-puff.jpg" alt="A person in a wheelchair drives a computer with a QuadStick, a mouth-operated controller on an arm mounted to the chair." />
+  <figcaption>
+    <h3>Sip-and-puff</h3>
+    <p>Same elements, same order, driven by breath and lip pressure instead of a mouse.</p>
+  </figcaption>
+</figure>
+
+<div class="at-card at-stat" v-click>
+  <p class="at-stat-value">1.3 billion</p>
+  <p class="at-stat-label">people — 16% of the world — live with a significant disability.</p>
+</div>
+
+</v-clicks>
+</div>
+
+<p class="src-note">Sources: <a href="https://www.w3.org/WAI/people-use-web/" target="_blank" rel="noopener noreferrer">W3C WAI, "How People with Disabilities Use the Web"</a> · <a href="https://www.who.int/news-room/fact-sheets/detail/disability-and-health" target="_blank" rel="noopener noreferrer">WHO</a>, 7 Mar 2023 · Photos: <a href="https://www.flickr.com/photos/21406738@N08/3362181125" target="_blank" rel="noopener noreferrer">swissmiss studio CC BY 2.0</a>, <a href="https://commons.wikimedia.org/wiki/File:Plage-braille.jpg" target="_blank" rel="noopener noreferrer">S. Delorme CC BY-SA 3.0</a>, <a href="https://commons.wikimedia.org/wiki/File:InclusiveGameLab_Person-Using-Adaptive-Controller_2_CC-BY-SA.jpg" target="_blank" rel="noopener noreferrer">InclusiveGameLab CC BY-SA 4.0</a></p>
+
+<!--
+The audience this tree was actually built for. Adds ~45s; every ⏱ marker after this runs that much late.
+
+Same tree we just opened in DevTools. It has been in the browser for about 25 years, and for 24 of them the only consumers were assistive technologies.
+
+[click] Screen readers: role, name, state, spoken out loud. Note the overlap with what the agent needs — it is the same query.
+
+[click] Braille displays: the same accessible names, raised as dots. Read with fingers instead of ears.
+
+[click] Switch access: one or two controls stepping through the focusable elements, in order. Get the order wrong and this user is lost — same as the agent.
+
+[click] Sip-and-puff: same elements again, driven by breath. The QuadStick in that photo is doing exactly what a `getByRole` call does.
+
+[click] Scale, so this doesn't sound niche: WHO puts it at 1.3 billion people, one in six.
+
+Voice control is the one without a photo — worth saying out loud: the user says "click Add to cart" and the software matches that string against the accessible name. No name, nothing to say. Same failure the agent hits.
+
+Point to land before the demo: everything the agent needs in the next twenty minutes, these users needed first. Nothing in this talk is new work.
+-->
+---
+
 # Live: what the agent sees
 
 <AgentView snippet="product-card" variant="fixed" height="330px" />

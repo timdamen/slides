@@ -367,6 +367,10 @@ code { color: var(--yellow); }
 }
 
 /* ---- 05 ast ---- */
+/* Keyed off .census-bars, not `.bar` alone. A global rule here beats a
+   component's scoped `.bar` on source order, and ReachDemo's toolbar is also
+   called .bar — unscoped it inherited this bar chart's height and grey fill,
+   which left the fixture label unreadable. */
 .census-bars { display: flex; flex-direction: column; gap: 0.55rem; }
 .slidev-layout .bar-row {
   display: grid;
@@ -375,32 +379,43 @@ code { color: var(--yellow); }
   align-items: center;
 }
 .bar-l { font-size: 1.02rem; color: var(--dim); text-align: right; white-space: nowrap; }
-.slidev-layout .bar {
+.slidev-layout .census-bars .bar {
   height: 1.35rem;
   border-radius: 3px;
   background-color: var(--border);
   width: calc(var(--w) * 1%);
   min-width: 1.6rem;
 }
-.bar-row.hot .bar { background-color: var(--blue); }
+.census-bars .bar-row.hot .bar { background-color: var(--blue); }
 .bar-row.hot .bar-l { color: var(--text); font-weight: 700; }
 .bar-n { font-size: 1.15rem; font-weight: 700; }
 .bar-row.hot .bar-n { color: var(--blue); }
 
-.ast-words { display: flex; flex-direction: column; gap: 1.1rem; }
-.slidev-layout .ast-word {
+/* The three words sit in a strip above the live example rather than in a
+   column beside it. <AstInspector> is itself two panes, so putting it in a
+   half-width column would leave each pane ~265px and ellipsise every tree row
+   that carries a role and a range. Full width below, prose across the top. */
+.ast-words {
   display: grid;
-  grid-template-columns: 9rem 1fr;
-  gap: 1.4rem;
-  align-items: baseline;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 0.9rem;
 }
+.slidev-layout .ast-word {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+/* The theme margins <p> generously. In a three-across strip that reads as a
+   gap between each word and the sentence explaining it. */
+.slidev-layout .ast-word p { margin: 0; }
 .slidev-layout .ast-w {
-  font-size: 1.9rem;
+  font-size: 1.45rem;
   font-weight: 700;
-  text-align: right;
   line-height: 1.1;
 }
-.ast-d { font-size: 1.05rem; line-height: 1.5; }
+/* 1.02rem, not less: the file's floor for body copy a room has to read. */
+.ast-d { font-size: 1.02rem; line-height: 1.45; }
 
 .grep-example { margin-top: 1.2rem; }
 .grep-example pre { font-size: 1rem !important; }
@@ -619,7 +634,7 @@ code { color: var(--yellow); }
 }
 
 /* ---- 01 the substrate: what Nx gives you ---- */
-.slidev-layout .stack { display: flex; flex-direction: column; gap: 0.9rem; }
+.slidev-layout .stack-col { display: flex; flex-direction: column; gap: 0.9rem; }
 .slidev-layout .stack-hero {
   display: flex;
   align-items: center;

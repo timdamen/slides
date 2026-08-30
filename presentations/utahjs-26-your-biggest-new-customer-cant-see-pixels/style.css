@@ -203,6 +203,77 @@ button:has(> button.slidev-icon-btn) {
 .vendor-card h3 { font-size: 0.92rem; font-weight: 700; margin-bottom: 0.3rem; }
 .vendor-card p { color: #cdd3dd; line-height: 1.45; margin: 0; }
 
+/* ---- assistive technology: the original consumers of the tree ---- */
+.at-lead {
+  color: #cdd3dd;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  margin: -0.5rem 0 0;
+  max-width: 74ch;
+}
+.at-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.65rem;
+  margin-top: 0.7rem;
+}
+.at-card {
+  border: 1px solid var(--fm-border);
+  border-radius: 12px;
+  background: var(--fm-panel);
+  overflow: hidden;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+.at-card img {
+  width: 100%;
+  height: 5rem;
+  object-fit: cover;
+  display: block;
+  /* Faces and hands sit above centre in these frames. */
+  object-position: 50% 40%;
+}
+/* Each frame puts its device somewhere different; crop to the hardware, not the centre. */
+.at-card-reader img { object-position: 32% 86%; }
+.at-card-braille img { object-position: 50% 64%; }
+.at-card-switch img { object-position: 50% 99%; }
+.at-card-sippuff img { object-position: 62% 30%; }
+.at-card figcaption { padding: 0.5rem 0.7rem 0.6rem; }
+.at-card h3 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 0.15rem;
+}
+.at-card p {
+  color: #cdd3dd;
+  font-size: 0.7rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* The last cell carries the number instead of a photo, and fills the row. */
+.at-stat {
+  grid-column: span 2;
+  justify-content: center;
+  padding: 0.9rem 1rem;
+  outline: 2px solid var(--fm-ring);
+  outline-offset: 2px;
+}
+.at-card p.at-stat-value {
+  color: var(--fm-accent);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0;
+}
+.at-card p.at-stat-label {
+  color: #cdd3dd;
+  font-size: 0.7rem;
+  line-height: 1.4;
+  margin: 0.3rem 0 0;
+}
+
 /* ---- devtools (slide 8) ---- */
 .two-col-loose {
   display: grid;

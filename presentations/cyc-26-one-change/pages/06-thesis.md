@@ -3,10 +3,11 @@
 <div class="bought">
 <v-clicks>
 
-<p>One script, once a sprint, and an app is update with the latest greatest again.</p>
-<p>A breaking design system major shipped to every app in two weeks.</p>
-<p>Shared and aligned frontend stack over among the organisation.</p>
-<p></p>
+<p>One script, once a sprint, and an app is update with the latest and greatest via codemods</p>
+<p>Standardized FE ecosystem and ways to govern it</p>
+<p>Shared and aligned frontend stack over among the organisation</p>
+<p>Faster time to market</p>
+
 
 </v-clicks>
 </div>
@@ -25,6 +26,7 @@
 
 ---
 layout: center
+hide: true
 ---
 
 <div class="thesis">

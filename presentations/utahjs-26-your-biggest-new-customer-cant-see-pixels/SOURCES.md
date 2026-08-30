@@ -155,6 +155,55 @@ approved numbers for the deck; nothing on a slide may cite anything else.
     *Phrasing rule: "the snapshot is the default, screenshots are opt-in" —
     never "OpenClaw never uses vision".*
 
+## The original users of the accessibility tree (slide 12)
+
+15. **W3C WAI, "How People with Disabilities Use the Web"** — the deck's source
+    for which assistive technologies exist and how the page describes them.
+    - Overview: https://www.w3.org/WAI/people-use-web/
+    - Tools and Techniques: https://www.w3.org/WAI/people-use-web/tools-techniques/
+      · *Perception* names screen readers ("software that processes content on
+      the desktop and in web browsers, and converts it to text-to-speech and
+      Braille"), text-to-speech, refreshable braille displays ("a mechanical
+      terminal that displays a line of Braille characters (usually 40-80)"),
+      captions, audio descriptions, sign language, voice browsers.
+      · *Input* names speech recognition, alternative keyboard and mouse
+      (including "on-screen keyboards, touch-screens, sip-and-puff switches,
+      and single-key switches"), eye tracking, keyboard/mouse filters,
+      accelerators, word prediction.
+    - Stories of Web Users: https://www.w3.org/WAI/people-use-web/user-stories/
+      · Ade, a reporter with a spinal cord injury, "often relies only on the
+      keyboard to navigate websites"; Lakshmi, a senior accountant who is
+      blind, "uses a screen reader on her computer and mobile device".
+    *Phrasing rule: screen readers, braille displays, voice control and switch
+    access read the tree through platform accessibility APIs. Magnification is
+    deliberately NOT on the slide — magnifiers are mostly pixel-based and only
+    use those APIs to follow focus and the caret, so they are a weak example of
+    a tree consumer. Do not add a magnification card back.*
+
+16. **WHO, Disability fact sheet** (published 7 Mar 2023) — "An estimated
+    1.3 billion people experience significant disability. This represents 16%
+    of the world's population, or 1 in 6 of us."
+    - https://www.who.int/news-room/fact-sheets/detail/disability-and-health
+
+17. **Slide 12 images** — four images, downloaded 30 Aug 2026 into
+    `public/images/`. Credits are printed on the slide; keep them there.
+    - `at-screen-reader.jpg` — "Desiree, a lovely blind lady, showed me how she
+      surfs the web": a blind woman at a laptop with earbuds and a braille
+      display. swissmiss studio, Flickr, 16 Mar 2009, **CC BY 2.0**
+      (licence confirmed on the Flickr page 30 Aug 2026).
+      https://www.flickr.com/photos/21406738@N08/3362181125
+    - `at-braille-display.jpg` — a hand on a braille terminal in front of a
+      laptop keyboard. Sébastien Delorme, Wikimedia Commons, **CC BY-SA 3.0**.
+      https://commons.wikimedia.org/wiki/File:Plage-braille.jpg
+    - `at-switch-access.jpg` — Xbox Adaptive Controller in use. InclusiveGameLab,
+      Wikimedia Commons, **CC BY-SA 4.0**.
+      https://commons.wikimedia.org/wiki/File:InclusiveGameLab_Person-Using-Adaptive-Controller_2_CC-BY-SA.jpg
+    - `at-sip-and-puff.jpg` — a QuadStick mouth controller in use.
+      InclusiveGameLab, Wikimedia Commons, **CC BY-SA 4.0**.
+      https://commons.wikimedia.org/wiki/File:Person_Using_Quadstick_20.jpg
+    *All four require attribution (three are CC BY-SA), so the credit line on
+    the slide is not optional. Do not crop it out of an exported PDF.*
+
 ## WCAG success criteria used in the deck
 
 Verify wording against https://www.w3.org/WAI/WCAG22/quickref/ —

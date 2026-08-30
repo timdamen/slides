@@ -4,10 +4,11 @@ layout: center
 
 <div class="greys">
   <div class="grey-pair">
-    <div class="grey-swatch" style="background-color:#8b8b8b"></div>
     <div class="grey-swatch" style="background-color:#787878"></div>
+    <div class="grey-swatch" style="background-color:#8b8b8b"></div>
+
   </div>
-  <p class="grey-caption">The business wanted the page background<br><span class="accent">one step darker.</span></p>
+  <p class="grey-caption">The business wanted the page background </p>
 </div>
 
 <!--
@@ -264,7 +265,7 @@ The important part isn't the speed. It's that the app it produces is the same sh
 
 # We did not build a codemod framework
 
-<div class="stack">
+<div class="stack-col">
 
   <div class="stack-hero">
     <span class="stack-mark i-logos-nx" aria-hidden="true"></span>

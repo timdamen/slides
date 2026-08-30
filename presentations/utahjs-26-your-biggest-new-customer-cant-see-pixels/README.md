@@ -46,9 +46,13 @@ pnpm --filter @supaslidev/utahjs-26-your-biggest-new-customer-cant-see-pixels bu
 - [ ] Slide 22 (LiveRegionDemo): visual-only = silence; role="status" = announcement
 - [ ] Bonus slide (after Thanks): DeckAudit scan shows 0 warnings
 - [ ] Presenter mode: notes visible, timing markers sum to ~36 min + Q&A.
-      Markers assume the current line-up (slide 9 = OpenClaw, WebMCP hidden);
-      un-hiding WebMCP pushes everything after it ~1 min later. Slides 8 and 9
-      are both marked cuttable.
+      Markers are stale by two slides: a bio slide was added to
+      `pages/01-open.md` and "The original users of this tree" to
+      `pages/02-how-agents-see.md`, so every ⏱ from "Three ways to read a page"
+      onward runs ~1 min late. Un-hiding WebMCP adds another ~1 min. Slides 9
+      and 10 (harness layer, OpenClaw) are both marked cuttable.
+      Rehearsal-checklist slide numbers above are likewise off by two — count
+      from the deck, not this list.
 - [ ] Keyboard-navigate the whole deck (arrows/space) — no traps
 
 ## TODO(Tim)
@@ -76,6 +80,11 @@ pnpm --filter @supaslidev/utahjs-26-your-biggest-new-customer-cant-see-pixels bu
     `document.modelContext` API surface all moved during 2026 (SOURCES.md §13).
 11. Re-pull the OpenClaw and React star counts on slide 9 shortly before the
     talk (SOURCES.md §14 has the one-liner) — OpenClaw gains ~hundreds a day.
+12. "The original users of this tree" (after the DevTools slide) carries four
+    photos, all requiring attribution, so the credit line on the slide has to
+    stay. Magnification was deliberately dropped as an example. Voice control
+    is the one tool on the slide with no image; it lives in the speaker notes.
+    See SOURCES.md §15-17.
 
 ## Verification status (2026-07-07)
 

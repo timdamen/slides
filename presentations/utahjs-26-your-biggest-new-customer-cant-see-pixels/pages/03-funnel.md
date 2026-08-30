@@ -199,7 +199,7 @@ funnel: 3
 
 <div>
 
-**The classic crime**
+**The classic anti-pattern**
 
 ```html
 <div class="btn" onclick="addToCart()">

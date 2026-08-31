@@ -311,6 +311,89 @@ code { color: var(--yellow); }
 }
 .own-vs { font-size: 1.5rem; color: var(--dim); }
 
+/* ---- 02 rolling forward: the version ladder ----
+   Self-contained grid rather than `.two-col` + an override: the two selectors
+   would tie on specificity and the winner would be whichever section of this
+   file happened to come last. */
+.slidev-layout .roll {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 2rem;
+  align-items: start;
+  margin-top: 0.6rem;
+}
+
+.slidev-layout .roll-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+.slidev-layout .roll-steps li {
+  border-left: 4px solid var(--blue);
+  padding-left: 0.9rem;
+}
+.slidev-layout .roll-k {
+  display: block;
+  font-family: var(--slidev-code-font-family, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace);
+  font-size: 0.95rem;
+  color: var(--yellow);
+}
+.slidev-layout .roll-v {
+  display: block;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.roll-chain { display: flex; flex-direction: column; align-self: center; }
+.slidev-layout .roll-row {
+  display: grid;
+  grid-template-columns: 5.2rem 1fr;
+  gap: 0.9rem;
+  align-items: baseline;
+  padding-left: 0.9rem;
+}
+/* One rail down the releases, not a stub per row: the point of the picture is
+   that these run as a sequence, and three separate ticks read as a set. */
+.slidev-layout .roll-after {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  border-left: 3px solid var(--blue);
+}
+/* The rail points somewhere. This is a roll forward, not a list. */
+.slidev-layout .roll-after::after {
+  content: '';
+  position: absolute;
+  left: -8px;
+  bottom: -10px;
+  border-left: 6.5px solid transparent;
+  border-right: 6.5px solid transparent;
+  border-top: 10px solid var(--blue);
+}
+/* Where the app already is: on the ladder, but not part of the work. */
+.slidev-layout .roll-row--here {
+  border-left: 3px solid var(--border);
+  margin-bottom: 1.4rem;
+}
+.slidev-layout .roll-ver {
+  font-family: var(--slidev-code-font-family, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--blue);
+}
+.slidev-layout .roll-row--here .roll-ver { color: var(--dim); }
+.slidev-layout .roll-note { font-size: 0.98rem; color: var(--dim); }
+.slidev-layout .roll-total {
+  margin-top: 1.5rem;
+  padding-left: 1.15rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
 /* ---- 03 landing ---- */
 .seam pre { font-size: 1rem !important; }
 

@@ -310,6 +310,8 @@ hide: true
 -->
 
 ---
+hide: true
+---
 
 # What we are dealing with
 
@@ -343,6 +345,8 @@ Now the one observation that makes this example work. [select the h1] Look at wh
 So "does this heading already have the class h1" is a lookup on that list. And "where does the class go if it doesn't" is an offset I read off the node.
 -->
 
+---
+hide: true
 ---
 
 # The migration
@@ -382,6 +386,8 @@ Same three steps. Different parser.
 [click] 3. EDIT. One write, all the offsets at once.
 -->
 
+---
+hide: true
 ---
 
 # The result

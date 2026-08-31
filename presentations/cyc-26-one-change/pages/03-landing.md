@@ -1,3 +1,7 @@
+---
+hide: true
+---
+
 # So how did the accessibility change land?
 
 <div class="seam">
@@ -55,6 +59,7 @@ I am not going to pretend we saw this coming. We aliased that import years earli
 
 ---
 layout: center
+hide: true
 ---
 
 <p class="mega">The best codemod is<br>the one you <span class="accent">designed away</span></p>

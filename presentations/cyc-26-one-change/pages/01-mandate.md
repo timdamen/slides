@@ -143,7 +143,7 @@ layout: center
 ---
 
 <div class="huge-stat">
-  <p class="huge-number">~300</p>
+  <p class="huge-number">~350</p>
   <p class="huge-label">frontend applications</p>
 </div>
 
@@ -161,7 +161,7 @@ There are five of us.
 
 ---
 
-# Rewind 5 years. Same shape. Different foundation.
+# Same shape, different foundation
 
 <div class="wire-row">
 

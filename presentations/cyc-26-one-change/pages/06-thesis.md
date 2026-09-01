@@ -7,6 +7,7 @@
 <p>Standardized FE ecosystem and ways to govern it</p>
 <p>Shared and aligned frontend stack among the organisation</p>
 <p>Faster time to market</p>
+<p>No more simple updates that take one year</p>
 
 
 </v-clicks>

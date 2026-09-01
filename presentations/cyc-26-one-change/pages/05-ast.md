@@ -32,26 +32,54 @@ Those eleven are what the rest of the talk covers, because they are the ones tha
 
 # Abstract Syntax Tree
 
-<div class="ast-words">
-  <div v-click class="ast-word"><p class="ast-w accent">Abstract</p><p class="ast-d">It keeps what the code means, not how it looks. No node holds the spaces around the equals sign.</p></div>
-  <div v-click class="ast-word"><p class="ast-w accent">Syntax</p><p class="ast-d">Every node is named after a rule of the language: VariableDeclaration, Identifier, Literal.</p></div>
-  <div v-click class="ast-word"><p class="ast-w accent">Tree</p><p class="ast-d">Nodes sit inside nodes. Four levels on the right, from the whole file down to the string.</p></div>
+<div class="astex">
+
+<div class="astdef">
+  <p v-click="1">An Abstract Syntax Tree (AST) represents the structure of code.</p>
+  <p v-click="2">ASTs facilitate the analysis and transformation of source code.</p>
+  <p v-click="3">Each node in an AST corresponds to a construct occurring in the source code.</p>
 </div>
 
-<AstInspector source='var AST = "is Tree";' initial-path="Literal" :height="215" compact />
+<figure class="astshot">
+  <img src="/images/ast.png" alt="The line var AST = &quot;is Tree&quot;; with each part labelled — Keyword, Identifier, Equal, String, Semicolon — beside the JSON the parser returns: a Program containing a VariableDeclaration of kind var, whose declarations hold a VariableDeclarator with an id of type Identifier named AST and an init of type Literal with the value is tree.">
+</figure>
+
+</div>
 
 <!--
-⏱ 14:05 — Entry level. Three words, one click each, against one line of code.
+⏱ 14:05 — Entry level. Three sentences, thirty seconds, then straight into the live one.
 
-Twenty characters on the left. The parser's answer on the right. Small enough to read every row of it.
+[click] A tree that holds the structure of the code. Not the file, the structure.
 
-[click] Abstract. Structure in, typing out: indentation, blank lines, comments, single or double quotes. Write this same line with single quotes and you get the same tree back. Worth remembering, because it is the whole of the third example.
+[click] And it exists to be read and rewritten. That is the whole reason a platform team cares: it is the only representation of somebody else's file you can change without guessing.
 
-[click] Syntax. Those three names are not mine, they are the language's. Every node on the right is named after a rule in the JavaScript grammar, which is why two different parsers agree on what to call things.
+[click] And every node is a construct. Not a line, not a character range you went looking for — a thing the language has a name for.
 
-[click] Tree. Nodes inside nodes, going as deep as the code does. Four levels here for one line. If you have written a nested object, you have written a tree.
+Twenty characters on the left, and on the right what the parser hands back for them. Do not read the JSON out. Point at two things: the shape is nested, and every level of it has a name.
 
-Click a row, and the characters it owns light up in the code. That is the next slide, so do not spend long here.
+One honest caveat if anyone asks: the labels on the left are tokens, the pieces the language is written in. The tree on the right is nodes. They are not the same list — there is no node for the equals sign or the semicolon — and the next slide shows exactly which five you get.
+-->
+
+---
+
+# The same line, parsed
+
+<AstInspector source='var AST = "is Tree";' initial-path="Literal" />
+
+<!--
+⏱ 14:35 — Forty-five seconds, and it is the first slide in this act where you touch anything.
+
+Same twenty characters, parsed for real. Nothing here is pre-baked: that is acorn, in the browser, a second ago.
+
+Left is the file. Right is what came back. Five nodes, and you can read every row of it.
+
+[click the Identifier row] Click a node and the characters it owns light up. AST is four to seven, and four to seven is exactly the word AST.
+
+[click into the string in the source] It goes both ways. Click a character, it finds the smallest node holding it.
+
+That is the mechanism the rest of the talk runs on. A node is a label and two numbers that point back into your text. The tree is an index into your file.
+
+One more thing, since it comes back in the third example: write this line with single quotes instead and you get the same tree. The quotes are how you typed it, not what it means.
 -->
 
 ---

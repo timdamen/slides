@@ -474,31 +474,41 @@ code { color: var(--yellow); }
 .bar-n { font-size: 1.15rem; font-weight: 700; }
 .bar-row.hot .bar-n { color: var(--blue); }
 
-/* The three words sit in a strip above the live example rather than in a
-   column beside it. <AstInspector> is itself two panes, so putting it in a
-   half-width column would leave each pane ~265px and ellipsise every tree row
-   that carries a role and a range. Full width below, prose across the top. */
-.ast-words {
+/* ---- 05 what an AST is: three sentences, and the same line measured ---- */
+.slidev-layout .astex {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  margin-bottom: 0.9rem;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 2rem;
+  align-items: start;
+  margin-top: 0.7rem;
 }
-.slidev-layout .ast-word {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
+.astdef { display: flex; flex-direction: column; gap: 1.6rem; }
+.slidev-layout .astdef p {
+  /* The theme margins <p>; the flex gap is doing that job here. */
+  margin: 0;
+  font-size: 1.15rem;
+  line-height: 1.5;
+  border-left: 4px solid var(--blue);
+  padding-left: 0.95rem;
 }
-/* The theme margins <p> generously. In a three-across strip that reads as a
-   gap between each word and the sentence explaining it. */
-.slidev-layout .ast-word p { margin: 0; }
-.slidev-layout .ast-w {
-  font-size: 1.45rem;
-  font-weight: 700;
-  line-height: 1.1;
+
+/* The drawing is black-on-white, so it needs its own white plate to sit on:
+   dropped straight onto the deck's near-black it reads as a hole in the slide.
+   Padding, so the plate is a mount rather than a tight crop. */
+.slidev-layout .astshot {
+  margin: 0;
+  align-self: center;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 0.9rem 1rem;
 }
-/* 1.02rem, not less: the file's floor for body copy a room has to read. */
-.ast-d { font-size: 1.02rem; line-height: 1.45; }
+.slidev-layout .astshot img {
+  display: block;
+  width: 100%;
+  max-height: 320px;
+  object-fit: contain;
+  object-position: center;
+}
 
 .grep-example { margin-top: 1.2rem; }
 .grep-example pre { font-size: 1rem !important; }

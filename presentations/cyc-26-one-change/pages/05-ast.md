@@ -143,18 +143,21 @@ What we found is that:
 
 # The migration
 
-```ts {all|2-4|6|7-9|11-14|9}
+```ts {all|2-4|6-7|8-11|13-17}
 export default function updateRoutesTyping(tree: Tree) {
   const path = 'src/router/routes.ts'
   const src = tree.read(path, 'utf-8')
   if (!src) return logger.warn(`${path} not found, nothing to change`)
-
+  
+  // 1. PARSE
   const sf = ts.createSourceFile(path, src, ts.ScriptTarget.Latest, true)
+  // 2. FIND
   const decl = findNodes(sf, ts.SyntaxKind.VariableDeclaration)
-    .find((n) => n.name.getText() === 'routes')
+    .find((n) => n.name.getText() === 'routes') 
   if (!decl) return logger.warn(`no routes declaration in ${path}, skipped`)
 
-  tree.write(path, applyChangesToString(src, [
+  // 3. EDIT
+  tree.write(path, applyChangesToString(src, [ 
     { type: ChangeType.Insert, index: decl.name.getEnd(), text: ': RouteRecordRaw[]' },
     { type: ChangeType.Delete, index: decl.initializer.getEnd(), length: 20 },
   ]))

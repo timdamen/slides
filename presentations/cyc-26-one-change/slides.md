@@ -99,6 +99,43 @@ drawings:
 </style>
 
 ---
+layout: center
+---
+
+<div class="qr-slide">
+  <img class="qr-slide-code" src="/images/qr-slides.svg" alt="QR code linking to slides.timdamen.io/presentations/cyc-26-one-change/1">
+  <p class="qr-slide-caption">Follow along, or grab it later<br><strong>slides.timdamen.io</strong></p>
+</div>
+
+<style>
+.qr-slide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+}
+/* Big enough to scan from the back of the room. The quiet zone is baked into
+   the SVG, so no padding here — a QR needs that white margin to be readable. */
+.qr-slide-code {
+  width: 360px;
+  height: 360px;
+  border-radius: 10px;
+}
+.slidev-layout .qr-slide-caption {
+  text-align: center;
+  font-size: 1.1rem;
+  line-height: 1.45;
+  color: var(--dim);
+}
+.slidev-layout .qr-slide-caption strong {
+  display: inline-block;
+  margin-top: 0.15rem;
+  font-size: 1.35rem;
+  color: var(--text);
+}
+</style>
+
+---
 src: ./pages/01-mandate.md
 ---
 

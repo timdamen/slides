@@ -16,18 +16,6 @@ hide: true
 
 </div>
 
-<!--
-⏱ 13:30 — Act 5 opens.
-
-159 migration files in the toolkit. This is what they change. A file can appear in more than one row — a migration that bumps a dependency often edits config in the same pass.
-
-69 bump dependencies in package.json. 48 do a text find-and-replace. 40 edit other JSON. 25 add or overwrite a whole file. 11 parse source code.
-
-[click] So parsing is about 7% of what we write, or 11% counting the files that call our shared AST helpers. Most migration work is not AST work.
-
-Those eleven are what the rest of the talk covers, because they are the ones that edit code the feature teams own.
--->
-
 ---
 
 # Abstract Syntax Tree
@@ -46,41 +34,11 @@ Those eleven are what the rest of the talk covers, because they are the ones tha
 
 </div>
 
-<!--
-⏱ 14:05 — Entry level. Three sentences, thirty seconds, then straight into the live one.
-
-[click] A tree that holds the structure of the code. Not the file, the structure.
-
-[click] And it exists to be read and rewritten. That is the whole reason a platform team cares: it is the only representation of somebody else's file you can change without guessing.
-
-[click] And every node is a construct. Not a line, not a character range you went looking for — a thing the language has a name for.
-
-Twenty characters on the left, and on the right what the parser hands back for them. Do not read the JSON out. Point at two things: the shape is nested, and every level of it has a name.
-
-One honest caveat if anyone asks: the labels on the left are tokens, the pieces the language is written in. The tree on the right is nodes. They are not the same list — there is no node for the equals sign or the semicolon — and the next slide shows exactly which five you get.
--->
-
 ---
 
 # The same line, parsed
 
 <AstInspector source='var AST = "is Tree";' initial-path="Literal" />
-
-<!--
-⏱ 14:35 — Forty-five seconds, and it is the first slide in this act where you touch anything.
-
-Same twenty characters, parsed for real. Nothing here is pre-baked: that is acorn, in the browser, a second ago.
-
-Left is the file. Right is what came back. Five nodes, and you can read every row of it.
-
-[click the Identifier row] Click a node and the characters it owns light up. AST is four to seven, and four to seven is exactly the word AST.
-
-[click into the string in the source] It goes both ways. Click a character, it finds the smallest node holding it.
-
-That is the mechanism the rest of the talk runs on. A node is a label and two numbers that point back into your text. The tree is an index into your file.
-
-One more thing, since it comes back in the third example: write this line with single quotes instead and you get the same tree. The quotes are how you typed it, not what it means.
--->
 
 ---
 hide: true
@@ -90,27 +48,6 @@ hide: true
 
 <AstInspector initial-path="VariableDeclarator" />
 
-<!--
-⏱ 14:50 — 
-
-This is an AST parser visualisation. Left, three lines of a routing file. Right, the output of the parser.
-
-[click Identifier routes] This is an Identifier, It starts at character six, and ends at twelve. And six to twelve is exactly the word routes. This is how codemods are able to target part of the code consistently.
-
-[click ArrayExpression] This one is the array.
-
-A node is a label plus two numbers that point back into your text. The tree is an index into your file.
-
-[click into the source] And it goes both ways. Click a character, it finds the smallest node containing it.
-
-So a codemod is three steps. 
-- FIRST Parse: text becomes this. 
-- SECOND Find: ask a question about structure, not about text. 
-- THRID Edit: take the two numbers and change the original string between them.
-
-Now lets see some example codemods
--->
-
 ---
 hide: true
 ---
@@ -134,22 +71,6 @@ hide: true
 
 <p v-click="5" class="punch punch-tight">A parser does the same thing for JavaScript instead of HTML.</p>
 
-<!--
-⏱ 16:10 — Forty seconds. The only place the accessibility thread and the parser thread meet.
-
-Quick detour before we write any code. Most of you have opened this panel.
-
-[click] Nobody writes this tree by hand. The browser builds it from the HTML, the same way a parser builds a tree from a source file.
-
-[click] It dropped your class names, your wrapper divs and your formatting, and kept what it needs. That is "abstract" from two slides ago.
-
-[click] Every row carries a label: link, generic, contentinfo. Same job as VariableDeclarator or ArrayExpression.
-
-[click] axe walks this tree. The accessibility check from earlier in the talk is a tree search — I left that out at the time because it would not have meant anything yet.
-
-[click] A parser does the same thing for JavaScript instead of HTML.
--->
-
 ---
 hide: true
 ---
@@ -172,22 +93,6 @@ hide: true
 </div>
 
 <p v-click="5" class="punch punch-tight">A parser does the same thing for JavaScript instead of HTML.</p>
-
-<!--
-⏱ 16:10 — Forty seconds. The only place the accessibility thread and the parser thread meet.
-
-Quick detour before we write any code. Most of you have opened this panel.
-
-[click] Nobody writes this tree by hand. The browser builds it from the HTML, the same way a parser builds a tree from a source file.
-
-[click] It dropped your class names, your wrapper divs and your formatting, and kept what it needs. That is "abstract" from two slides ago.
-
-[click] Every row carries a label: link, generic, contentinfo. Same job as VariableDeclarator or ArrayExpression.
-
-[click] axe walks this tree. The accessibility check from earlier in the talk is a tree search — I left that out at the time because it would not have meant anything yet.
-
-[click] A parser does the same thing for JavaScript instead of HTML.
--->
 
 ---
 
@@ -207,20 +112,6 @@ Quick detour before we write any code. Most of you have opened this panel.
 
 </v-clicks>
 </div>
-
-<!--
-⏱ 16:10 — Beat 1 of 4: WHY. Thirty seconds. State the goal and move on — do not explain the technique here.
-
-First one, and the change is genuinely boring, which is why it's a good first one.
-
-[click] Every application has a routes file, and today it declares the type at the end, as an assertion.
-
-[click] The router's next major stops type-checking that form. It only understands the annotation, before the equals sign. So the same information has to move about twenty characters to the left.
-
-[click] That's the goal. Move the type, in every application, and touch nothing else in the file. Those routes are the app team's. Some of them are four hundred lines long.
-
-So: what are we dealing with?
--->
 
 ---
 
@@ -321,10 +212,6 @@ hide: true
 <p class="mega">Ask the tree a question.</p>
 <p class="mega accent">Edit at the answer.</p>
 
-<!--
-⏱ 19:40 — Ten seconds. Don't explain it. It's a breath before example two.
--->
-
 ---
 layout: center
 hide: true
@@ -332,10 +219,6 @@ hide: true
 
 <p class="mega">Ask the tree a question.</p>
 <p class="mega accent">Edit at the answer.</p>
-
-<!--
-⏱ 19:40 — Ten seconds. Don't explain it. It's a breath before example two.
--->
 
 ---
 hide: true
@@ -346,32 +229,6 @@ hide: true
 <p class="beat-sub">The <span class="accent">five shapes</span> a heading takes across the organisation.</p>
 
 <ReachDemo phase="plain" />
-
-<!--
-⏱ 20:20 — Beat 2 of 4: the starting point.
-
-Same thing as last time. Before writing anything, go and look at what's actually in the repos.
-
-A heading turns up in five shapes.
-
-CURRENT + FUTURE
-
-[substring] This one has a class called my-h1. Contains the letters h-1, is not the class h1.
-
-[multiline] This one's attributes are spread over four lines, because somebody ran a formatter.
-
-[bound class] This one computes its class at runtime. There is no static class attribute to add to.
-
-[nested] Headings inside other elements, plus a comment.
-
-[control] And an ordinary one with none of those problems, which is most of them.
-
-Five shapes. Remember the names — they come back in three slides.
-
-Now the one observation that makes this example work. [select the h1] Look at what an element node is: a tag, a range, and a list of the attributes it owns. The class attribute isn't text sitting near this element. It belongs to it, and it has its own start and end.
-
-So "does this heading already have the class h1" is a lookup on that list. And "where does the class go if it doesn't" is an offset I read off the node.
--->
 
 ---
 hide: true
@@ -397,23 +254,6 @@ export default function addTagClasses(tree: Tree, path: string) {
 }
 ```
 
-<!--
-⏱ 21:05 — Beat 3 of 4: THE CODE. Fifty-five seconds.
-
-Same three steps. Different parser.
-
-[click] 1. PARSE. This is the Vue single-file component compiler. So here we used something LIKE the AST. Let's call it the VUE AST.
-
-[click] setup for collecting the edits
-
-[click] 2. FIND. Walk the elements. 
-1. Skip anything that isn't in our TARGET_TAGS.
-2. Get the class attribute. If the exact class is already there, we walk on.
-3. Otherwise push an edit built from the node's own offsets.
-
-[click] 3. EDIT. One write, all the offsets at once.
--->
-
 ---
 hide: true
 ---
@@ -421,24 +261,6 @@ hide: true
 # The result
 
 <ReachDemo phase="outcome" />
-
-<!--
-⏱ 22:00 — Beat 4 of 4: the result. A minute. Let the grid do the arguing.
-
-The five shapes from two slides ago, run through the code you just read. Every line of this is computed while you watch.
-
-Read the rows out loud, because the names are shorthand and the room will have half-forgotten them. Substring, the class called my-h1: two elements got a class, and the div that merely contains the letters h-1 was left alone. Multiline: handled. Nested: handled. Control, the ordinary component: handled.
-
-And bound class, which is the subtle one. That element computes part of its class at runtime. The migration adds the static class it needs and does not go anywhere near the binding — it neither rewrites it nor gives up because of it. Two kinds of class on one element, and it only owns one of them.
-
-Which brings me to the panel on the right, and it is the half nobody puts in a talk.
-
-That is everything the migration deliberately did not touch, and why. A div, because it is not a typography tag. A style block, because it is a different language. A bound class, because it is not ours to edit.
-
-Look back at the goal: add one class to specific elements, change nothing else. The left-hand side is the first half. This panel is the second half, and it is the harder one.
-
-When you ask a stranger to approve a change across three hundred files, "here's what I changed" is half the answer. "Here's what I left alone, and here's how I knew" is the other half.
--->
 
 ---
 hide: true
@@ -463,22 +285,6 @@ hide: true
 </v-clicks>
 </div>
 
-<!--
-⏱ 23:00 — Beat 1 of 4: WHY. Thirty seconds. Do not foreshadow the failure; the goal is enough.
-
-Last one, and it is by a distance the smallest change in this talk.
-
-[click] Every application's entry file registers its feature flags, and today it calls that function with one argument.
-
-[click] The flag service changed. It now needs the defaults passed in as a second argument. That's the whole change. Fourteen characters.
-
-[click] And that is the goal. One argument, in every application. If you were doing it by hand you'd be finished in fifteen seconds.
-
-The second line is the one that makes this hard, and it sounds so obvious that it is easy to skip past: hand the file back in a state its author still recognises.
-
-Because I am not opening a pull request against my own code. I'm opening one against theirs.
--->
-
 ---
 hide: true
 ---
@@ -486,28 +292,6 @@ hide: true
 # What we are dealing with
 
 <PrintDemo phase="plain" />
-
-<!--
-⏱ 23:30 — Beat 2 of 4: the starting point. A minute. Do the two searches here; this is the setup for everything that follows.
-
-Here's the entry file. Thirty-five lines. Eleven of them are blank — they're banded on the left — and there's a comment explaining why the shell mounts once.
-
-Here's its tree.
-
-Before we write anything, do something with me.
-
-[press "find the blank lines"] Walked all a hundred and seven nodes. None of them is a blank line, and none of them even starts on one of the eleven empty lines.
-
-[press "find the comment"] Same answer.
-
-And here's the sharpest way to see it. [point at the two rows] This import ends at two seven eight. The next statement starts at four two four. That is a hundred and forty-six characters of this file that no node covers at all. Your blank lines live in that hole. So does the comment. So does every gap anyone ever put there on purpose.
-
-Nobody threw them away. The parser never picked them up. They aren't part of what the code means, and meaning is the only thing a tree holds.
-
-That's the word from ten minutes ago. Abstract.
-
-Hold onto that, because it decides which of the next two lines of code I write.
--->
 
 ---
 hide: true
@@ -532,22 +316,6 @@ tree.write(path, applyChangesToString(src, [
 
 <p v-click class="punch">Both are correct. <span class="accent">One of them is a different file.</span></p>
 
-<!--
-⏱ 24:30 — Beat 3 of 4: THE CODE. Fifty-five seconds. The whole example is the difference between two lines.
-
-Same three steps again, and the parse and the find are unremarkable.
-
-[click] Find the call, take its first argument. That node knows where it ends.
-
-[click] Now the two endings. This is version (a): build a new tree with the argument added, and ask the printer to turn that tree back into text.
-
-It is the obvious thing to do. It's what the API most wants you to do. And you already know what's wrong with it, because you just went looking for the blank lines and they weren't there. The printer can only write what the tree holds.
-
-[click] Version (b) never prints anything. It takes the one offset it needs, and inserts fourteen characters into the string it was handed. Everything else in that file is the same bytes it arrived as.
-
-[click] Both of these produce correct code. One of them produces a different file.
--->
-
 ---
 hide: true
 ---
@@ -555,26 +323,6 @@ hide: true
 # The result
 
 <PrintDemo phase="outcome" />
-
-<!--
-⏱ 25:25 — Beat 4 of 4: the result. Sixty-five seconds. The signature moment. Let the counter sit.
-
-Three ways home, measured.
-
-Rebuild the tree: fifty changed lines, for a change that added one argument.
-
-Then the thing everyone suggests: run the formatter afterwards. Forty-six. We got four lines back out of fifty.
-
-And the counter. [point] Eleven. Zero. Zero. Eleven.
-
-The formatter gave us the indentation back, because indentation is derivable from the syntax. It cannot give us the blank lines back, because there is nothing left in the file that says a blank line used to be there. Same for the comment.
-
-Formatting is recoverable. The author's structure is not.
-
-Version (b) is two lines. The comment survives, the grouping survives, and the diff is small enough that somebody will actually read it.
-
-I know which of these we shipped first, and it wasn't (b). There is a file in a live application right now, committed nine months ago, with zero blank lines where it used to have eleven. Nobody noticed for a long time, because nothing was broken. It just wasn't theirs any more.
--->
 
 ---
 layout: center
@@ -587,15 +335,3 @@ hide: true
 <p class="house-rule" v-click>Our entire shared helper library is 203 lines and never calls a printer.</p>
 
 <p class="house-rule accent" v-click>A six-line diff gets merged. A four-hundred-line diff gets ignored.</p>
-
-<!--
-⏱ 26:30 — The house rule. Forty seconds.
-
-[click] Two hundred and three lines, seven functions, and not one of them regenerates a file. They find nodes and write bytes at offsets. One copies its indentation off the node it's inserting next to, so the formatter has nothing to argue with on the next commit.
-
-[click] And here's what makes it more than a style preference. Your codemod's output is not a file. It's a pull request that a stranger has to approve, on a Friday afternoon, in a repository you have never opened, for a change they didn't ask for.
-
-A six-line diff gets read and merged. A four-hundred-line diff gets a thumbs up without being read, which is worse, or it sits for three weeks, which is also worse.
-
-Diff size isn't aesthetics. It's the difference between a mechanism that works and one that technically ran.
--->

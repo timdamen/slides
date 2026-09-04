@@ -98,16 +98,6 @@ drawings:
 }
 </style>
 
-<!--
-⏱ 0:00 — Cold open. No bio, the programme did that.
-
-Read the three lines off the slide and stop. Let the third one sit for a beat.
-
-"Most of this talk is about how a very small team changes code in repositories it has no authority over. The last third is about the part where we had to stop using regular expressions and start parsing.
-
-But I want to start a long way before any of that, with a colour."
--->
-
 ---
 src: ./pages/01-mandate.md
 ---

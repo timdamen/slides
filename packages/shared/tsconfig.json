@@ -1,0 +1,16 @@
+{
+  "//": "Nothing compiles this package — Vite does that from whichever deck imports it. This exists so the editor's TS server picks up shims-assets.d.ts and stops flagging the asset imports in the components.",
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "preserve",
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "types": []
+  },
+  "include": ["**/*.ts", "**/*.d.ts", "**/*.vue"],
+  "exclude": ["node_modules"]
+}

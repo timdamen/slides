@@ -10,10 +10,20 @@
  * Colors ride on the supa11y theme variables with fallbacks, so the slide
  * also works in decks on other themes.
  */
+// Imported rather than referenced as a public/ path, so the photo ships with
+// the addon instead of needing a copy in every deck that uses this slide.
+import headshot from '../assets/ev-tim-damen-headshot.jpg'
+
 withDefaults(defineProps<{
   title?: string
+  /** Overrides the bundled headshot. Any URL a deck can serve. */
+  photo?: string
+  /** Describe the headshot for anyone who cannot see it. */
+  photoAlt?: string
 }>(), {
   title: 'Thanks, I would love to stay connected',
+  photo: headshot,
+  photoAlt: 'Tim Damen, smiling, in a dark blue half-zip jumper.',
 })
 
 interface SocialLink {
@@ -78,33 +88,70 @@ const socials: SocialLink[] = [
     paths: ['M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z', 'M3 7l9 6l9 -6'],
   },
 ]
+
+/** The sites, beside the handles. Written without the scheme; the href adds it. */
+const sites: string[] = [
+  'timdamen.io',
+  'talks.timdamen.io',
+  'slides.timdamen.io',
+]
+
+/** tabler `link`, drawn the same way as the social marks above. */
+const LINK_ICON: string[] = [
+  'M9 15l6 -6',
+  'M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464',
+  'M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463',
+]
 </script>
 
 <template>
   <div class="outro">
     <div class="outro-main">
       <h1 class="outro-title">{{ title }}</h1>
-      <p class="outro-name">Tim Damen</p>
-      <a class="outro-site" href="https://talks.timdamen.io" target="_blank" rel="noopener">talks.timdamen.io</a>
 
-      <ul class="outro-socials">
-        <li v-for="s in socials" :key="s.name">
-          <a
-            :href="s.href" class="outro-social" target="_blank" rel="noopener"
-            :aria-label="`${s.handle} on ${s.name}`"
-          >
-            <svg
-              class="outro-icon" :viewBox="s.viewBox" width="20" height="20" aria-hidden="true"
-              :fill="s.mode === 'fill' ? 'currentColor' : 'none'"
-              :stroke="s.mode === 'stroke' ? 'currentColor' : 'none'"
-              stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      <div class="outro-id">
+        <img class="outro-photo" :src="photo" :alt="photoAlt">
+        <div class="outro-idtext">
+          <p class="outro-name">Tim Damen</p>
+          <a class="outro-site" href="https://talks.timdamen.io" target="_blank" rel="noopener">talks.timdamen.io</a>
+        </div>
+      </div>
+
+      <div class="outro-lists">
+        <ul class="outro-socials">
+          <li v-for="s in socials" :key="s.name">
+            <a
+              :href="s.href" class="outro-social" target="_blank" rel="noopener"
+              :aria-label="`${s.handle} on ${s.name}`"
             >
-              <path v-for="(d, i) in s.paths" :key="i" :d="d" />
-            </svg>
-            <span>{{ s.handle }}</span>
-          </a>
-        </li>
-      </ul>
+              <svg
+                class="outro-icon" :viewBox="s.viewBox" width="23" height="23" aria-hidden="true"
+                :fill="s.mode === 'fill' ? 'currentColor' : 'none'"
+                :stroke="s.mode === 'stroke' ? 'currentColor' : 'none'"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              >
+                <path v-for="(d, i) in s.paths" :key="i" :d="d" />
+              </svg>
+              <span>{{ s.handle }}</span>
+            </a>
+          </li>
+        </ul>
+
+        <ul class="outro-sites">
+          <li v-for="site in sites" :key="site">
+            <a class="outro-sitelink" :href="`https://${site}`" target="_blank" rel="noopener">
+              <svg
+                class="outro-icon" viewBox="0 0 24 24" width="23" height="23" aria-hidden="true"
+                fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              >
+                <path v-for="(d, i) in LINK_ICON" :key="i" :d="d" />
+              </svg>
+              <span>{{ site }}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
 
       <div class="outro-extra">
         <slot />
@@ -130,11 +177,33 @@ const socials: SocialLink[] = [
   gap: 3rem;
 }
 .outro-main { min-width: 0; }
+/* 2.5rem, not 3rem: sized so "Thank you, let's stay connected" sits on one
+   line in the space left beside the QR. Deliberately not `white-space: nowrap`
+   — a longer title should wrap rather than run under the QR code. */
 .outro-title {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 700;
   line-height: 1.1;
   margin-bottom: 0.6rem;
+}
+/* Photo and name together: the headshot is here to put a face to the name, so
+   it belongs beside it rather than off in a column of its own. */
+.outro-id {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 1.4rem;
+}
+.outro-idtext { min-width: 0; }
+.outro-photo {
+  flex: none;
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  object-fit: cover;
+  /* The source is a 4:5 portrait with the head high in the frame; a centred
+     square crop would cut the forehead and fill the circle with jumper. */
+  object-position: center 18%;
 }
 .outro-name {
   font-size: 1.15rem;
@@ -143,13 +212,21 @@ const socials: SocialLink[] = [
 }
 .outro-site {
   display: inline-block;
-  font-size: 1.05rem;
+  font-size: 1.18rem;
   font-weight: 600;
-  color: var(--supa11y-link, #74c0fc);
+  color: inherit;
   border-bottom: none;
-  margin-bottom: 1.4rem;
 }
-.outro-socials {
+.outro-site:hover { color: var(--supa11y-link, #74c0fc); }
+/* Handles on the left, sites on the right. Two columns rather than one long
+   list: nine links stacked would run past the bottom of the slide. */
+.outro-lists {
+  display: flex;
+  align-items: flex-start;
+  gap: 2.6rem;
+}
+.outro-socials,
+.outro-sites {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -157,12 +234,25 @@ const socials: SocialLink[] = [
   flex-direction: column;
   gap: 0.35rem;
 }
-.outro-socials li { margin: 0; }
+.outro-socials li,
+.outro-sites li { margin: 0; }
+/* Same geometry as .outro-social so the two columns share a baseline grid. */
+.outro-sitelink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 1.08rem;
+  font-weight: 600;
+  color: inherit;
+  border-bottom: none;
+  padding: 0.2rem 0.1rem;
+}
+.outro-sitelink:hover { color: var(--supa11y-link, #74c0fc); }
 .outro-social {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.9rem;
+  gap: 0.55rem;
+  font-size: 1.08rem;
   font-weight: 600;
   color: inherit;
   border-bottom: none;

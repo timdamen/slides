@@ -16,29 +16,11 @@ hide: true
 
 </div>
 
-<!--
-⏱ 40:00 — Section G: the ending. Tone shift: slow down, drop the jokes, mean it.
-
-Everything I showed you tonight works because of a data structure that was built for people. Blind users. Keyboard users. Screen-reader users. It was built, argued for, and maintained by people who mostly never got the budget they asked for.
-
-[click] The agents showed up and found the infrastructure already there. Free-riding on twenty-five years of work by the accessibility community. And now the market cares — not because it grew a conscience, but because this particular user has a credit card.
-
-[click] (slower) For twenty years we asked for a business case. The market finally delivered one — it just doesn't have eyes.
-
-[click] (pause, then the last line, and stop) Don't let the business case replace the reason we started. Fix your markup for Alex's agent if that's what gets it funded. But it was always about Alex. Thank you.
--->
-
 ---
 layout: default
 ---
 
-<OutroSlide title="Thank you" />
-
-<!--
-Deck is live at talks.timdamen.io — the demos in it actually run, so you can point the DevTools accessibility pane at the deck about the accessibility tree. Every statistic has its source and date in the repo, in SOURCES.md — check my work.
-
-If you fix one form because of tonight, tell me about it on the podcast. Questions — now, or find me at the bar. I'm the one arguing with a checkout form.
--->
+<OutroSlide title="Thank you, let's stay connected" />
 
 ---
 routeAlias: bonus
@@ -50,9 +32,3 @@ hide: true
 <DeckAudit />
 
 <p class="src-note">This deck, read through its own accessibility tree — same computation the demos use.</p>
-
-<!--
-(Hidden bonus slide — not part of the 40 minutes. For the person who comes up after and asks "but is your DECK accessible?")
-
-Press the button: the same role-and-name computation from the demos, pointed at the deck itself. An accessibility talk with an inaccessible deck would be screenshotted within minutes — I'd like to keep my podcast.
--->

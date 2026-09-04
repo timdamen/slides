@@ -124,14 +124,6 @@ drawings:
 }
 </style>
 
-<!--
-⏱ 0:00 — Section A: cold open.
-
-No throat-clearing, no bio (check whether UtahJS intros speakers). One breath on the title, then straight into the persona on the next slide.
-
-"Every talk about AI starts with a demo of something magical. This one starts with a customer complaint."
--->
-
 ---
 src: ./pages/01-open.md
 ---

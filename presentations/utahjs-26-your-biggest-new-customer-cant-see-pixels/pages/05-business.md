@@ -20,14 +20,6 @@ hide: true
 
 <p class="punch exec-punch">Improving accessibility helps people and agents!</p>
 
-<!--
-⏱ 36:00 — Section F: the business case. This slide is deliberately screenshot-able: five numbers, five sources, five dates, one sentence. Screenshot it. Send it to whoever owns your roadmap.
-
-For twenty years the accessibility business case was ethics, lawsuits, and "it's about 15 percent of users" — and roadmaps kept not caring. Fine. Here's the version roadmaps understand: traffic almost times-five, converting 42 percent better, a fifth of holiday orders touched by AI, fifty million shopping queries a day, and McKinsey putting three to five trillion on it by 2030.
-
-Every one of those customers reads your site through the accessibility tree first. One sentence for the exec: accessibility is now conversion infrastructure. Not compliance. Not charity. The plumbing your next revenue segment flows through.
--->
-
 ---
 hide: true
 ---
@@ -44,22 +36,6 @@ hide: true
 6. **Watch AI/agent referrals in your analytics** — they're customers now
 
 </v-clicks>
-
-<!--
-⏱ 37:30 — The Monday-morning list. Six items, none needing a budget meeting.
-
-[click] Semantic HTML first. Half the ARIA on the web is making things worse — we just saw the data. The elements come with the behavior built in.
-
-[click] Real labels, plus autocomplete. Ten minutes per form; you watched what it buys you.
-
-[click] Keyboard-test the flows that make money. Tab through your own checkout once — you'll find something today, I promise.
-
-[click] Open that accessibility pane on your checkout. What you see there is your agent's entire UI. If it's a wall of generics, so is your revenue.
-
-[click] Put axe-core in CI. Free, automated, catches the classics — the 30% empty-buttons kind of bug — before it ships.
-
-[click] And start tagging AI referrals in analytics. You cannot make the case for this customer segment if you can't see it. It's growing either way — the only question is whether it's in your dashboard.
--->
 
 ---
 hide: true
@@ -78,13 +54,3 @@ A US judge issued a **preliminary injunction** blocking Perplexity's *Comet* bro
 </div>
 
 <p class="src-note"><a href="https://finance.yahoo.com/sectors/technology/articles/ai-traffic-us-retailers-jumps-160141756.html" target="_blank" rel="noopener noreferrer">Preliminary injunction, N.D. Cal. · Mar 2026</a> — cuttable slide if running long</p>
-
-<!--
-⏱ 39:00 — (Cuttable if over time — check the clock. If behind, skip straight to the ending.)
-
-One more signal, this time from a courtroom. March 2026: a federal judge granted Amazon a preliminary injunction blocking Perplexity's Comet browser from shopping on Amazon on users' behalf.
-
-Set the legal merits aside — the interesting fact is that the case *exists*.
-
-[click] Companies are now litigating over who gets to *be* the customer at the checkout. You don't sue over traffic that doesn't matter. Agentic commerce is valuable enough to fight over in federal court — while most checkouts still can't tell an agent what the pay button is called.
--->

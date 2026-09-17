@@ -3,7 +3,7 @@
 UtahJS 2026 · Tim Damen (Focusring) · Slidev deck.
 
 An AI agent walks the classic e-commerce funnel — Discover → Compare →
-Decide → Checkout → Confirm — through the accessibility tree, fails on
+Decide → Checkout — through the accessibility tree, fails on
 realistic broken markup, gets fixed live, and every fix lands a WCAG stamp.
 All demos are **fully offline**: no LLM calls, no network, real DOM queries.
 
@@ -26,9 +26,10 @@ pnpm --filter @supaslidev/utahjs-26-your-biggest-new-customer-cant-see-pixels bu
 
 - `slides.md` — headmatter + cover; imports `pages/*.md` per section
 - `components/` — `AgentView` (HTML ⇄ preview ⇄ live AX tree), `AgentSim`
-  (scripted offline agent, the slide-20 centerpiece), `LiveRegionDemo`
-  (role="status" toggle), `FunnelTracker`, `StatCard`, `WcagBadge`,
-  `PostEmbed` (offline-first social embeds), `DeckAudit` (bonus slide)
+  (scripted offline agent, the checkout centerpiece), `FunnelTracker`,
+  `StatCard`, `WcagBadge`, `PostEmbed` (offline-first social embeds),
+  `DeckAudit` (bonus slide). `LiveRegionDemo` (role="status" toggle) is kept
+  but unused — see the Confirm note below.
 - `snippets/demos.ts` — Veldloper broken/fixed HTML pairs
 - `snippets/demoScripts.ts` — all AgentSim reasoning copy (tune the voice here)
 - `utils/a11y.ts` — role/name/state computation via `dom-accessibility-api`
@@ -43,7 +44,6 @@ pnpm --filter @supaslidev/utahjs-26-your-biggest-new-customer-cant-see-pixels bu
 - [ ] Slide 16 (compare table): Broken shows "Click here"×2 + missing-alt warnings; switch to Fixed
 - [ ] Slide 18 (add to cart): Broken = 1 generic warning; Fixed → click into preview, **Tab + Enter** works
 - [ ] Slide 20 (AgentSim): Run on Broken → aborts; Reset → Fixed → Run → order confirmed via status message
-- [ ] Slide 22 (LiveRegionDemo): visual-only = silence; role="status" = announcement
 - [ ] Bonus slide (after Thanks): DeckAudit scan shows 0 warnings
 - [ ] Presenter mode: notes visible, timing markers sum to ~36 min + Q&A.
       Markers are stale by two slides: a bio slide was added to
@@ -80,7 +80,14 @@ pnpm --filter @supaslidev/utahjs-26-your-biggest-new-customer-cant-see-pixels bu
     `document.modelContext` API surface all moved during 2026 (SOURCES.md §13).
 11. Re-pull the OpenClaw and React star counts on slide 9 shortly before the
     talk (SOURCES.md §14 has the one-liner) — OpenClaw gains ~hundreds a day.
-12. "The original users of this tree" (after the DevTools slide) carries four
+12. The Confirm stage was cut for time (2026-09-17): the funnel now ends at
+    Checkout. Both slides ("Confirm - does it know it worked?" and "Live: the
+    silent toast") are gone, and 4.1.3 Status Messages moved onto the checkout
+    AgentSim slide, which already verifies the order via `role="status"`.
+    `LiveRegionDemo.vue`, the `confirm-toast` snippet and the `.confirm-*` rules
+    in `style.css` are all still here, so restoring the stage is a revert of
+    that commit plus re-adding `Confirm` to `FunnelTracker`.
+13. "The original users of this tree" (after the DevTools slide) carries four
     photos, all requiring attribution, so the credit line on the slide has to
     stay. Magnification was deliberately dropped as an example. Voice control
     is the one tool on the slide with no image; it lives in the speaker notes.

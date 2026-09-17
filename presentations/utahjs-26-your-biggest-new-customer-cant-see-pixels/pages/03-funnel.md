@@ -6,7 +6,6 @@
   <div class="funnel-step">2 · Compare</div>
   <div class="funnel-step">3 · Decide</div>
   <div class="funnel-step">4 · Checkout</div>
-  <div class="funnel-step">5 · Confirm</div>
 </v-clicks>
 </div>
 
@@ -118,7 +117,7 @@ funnel: 2
 
 # Live: the comparison table
 
-<AgentView snippet="compare-table" variant="broken" height="300px" />
+<AgentView snippet="compare-table" variant="broken" height="300px" :columns="[0.85, 1.45, 1.1]" />
 
 <div class="badge-row">
   <WcagBadge v-click sc="2.4.4" name="Link Purpose (In Context)" />
@@ -147,7 +146,6 @@ funnel: 3
 
 - role: `generic` · name: `""`
 - unreachable by keyboard
-- bonus (web.dev): keep `cursor: pointer`, stable layouts, big targets
 
 </v-clicks>
 
@@ -225,38 +223,7 @@ class: centerpiece
   <WcagBadge v-click sc="3.3.2" name="Labels or Instructions" />
   <WcagBadge v-click sc="1.3.5" name="Identify Input Purpose" />
   <WcagBadge v-click sc="3.3.1" name="Error Identification" />
-</div>
-
----
-funnel: 5
----
-
-# Confirm - does it know it worked?
-
-<div class="confirm-story">
-
-<v-clicks>
-
-<div class="confirm-step">✅ Payment succeeds. A green toast fades in… <strong>as pixels only.</strong></div>
-
-<div class="confirm-step">🤖 The agent sees nothing change in the tree. Did it work?</div>
-
-<div class="confirm-step fix">The fix is one attribute: <code>role="status"</code> — a polite live region.</div>
-
-</v-clicks>
-
-</div>
-
-<div class="badge-row">
   <WcagBadge v-click sc="4.1.3" name="Status Messages" />
 </div>
-
----
-funnel: 5
----
-
-# Live: the silent toast
-
-<LiveRegionDemo />
 
 <!-- TODO(Tim): record a real agent run (Claude in Chrome GIF recorder or Playwright MCP trace) and overlay via <SlidevVideo controls printPoster="/agent-run-poster.png"> with poster frame -->

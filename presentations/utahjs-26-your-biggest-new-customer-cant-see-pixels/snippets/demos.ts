@@ -42,7 +42,11 @@ export const DEMO_CSS = `
   .cmp { display: grid; grid-template-columns: repeat(4, auto); gap: 6px 16px; align-items: center; }
   table { border-collapse: collapse; }
   caption { text-align: left; color: #adb5bd; font-size: .9em; padding-bottom: 6px; }
-  th, td { text-align: left; padding: 6px 14px 6px 0; border-bottom: 1px solid #343a40; }
+  th, td { text-align: left; vertical-align: middle; padding: 6px 14px 6px 0; border-bottom: 1px solid #343a40; }
+  /* Same thumbnail size in both comparison variants, and beside the product
+     name rather than stacked above it: the before/after should differ in
+     semantics only, not in how tidy the table looks. */
+  .cmp img, th img, td img { width: 32px; vertical-align: middle; margin-right: 8px; }
 `
 
 export interface SnippetPair {
@@ -90,15 +94,20 @@ export const snippets: Record<string, SnippetPair> = {
     <th scope="col">Weight</th>
   </tr>
   <tr>
-    <th scope="row"><img src="${SHOE_IMG}" alt=""> TrailRunner 3000</th>
+    <th scope="row">
+      <img src="${SHOE_IMG}" alt="">
+      <a href="/trailrunner-3000">TrailRunner 3000</a>
+    </th>
     <td>€189</td><td>240 g</td>
   </tr>
   <tr>
-    <th scope="row"><img src="${SHOE_IMG}" alt=""> MudMaster 2</th>
+    <th scope="row">
+      <img src="${SHOE_IMG}" alt="">
+      <a href="/mudmaster-2">MudMaster 2</a>
+    </th>
     <td>€165</td><td>265 g</td>
   </tr>
-</table>
-<p><a href="/trailrunner-3000">View TrailRunner 3000 — €189</a></p>`,
+</table>`,
   },
 
   'add-to-cart': {

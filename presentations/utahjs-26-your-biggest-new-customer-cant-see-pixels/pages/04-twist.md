@@ -55,8 +55,8 @@
 <v-clicks>
 
 - 🧪 **Agents are hybrid.** Vision + DOM + AX tree. The tree is the *fastest, cheapest, most reliable* path — not the only one.
-- 🚧 **WCAG-compliant ≠ agent-reachable.** Bot walls and CAPTCHAs block agents — and have always been an accessibility nightmare. (W3C is openly discussing agents as user agents — <a href="https://github.com/w3c/wcag3/issues/636" target="_blank" rel="noopener noreferrer">wcag3#636</a>.)
-- 📦 **Agents want more than WCAG.** Structured data, stable layouts, and now site-declared tools — WebMCP (Chrome origin trial, near-zero deployment).
+- 🚧 **WCAG-compliant ≠ agent-reachable.** (W3C is openly discussing agents as user agents — <a href="https://github.com/w3c/wcag3/issues/636" target="_blank" rel="noopener noreferrer">wcag3#636</a>.)
+- 📦 **Agents want more than WCAG.** Structured data, stable layouts
 
 </v-clicks>
 

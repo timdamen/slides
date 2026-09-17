@@ -12,6 +12,8 @@ const props = withDefaults(defineProps<{
   height?: string
   showStates?: boolean
   showSource?: boolean
+  /** Starting fr widths per pane; lets a slide give the preview more room. */
+  columns?: number[]
 }>(), {
   variant: 'broken',
   editable: true,
@@ -65,7 +67,9 @@ watch(() => props.variant, setVariant)
 const hasPair = computed(() => !props.code && !!props.snippet)
 const ok = computed(() => nodes.value.length > 0 && warnings.value === 0)
 
-const columns = useColumnResize(props.showSource ? [1.1, 1, 1.2] : [1, 1.2])
+const columns = useColumnResize(
+  props.columns ?? (props.showSource ? [1.1, 1, 1.2] : [1, 1.2]),
+)
 const heightCtl = useHeightResize(Number.parseInt(props.height, 10) || 390)
 const dragging = computed(() => columns.dragging.value || heightCtl.dragging.value)
 </script>

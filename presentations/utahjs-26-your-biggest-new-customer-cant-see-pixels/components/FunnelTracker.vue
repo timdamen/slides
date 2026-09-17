@@ -1,10 +1,10 @@
 <script setup lang="ts">
 const props = defineProps<{ stage: number }>()
-const stages = ['Discover', 'Compare', 'Decide', 'Checkout', 'Confirm']
+const stages = ['Discover', 'Compare', 'Decide', 'Checkout']
 </script>
 
 <template>
-  <nav class="funnel-tracker" :aria-label="`Customer journey progress: stage ${props.stage} of 5, ${stages[props.stage - 1]}`">
+  <nav class="funnel-tracker" :aria-label="`Customer journey progress: stage ${props.stage} of ${stages.length}, ${stages[props.stage - 1]}`">
     <ol>
       <li
         v-for="(name, i) in stages" :key="name"

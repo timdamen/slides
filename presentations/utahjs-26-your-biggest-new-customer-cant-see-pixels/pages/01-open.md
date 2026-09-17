@@ -38,12 +38,12 @@ layout: default
 
 ---
 
-# The next 30 minutes
+# The next 25 minutes
 
 <v-clicks>
 
 - 👀 How agents **actually read** your web app
-- ⚠️ Where they **fail**
+- ⚠️ Where they **fail** or are **inefficient**
 - 🏷️ Why a lot of failures have something todo with WCAG violations
 
 </v-clicks>

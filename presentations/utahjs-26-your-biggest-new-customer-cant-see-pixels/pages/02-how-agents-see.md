@@ -27,6 +27,7 @@
   <div class="read-viz mono" aria-hidden="true">heading "TrailRunner 3000"<br>button "Add to cart"<br>textbox "Email" (required)</div>
   <ul>
     <li>clean semantic map</li>
+<li>Abstraction of the HTML in the DOM</li>
     <li><strong>roles, names, states</strong> — nothing else</li>
   </ul>
 </div>

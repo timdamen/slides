@@ -93,7 +93,6 @@ const socials: SocialLink[] = [
 const sites: string[] = [
   'timdamen.io',
   'talks.timdamen.io',
-  'slides.timdamen.io',
 ]
 
 /** tabler `link`, drawn the same way as the social marks above. */

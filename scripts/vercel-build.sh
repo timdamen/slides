@@ -56,3 +56,16 @@ if [ -d thumbnails-backup ]; then
 
   rm -rf thumbnails-backup
 fi
+
+# Hide these decks from the dashboard listing. They are still built and
+# reachable by direct URL (talks.timdamen.io embeds some of them).
+HIDDEN_PRESENTATIONS="cyc-26-one-change frontmania-2026-cant-see-pixels utahjs-26-your-biggest-new-customer-cant-see-pixels"
+HIDDEN_PRESENTATIONS="$HIDDEN_PRESENTATIONS" node -e "
+  const fs = require('fs');
+  const file = 'dist/presentations.json';
+  const hidden = new Set(process.env.HIDDEN_PRESENTATIONS.split(/\s+/).filter(Boolean));
+  const data = JSON.parse(fs.readFileSync(file, 'utf-8'));
+  const visible = data.filter((p) => !hidden.has(p.id));
+  fs.writeFileSync(file, JSON.stringify(visible, null, 2));
+  console.log('Hid ' + (data.length - visible.length) + ' presentation(s) from presentations.json');
+"

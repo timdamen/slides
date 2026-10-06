@@ -1,6 +1,32 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Decks that must not be published: no dashboard card, no deck URL, no
+# thumbnail. `supaslidev deploy` builds every folder in presentations/, so
+# these are moved aside for the build and put back when the script exits.
+HIDDEN_PRESENTATIONS="cyc-26-one-change frontmania-2026-cant-see-pixels utahjs-26-your-biggest-new-customer-cant-see-pixels"
+HIDDEN_STASH=".hidden-presentations"
+
+restore_hidden() {
+  if [ -d "$HIDDEN_STASH" ]; then
+    for id in $HIDDEN_PRESENTATIONS; do
+      if [ -d "$HIDDEN_STASH/$id" ]; then
+        mv "$HIDDEN_STASH/$id" "presentations/$id"
+      fi
+    done
+    rmdir "$HIDDEN_STASH" 2>/dev/null || true
+  fi
+}
+trap restore_hidden EXIT
+
+mkdir -p "$HIDDEN_STASH"
+for id in $HIDDEN_PRESENTATIONS; do
+  if [ -d "presentations/$id" ]; then
+    mv "presentations/$id" "$HIDDEN_STASH/$id"
+    echo "Excluding hidden presentation: $id"
+  fi
+done
+
 # Thumbnails are NOT generated here. They are generated locally and committed:
 #
 #   node scripts/generate-thumbnails.mjs <deck-id>
@@ -10,6 +36,9 @@ set -euo pipefail
 # cannot work on Vercel (no Chromium), so the committed files are copied aside
 # first and put back afterwards.
 cp -r thumbnails thumbnails-backup 2>/dev/null || true
+for id in $HIDDEN_PRESENTATIONS; do
+  rm -f "thumbnails-backup/$id.webp" "thumbnails-backup/$id.png"
+done
 
 # Ensure clean output directory exists
 rm -rf dist
@@ -56,16 +85,3 @@ if [ -d thumbnails-backup ]; then
 
   rm -rf thumbnails-backup
 fi
-
-# Hide these decks from the dashboard listing. They are still built and
-# reachable by direct URL (talks.timdamen.io embeds some of them).
-HIDDEN_PRESENTATIONS="cyc-26-one-change frontmania-2026-cant-see-pixels utahjs-26-your-biggest-new-customer-cant-see-pixels"
-HIDDEN_PRESENTATIONS="$HIDDEN_PRESENTATIONS" node -e "
-  const fs = require('fs');
-  const file = 'dist/presentations.json';
-  const hidden = new Set(process.env.HIDDEN_PRESENTATIONS.split(/\s+/).filter(Boolean));
-  const data = JSON.parse(fs.readFileSync(file, 'utf-8'));
-  const visible = data.filter((p) => !hidden.has(p.id));
-  fs.writeFileSync(file, JSON.stringify(visible, null, 2));
-  console.log('Hid ' + (data.length - visible.length) + ' presentation(s) from presentations.json');
-"

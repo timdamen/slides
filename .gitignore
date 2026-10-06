@@ -14,3 +14,4 @@ exports/
 
 # Slidev PDF exports live next to the deck; they are artifacts, not source.
 presentations/*/slides-export.pdf
+.hidden-presentations/

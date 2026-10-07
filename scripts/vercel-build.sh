@@ -4,7 +4,8 @@ set -euo pipefail
 # Decks that must not be published: no dashboard card, no deck URL, no
 # thumbnail. `supaslidev deploy` builds every folder in presentations/, so
 # these are moved aside for the build and put back when the script exits.
-HIDDEN_PRESENTATIONS="cyc-26-one-change frontmania-2026-cant-see-pixels utahjs-26-your-biggest-new-customer-cant-see-pixels"
+# Space-separated deck ids; empty publishes every deck.
+HIDDEN_PRESENTATIONS=""
 HIDDEN_STASH=".hidden-presentations"
 
 restore_hidden() {

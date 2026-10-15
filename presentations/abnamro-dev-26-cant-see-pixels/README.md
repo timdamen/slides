@@ -1,0 +1,168 @@
+# Your Biggest New Customer Can't See Pixels
+
+ABN AMRO Developer — The Goodbye Meetup · Thu 15 Oct 2026, 20:00–20:30 ·
+ABN AMRO HQ, Gustav Mahlerlaan 10, Amsterdam · Tim Damen · Slidev deck.
+[Event page](https://www.meetup.com/abn-amro-developer/events/316250913/)
+
+Copied from `utahjs-26-your-biggest-new-customer-cant-see-pixels` on
+2026-10-15 (including its uncommitted edits at that point). Only the event
+details changed: cover kicker, headmatter info/duration, and the cover
+skyline (Utah mountains → Amsterdam canal houses).
+
+An AI agent walks the classic e-commerce funnel — Discover → Compare →
+Decide → Checkout — through the accessibility tree, fails on
+realistic broken markup, gets fixed live, and every fix lands a WCAG stamp.
+All demos are **fully offline**: no LLM calls, no network, real DOM queries.
+The one exception is the closing tweet slide, which needs `platform.twitter.com`
+— see TODO 13.
+
+## Run
+
+```bash
+pnpm install                # from the monorepo root
+pnpm --filter @supaslidev/abnamro-dev-26-cant-see-pixels dev      # dev server
+pnpm --filter @supaslidev/abnamro-dev-26-cant-see-pixels build    # static SPA (canonical artifact)
+pnpm --filter @supaslidev/abnamro-dev-26-cant-see-pixels export   # PDF (degraded: demos become static frames)
+```
+
+Build with a base path for hosting under talks.timdamen.io:
+
+```bash
+pnpm --filter @supaslidev/abnamro-dev-26-cant-see-pixels build -- --base /presentations/abnamro-dev-26-cant-see-pixels/
+```
+
+## Structure
+
+- `slides.md` — headmatter + cover; imports `pages/*.md` per section
+- `components/` — `AgentView` (HTML ⇄ preview ⇄ live AX tree), `AgentSim`
+  (scripted offline agent, the checkout centerpiece), `FunnelTracker`,
+  `StatCard`, `WcagBadge`, `PostEmbed` (offline-first social embeds),
+  `DeckAudit` (bonus slide). `LiveRegionDemo` (role="status" toggle) is kept
+  but unused — see the Confirm note below.
+- `snippets/demos.ts` — Veldloper broken/fixed HTML pairs
+- `snippets/demoScripts.ts` — all AgentSim reasoning copy (tune the voice here)
+- `utils/a11y.ts` — role/name/state computation via `dom-accessibility-api`
+- `global-top.vue` — renders `FunnelTracker` on slides with `funnel: N` frontmatter
+- `SOURCES.md` — every number in the deck, with source + date + framing rules
+
+## Demo rehearsal checklist
+
+- [ ] Turn wifi **off**, run the deck front to back once
+- [ ] Slide 11 (AgentView, product card): tree shows heading/img/button, "✓ agent-readable"
+- [ ] Slide 14 (magic-move): div soup → semantic HTML morphs on click
+- [ ] Slide 16 (compare table): Broken shows "Click here"×2 + missing-alt warnings; switch to Fixed
+- [ ] Slide 18 (add to cart): Broken = 1 generic warning; Fixed → click into preview, **Tab + Enter** works
+- [ ] Slide 20 (AgentSim): Run on Broken → aborts; Reset → Fixed → Run → order confirmed via status message
+- [ ] Bonus slide (after Thanks): DeckAudit scan shows 0 warnings
+- [ ] Presenter mode: notes visible, timing markers sum to ~36 min + Q&A.
+      Markers are stale by two slides: a bio slide was added to
+      `pages/01-open.md` and "The original users of this tree" to
+      `pages/02-how-agents-see.md`, so every ⏱ from "Three ways to read a page"
+      onward runs ~1 min late. Un-hiding WebMCP adds another ~1 min. Slides 9
+      and 10 (harness layer, OpenClaw) are both marked cuttable.
+      Rehearsal-checklist slide numbers above are likewise off by two — count
+      from the deck, not this list.
+- [ ] Keyboard-navigate the whole deck (arrows/space) — no traps
+
+## TODO(Tim)
+
+1. Slot is 30 min (20:00–20:30, last talk of the evening). The deck was
+   built for 40 — use the cuttable slides listed below to fit.
+2. Record real agent runs for slides 7/22 (Claude in Chrome GIF recorder or
+   Playwright MCP traces) + poster frames → `public/`.
+3. Pick real X/Bluesky post IDs for slide 7 and capture fallback screenshots
+   (or go screenshots-only) → swap the vendor cards for `<PostEmbed>`.
+4. ~~Capture the DevTools accessibility-pane screenshot~~ — done: slide 10 now
+   shows `public/images/a11y-tree-chrome-devtools.png` (a developer.chrome.com
+   capture, full-page a11y tree + Accessibility pane). Swap it for a Veldloper
+   capture if you'd rather demo the deck's own shop.
+5. Supply Focusring brand assets or approve the current focus-ring defaults.
+6. Approve/tune AgentSim reasoning copy in `snippets/demoScripts.ts`.
+7. Decide final hosting path on talks.timdamen.io + QR target for the
+   Thanks slide (currently a placeholder box).
+8. Re-verify Adobe/Salesforce/OpenAI numbers ~2 weeks before the conference
+   (see SOURCES.md).
+9. Bio/headshot slide wanted? Currently omitted — check whether the
+   meetup host intros speakers.
+10. Decide whether the WebMCP slide comes back. It sits in
+    `pages/02-how-agents-see.md` after slide 9 with `hide: true`; if it does,
+    re-verify it first — origin-trial window, browser support and the
+    `document.modelContext` API surface all moved during 2026 (SOURCES.md §13).
+11. Re-pull the OpenClaw and React star counts on slide 9 shortly before the
+    talk (SOURCES.md §14 has the one-liner) — OpenClaw gains ~hundreds a day.
+12. The Confirm stage was cut for time (2026-09-17): the funnel now ends at
+    Checkout. Both slides ("Confirm - does it know it worked?" and "Live: the
+    silent toast") are gone, and 4.1.3 Status Messages moved onto the checkout
+    AgentSim slide, which already verifies the order via `role="status"`.
+    `LiveRegionDemo.vue`, the `confirm-toast` snippet and the `.confirm-*` rules
+    in `style.css` are all still here, so restoring the stage is a revert of
+    that commit plus re-adding `Confirm` to `FunnelTracker`.
+13. The closing tweet slide (before the outro) shows the exchange side by side:
+    @matteocollina's question about TypeScript and transpilation, and @zeeg's
+    reply "if it was good for humans its good for agents". Keep the parent on
+    the slide — on its own the reply reads as if Cramer were talking about
+    accessibility, which he was not. It uses Slidev's `<Tweet>`, so the build injects
+    `platform.twitter.com/widgets.js` — the deck's only network dependency.
+    **If the slide shows just a Twitter logo, restart `slidev`:** the injection
+    is decided once at server start by grepping slide markdown for `<Tweet`, and
+    editing the markdown afterwards does not re-run it (verified 2026-09-18 —
+    removing the tag from a running server left the script in `index.html`).
+    Same grep is why the tag inside `PostEmbed.vue` never triggers injection,
+    and why `PostEmbed mode="online"` has never worked.
+    Offline fallback of both cards is ready at
+    `public/images/zeeg-matteocollina-exchange.png`; the swap is spelled out in
+    a comment on the slide.
+14. "The original users of this tree" (after the DevTools slide) carries four
+    photos, all requiring attribution, so the credit line on the slide has to
+    stay. Magnification was deliberately dropped as an example. Voice control
+    is the one tool on the slide with no image; it lives in the speaker notes.
+    See SOURCES.md §15-17.
+
+## Verification status (2026-07-07)
+
+- ✅ 29 slides (28 + hidden bonus), all render, zero console errors
+  ⚠️ 2026-08-14: slides 8 (harness layer) and 9 (OpenClaw) added, plus a
+  WebMCP slide parked behind `hide: true` — the deck presents 31 slides
+  (30 + hidden bonus). All build, export and pass axe (below); the
+  offline/demo rehearsal has not been redone since.
+- ✅ AgentSim: broken run aborts with reasoning; fixed run fills all fields
+  by role+name, submits, verifies via `role="status"` — dev **and** built SPA
+- ✅ LiveRegionDemo: visual-only toast = silence; `role="status"` = announced
+- ✅ Fixed add-to-cart button is keyboard-focusable/activatable in the demo
+- ✅ Offline: with all non-localhost requests blocked, every demo works; the
+  only external request is Google Fonts, which falls back to system fonts
+- ✅ axe-core: zero critical/serious violations on the 29 slides built on
+  2026-07-07. Re-run on 2026-08-14 for the new slides (built SPA, served with
+  history fallback): still 0 critical/serious; they only reproduce the
+  moderate `heading-order` (h1 → card h3) and `region` findings the existing
+  card slides already have.
+  Note: Slidev's own nav renders two controls ("sync settings", "More
+  Options") as a button-inside-a-button (upstream `nested-interactive`);
+  they are hidden via `style.css` until fixed upstream — prev/next,
+  overview, fullscreen and presenter mode remain.
+- ✅ `slidev export` completes (PDF is a static degradation; the built SPA
+  is the canonical artifact)
+
+## Accuracy guardrails (do not soften)
+
+- The AX tree is "the fastest, cheapest, most reliable path" — never "the
+  only way agents see pages" (agents are hybrid: vision + DOM + AX tree).
+- WebMCP is a **draft in a W3C community group**, in a Chrome origin trial —
+  never "a W3C standard". It is a second, opt-in channel on top of the page,
+  and its own explainer says it is not accessibility technology. Never sell it
+  as an accessibility feature or as a replacement for the AX tree.
+- browser-use (slide 8) reads DOM **merged with the AX tree** (CDP
+  `getFullAXTree`) and `use_vision` defaults to `"auto"` — do not call it
+  vision-first; that was a drafting error, see SOURCES.md §12.
+- OpenClaw (slide 9): its browser tool *defaults* to a text/ARIA snapshot with
+  refs and screenshots are opt-in — never "it never looks at pixels". Star
+  counts on that slide are dated; re-pull them, don't round upward.
+- A11y-CUA (CHI 2026): agent under *assistive-tech-like conditions* — 78.3%
+  default vs 41.7% keyboard-only. NOT "accessible vs inaccessible sites".
+- Salesforce 20% = orders "touched/influenced by AI", not autonomously placed.
+- AgentSim's broken run ends by **degrading**, not by losing the sale: the tree
+  lookup fails, so it drops to raw DOM + screenshot. Never let that copy imply
+  an agent gives up the moment the AX tree is unhelpful — that contradicts the
+  hybrid-agents guardrail above. (`snippets/demoScripts.ts`, `abortLines`.)
+- Every stat slide carries source + date. AgentSim is labeled as a scripted
+  simulation on-slide. No 4.1.1 Parsing (removed in WCAG 2.2).

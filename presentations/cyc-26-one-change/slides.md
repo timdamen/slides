@@ -26,7 +26,7 @@ drawings:
 <div class="repo-echo repo-echo-2" aria-hidden="true"></div>
 
 <div class="cover-wrap cover-front">
-  <p class="cover-kicker">Commit Your Code 2026 · Plano, TX</p>
+  <p class="cover-kicker">Commit Your Code 2026 · Plano, TX · 4 Sep 2026</p>
   <h1 class="cover-title"><span>One change</span><br>300 repositories</h1>
   <p class="cover-byline">Tim Damen · <span class="cover-url">talks.timdamen.io</span></p>
   <p class="cover-programme">Utilising the JavaScript AST for Automated Frontend Lifecycle Management</p>

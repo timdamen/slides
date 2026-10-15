@@ -33,7 +33,7 @@ drawings:
 </div>
 
 <div class="cover-wrap cover-center">
-  <p class="cover-kicker">UtahJS 2026</p>
+  <p class="cover-kicker">UtahJS 2026 · 18 Sep 2026</p>
   <h1 class="cover-title">Your biggest new customer<br><span class="ring-accent">can't see pixels</span></h1>
   <p class="cover-byline">Tim Damen · <span class="cover-url">talks.timdamen.io</span></p>
 </div>
@@ -46,6 +46,9 @@ drawings:
   position: relative;
   z-index: 5;
 }
+.slidev-layout p.cover-kicker { font-size: 1.05rem; }
+.slidev-layout h1.cover-title { font-size: 3.8rem; }
+.slidev-layout p.cover-byline { font-size: 1.45rem; }
 
 .cover-glow {
   position: fixed;
@@ -89,7 +92,7 @@ drawings:
   animation: chip-float 7s ease-in-out infinite;
 }
 .chip-agent { top: 70px; right: 120px; }
-.chip-code { top: 238px; right: 236px; animation-delay: 2.6s; }
+.chip-code { top: 250px; right: 60px; animation-delay: 2.6s; }
 .chip-mono {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 1.25rem;

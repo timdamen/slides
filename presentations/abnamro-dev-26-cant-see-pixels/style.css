@@ -58,11 +58,11 @@ button:has(> button.slidev-icon-btn) {
   color: var(--fm-muted);
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  font-size: 0.8rem;
+  font-size: 1.05rem;
   font-weight: 700;
 }
-.cover-title {
-  font-size: 3.1rem;
+.slidev-layout h1.cover-title {
+  font-size: 3.8rem;
   line-height: 1.12;
   font-weight: 700;
 }
@@ -79,7 +79,7 @@ button:has(> button.slidev-icon-btn) {
   border-radius: 4px;
   padding: 0 0.15em;
 }
-.cover-byline { color: #e5e9f0; font-size: 1.05rem; }
+.slidev-layout p.cover-byline { color: #e5e9f0; font-size: 1.45rem; }
 .cover-url { color: var(--fm-ring); }
 
 /* ---- shared bits ---- */

@@ -1,0 +1,3 @@
+# Local-only prep notes: names real internal packages and paths.
+# Presenter notes ship in the built deck, so nothing internal goes in them.
+EXAMPLES.local.md

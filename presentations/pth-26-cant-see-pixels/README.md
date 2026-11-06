@@ -9,6 +9,10 @@ uncommitted edits at that point). Only the event details changed: cover kicker,
 headmatter info/duration, the "next 25 minutes" slide title, and the cover
 skyline (Amsterdam canal houses → Porto's Dom Luís I bridge and Clérigos tower).
 
+Tool examples updated on 2026-11-06: the "Don't take my word for it" slide is
+gone (ChatGPT Atlas was retired on 9 Aug 2026), so "What people equip agents
+with" is now the only list, with four tools checked against their current docs.
+
 An AI agent walks the classic e-commerce funnel — Discover → Compare →
 Decide → Checkout — through the accessibility tree, fails on
 realistic broken markup, gets fixed live, and every fix lands a WCAG stamp.
@@ -60,7 +64,7 @@ pnpm --filter @supaslidev/pth-26-cant-see-pixels build -- --base /presentations/
       `pages/02-how-agents-see.md`, so every ⏱ from "Three ways to read a page"
       onward runs ~1 min late. Un-hiding WebMCP adds another ~1 min. Slides 9
       and 10 (harness layer, OpenClaw) are both marked cuttable.
-      Rehearsal-checklist slide numbers above are likewise off by two — count
+      Rehearsal-checklist slide numbers above are likewise off by one — count
       from the deck, not this list.
 - [ ] Keyboard-navigate the whole deck (arrows/space) — no traps
 
@@ -70,8 +74,8 @@ pnpm --filter @supaslidev/pth-26-cant-see-pixels build -- --base /presentations/
    still in `pages/` with `hide: true` if the talk needs more material.
 2. Record real agent runs for slides 7/22 (Claude in Chrome GIF recorder or
    Playwright MCP traces) + poster frames → `public/`.
-3. Pick real X/Bluesky post IDs for slide 7 and capture fallback screenshots
-   (or go screenshots-only) → swap the vendor cards for `<PostEmbed>`.
+3. ~~Pick real X/Bluesky post IDs for the vendor cards~~ — that slide was
+   removed on 2026-11-06.
 4. ~~Capture the DevTools accessibility-pane screenshot~~ — done: slide 10 now
    shows `public/images/a11y-tree-chrome-devtools.png` (a developer.chrome.com
    capture, full-page a11y tree + Accessibility pane). Swap it for a Veldloper
@@ -151,9 +155,10 @@ pnpm --filter @supaslidev/pth-26-cant-see-pixels build -- --base /presentations/
   never "a W3C standard". It is a second, opt-in channel on top of the page,
   and its own explainer says it is not accessibility technology. Never sell it
   as an accessibility feature or as a replacement for the AX tree.
-- browser-use (slide 8) reads DOM **merged with the AX tree** (CDP
-  `getFullAXTree`) and `use_vision` defaults to `"auto"` — do not call it
-  vision-first; that was a drafting error, see SOURCES.md §12.
+- browser-use (slide 9) reads DOM **merged with the AX tree** (CDP
+  `getFullAXTree`) and `use_vision` now defaults to `True`, so screenshots are
+  included by default — do not call it tree-only or vision-first, see
+  SOURCES.md §12.
 - OpenClaw (slide 9): its browser tool *defaults* to a text/ARIA snapshot with
   refs and screenshots are opt-in — never "it never looks at pixels". Star
   counts on that slide are dated; re-pull them, don't round upward.

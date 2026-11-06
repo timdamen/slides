@@ -59,13 +59,13 @@ approved numbers for the deck; nothing on a slide may cite anything else.
 8. Google web.dev, "Build agent-friendly websites" (three modalities;
    semantic HTML, programmatic labels, stable layout, `cursor: pointer`,
    target size) — https://web.dev/articles/ai-agent-site-ux
-   · ChatGPT Atlas queries the AX tree; Playwright MCP ships accessibility
-   snapshots instead of screenshots; OpenAI CUA is hybrid —
+   · Playwright MCP ships accessibility snapshots instead of screenshots —
    https://nohacks.co/blog/how-ai-agents-see-your-website
    · AX-tree parsing reported ~93% more token-efficient than raw DOM —
    https://isagentready.com/en/blog/how-ai-agents-see-your-website-the-accessibility-tree-explained
-   · Claude in Chrome's page-reading tool documented as returning an
-   accessibility-tree representation (Anthropic docs — screenshot for slide 7).
+   · The vendor slide (ChatGPT Atlas, Computer-Using Agent, Claude in Chrome)
+   was removed on 6 Nov 2026. Atlas was retired on 9 Aug 2026 —
+   https://androidauthority.com/openai-sunsetting-chatgpt-atlas-3686001
 
 ## Legal & standards
 
@@ -81,7 +81,8 @@ approved numbers for the deck; nothing on a slide may cite anything else.
 
 ## Agent plumbing / browser platform (2026)
 
-12. **Harnesses agents drive browsers with** (slide 8) — verified Aug 2026:
+12. **Harnesses agents drive browsers with** (slide 9) — re-verified 6 Nov 2026
+    against each current README/docs page:
     - **agent-browser** (Vercel Labs, Apache-2.0) — Rust CLI + daemon over CDP;
       README labels its snapshot output *"Accessibility tree with refs (best
       for AI)"*; elements are addressed by ref (`@e1`, `@e2`).
@@ -99,15 +100,15 @@ approved numbers for the deck; nothing on a slide may cite anything else.
     - **browser-use** — merges the DOM with the accessibility tree: its DOM
       service calls CDP `Accessibility.getFullAXTree` and builds
       `EnhancedAXNode`s carrying role, name, description and AX properties
-      (`browser_use/dom/service.py`, `dom/views.py`, checked 14 Aug 2026).
-      Vision is **not** the default: `use_vision` defaults to `"auto"` —
-      *"includes screenshot tool but only uses vision when requested"*
-      (https://docs.browser-use.com/customize/agent-settings).
-      Corrected on 14 Aug 2026 — an earlier draft of slide 8 called it
-      "vision + raw DOM", which the source does not support.
-    *Phrasing rule: "the defaults converge on the tree", never "all agent
-    tooling uses only the accessibility tree" — every one of these can still
-    fall back to pixels.*
+      (`browser_use/dom/service.py`, checked 6 Nov 2026).
+      Screenshots are on by default: *"`use_vision` (default: `True`)"*,
+      *"`True` always includes screenshots"*
+      (https://docs.browser-use.com/customize/agent-settings; also
+      `browser_use/agent/service.py`). This changed since the Aug 2026 check,
+      when the default was `"auto"`.
+    *Phrasing rule: "all four read the accessibility tree", never "all agent
+    tooling uses only the accessibility tree" — browser-use sends screenshots
+    by default and the others can still fall back to pixels.*
 
 13. **WebMCP** (slide 9) — site-declared tools for agents.
     - Proposed by Google + Microsoft engineers; incubated as a draft in the
@@ -135,10 +136,11 @@ approved numbers for the deck; nothing on a slide may cite anything else.
     "a second channel on top of the page", never "the replacement for the
     accessibility tree"; never present WebMCP as an accessibility feature.*
 
-14. **OpenClaw** (slide 9) — verified 14 Aug 2026:
-    - Star counts straight from the GitHub API on 14 Aug 2026:
-      `openclaw/openclaw` **386,276** stars, repo created **2025-11-24**;
-      `react/react` **247,258** stars, created **2013-05-24**. The chart is
+14. **OpenClaw** (slide 10) — snapshot docs re-checked 6 Nov 2026:
+    - Star counts straight from the GitHub API on 6 Nov 2026:
+      `openclaw/openclaw` **394,047** stars, repo created **2025-11-24**;
+      `react/react` **252,148** stars, created **2013-05-24**. The chart dates
+      from 14 Aug 2026 and is
       star-history.com (`public/images/star-history-open-react.png`), the same
       image as the DevDays deck.
       **These move weekly — re-pull both numbers before the talk:**

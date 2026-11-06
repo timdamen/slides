@@ -57,40 +57,6 @@ flowchart LR
 
 ---
 
-# Don't take my word for it
-
-<div class="vendor-grid">
-<v-clicks>
-
-<div class="vendor-card">
-  <h3>ChatGPT Atlas <span class="dim">· OpenAI</span></h3>
-  <p><strong>A11y tree.</strong> Looks elements up by role + accessible name.</p>
-</div>
-
-<div class="vendor-card">
-  <h3>Playwright MCP <span class="dim">· Microsoft</span></h3>
-  <p><strong>A11y tree.</strong> Snapshot by default, vision only on request.</p>
-</div>
-
-<div class="vendor-card">
-  <h3>Claude in Chrome <span class="dim">· Anthropic</span></h3>
-  <p><strong>A11y tree.</strong> Its page-reading tool returns a tree view of the page.</p>
-</div>
-
-<div class="vendor-card">
-  <h3>Computer-Using Agent <span class="dim">· OpenAI</span></h3>
-  <p><strong>Combo.</strong> Vision + raw DOM + a11y tree, ARIA data first.</p>
-</div>
-
-</v-clicks>
-</div>
-
-<p v-click class="src-note">Sources: vendor docs & READMEs · <a href="https://nohacks.co/blog/how-ai-agents-see-your-website" target="_blank" rel="noopener noreferrer">nohacks.co "How AI agents see your website"</a> · 2026</p>
-
-<!-- TODO(Tim): pick real X/Bluesky post IDs and/or capture doc screenshots into public/, then swap these cards for <PostEmbed fallback="/vendor-atlas.png" postUrl="…" /> -->
-
----
-
 # What people equip agents with
 
 <div class="vendor-grid">
@@ -108,20 +74,20 @@ flowchart LR
 
 <div class="vendor-card">
   <h3>Playwright MCP <span class="dim">· Microsoft</span></h3>
-  <p><strong>A11y tree.</strong> Same default as a slide ago; vision is opt-in.</p>
+  <p><strong>A11y tree.</strong> Snapshot by default; vision is opt-in.</p>
 </div>
 
 <div class="vendor-card">
   <h3>browser-use <span class="dim">· open source</span></h3>
-  <p><strong>DOM + a11y tree.</strong> Merges the DOM with roles and names from CDP; screenshots only when asked.</p>
+  <p><strong>DOM + a11y tree + screenshots.</strong> Merges the DOM with roles and names from CDP; screenshots are on by default.</p>
 </div>
 
 </v-clicks>
 </div>
 
-<p v-click class="punch">Same default</p>
+<p v-click class="punch">All four read the accessibility tree</p>
 
-<p v-click class="src-note">READMEs & docs, Aug 2026 · <a href="https://github.com/vercel-labs/agent-browser" target="_blank" rel="noopener noreferrer">vercel-labs/agent-browser</a> · <a href="https://github.com/ChromeDevTools/chrome-devtools-mcp/blob/main/docs/tool-reference.md" target="_blank" rel="noopener noreferrer">ChromeDevTools/chrome-devtools-mcp</a> · <a href="https://github.com/microsoft/playwright-mcp" target="_blank" rel="noopener noreferrer">microsoft/playwright-mcp</a> · <a href="https://docs.browser-use.com/customize/agent-settings" target="_blank" rel="noopener noreferrer">browser-use docs</a></p>
+<p v-click class="src-note">READMEs & docs, Nov 2026 · <a href="https://github.com/vercel-labs/agent-browser" target="_blank" rel="noopener noreferrer">vercel-labs/agent-browser</a> · <a href="https://github.com/ChromeDevTools/chrome-devtools-mcp/blob/main/docs/tool-reference.md" target="_blank" rel="noopener noreferrer">ChromeDevTools/chrome-devtools-mcp</a> · <a href="https://github.com/microsoft/playwright-mcp" target="_blank" rel="noopener noreferrer">microsoft/playwright-mcp</a> · <a href="https://docs.browser-use.com/customize/agent-settings" target="_blank" rel="noopener noreferrer">browser-use docs</a></p>
 
 ---
 
@@ -134,7 +100,7 @@ flowchart LR
 <v-clicks>
 
 - **What** — open-source personal agent, running on your own machine with your files, your shell and its own browser.
-- **Scale** — **386k stars** since Nov 2025. React has 247k, since 2013.
+- **Scale** — **394k stars** since Nov 2025. React has 252k, since 2013.
 - **How it reads** — snapshot with refs (`[ref=e12]`); ARIA mode returns the accessibility tree. Screenshots **opt-in**.
 
 </v-clicks>
@@ -151,7 +117,7 @@ flowchart LR
 
 <p v-click class="punch">The fastest-growing repo on GitHub navigates by role and name.</p>
 
-<p class="src-note"><a href="https://star-history.com/#openclaw/openclaw&amp;react/react&amp;Date" target="_blank" rel="noopener noreferrer">star-history.com</a> · star counts from the GitHub API, 14 Aug 2026 · <a href="https://docs.openclaw.ai/tools/browser" target="_blank" rel="noopener noreferrer">docs.openclaw.ai/tools/browser</a></p>
+<p class="src-note"><a href="https://star-history.com/#openclaw/openclaw&amp;react/react&amp;Date" target="_blank" rel="noopener noreferrer">star-history.com</a> · star counts from the GitHub API, 6 Nov 2026 · <a href="https://docs.openclaw.ai/tools/browser" target="_blank" rel="noopener noreferrer">docs.openclaw.ai/tools/browser</a></p>
 
 ---
 hide: true

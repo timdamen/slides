@@ -16,7 +16,16 @@
 layout: default
 ---
 
-<IntroSlide />
+<IntroSlide :bio="bio" />
+
+<script setup>
+const bio = [
+  { emoji: '🏦', text: 'Front-end Lead @ ABN AMRO Bank' },
+  { emoji: '♿️', text: 'Passionate about making the web work for <strong>everyone</strong>' },
+  { emoji: '🧩', text: 'Contributor to <strong>Nuxt</strong>, <strong>@nuxt/a11y</strong>, and more', nuxt: true },
+  { emoji: '🔧', text: 'Building <strong>WCAGify</strong> — open source accessibility tooling' },
+]
+</script>
 
 ---
 

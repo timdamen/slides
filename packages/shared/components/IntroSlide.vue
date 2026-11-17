@@ -4,6 +4,7 @@
  *
  * Left: the name and the same short bio every talk opens with. Right: the
  * speaking photo. Deck-specific extras go in the default slot, under the bio.
+ * A deck that needs different bio lines passes them as the `bio` prop.
  *
  * Self-contained on purpose, the same way <OutroSlide> is: one tag on a
  * `layout: default` slide, no `image:` frontmatter to keep in sync, and no
@@ -20,19 +21,8 @@
 // against whichever deck is building, so every deck needed its own 3.6MB copy
 // of the same file. Vite resolves this one out of the addon and emits it into
 // the deck's bundle, so the photo travels with the component.
+import { computed } from 'vue'
 import photo from '../assets/tim-speaking.png'
-
-withDefaults(defineProps<{
-  name?: string
-  /** Overrides the bundled photo. Any URL a deck can serve. */
-  image?: string
-  /** Describe the photo for anyone who cannot see it. */
-  imageAlt?: string
-}>(), {
-  name: 'Tim Damen',
-  image: photo,
-  imageAlt: 'Tim Damen speaking at a conference.',
-})
 
 interface BioLine {
   emoji: string
@@ -42,7 +32,21 @@ interface BioLine {
   nuxt?: boolean
 }
 
-const bio: BioLine[] = [
+const props = withDefaults(defineProps<{
+  name?: string
+  /** Overrides the bundled photo. Any URL a deck can serve. */
+  image?: string
+  /** Describe the photo for anyone who cannot see it. */
+  imageAlt?: string
+  /** Replaces the default bio lines below. */
+  bio?: BioLine[]
+}>(), {
+  name: 'Tim Damen',
+  image: photo,
+  imageAlt: 'Tim Damen speaking at a conference.',
+})
+
+const defaultBio: BioLine[] = [
   { emoji: '🧑‍💻', text: 'Web platform tech lead' },
   { emoji: '🇳🇱', text: 'Working as an engineer in the Netherlands' },
   { emoji: '♿️', text: 'Passionate about making the web work for <strong>everyone</strong>' },
@@ -51,6 +55,8 @@ const bio: BioLine[] = [
   { emoji: '🧑‍🧑‍🧒‍🧒', text: 'Pround husband and father of two 👧🏼🧒🏼' },
   { emoji: '🧗🏼‍♂️', text: 'Love to go outdoors and explore' },
 ]
+
+const lines = computed(() => props.bio ?? defaultBio)
 </script>
 
 <template>
@@ -59,7 +65,7 @@ const bio: BioLine[] = [
       <h1 class="intro-name">{{ name }}</h1>
 
       <ul class="intro-bio">
-        <li v-for="line in bio" :key="line.text" class="intro-line">
+        <li v-for="line in lines" :key="line.text" class="intro-line">
           <span class="intro-emoji" aria-hidden="true">{{ line.emoji }}</span>
           <span class="intro-text">
             <svg

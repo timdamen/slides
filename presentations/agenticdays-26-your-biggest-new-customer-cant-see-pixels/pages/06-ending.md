@@ -36,7 +36,7 @@ block from pth-26-cant-see-pixels/pages/06-ending.md and restart slidev.
 layout: default
 ---
 
-<OutroSlide title="Thank you, let's stay connected" />
+<OutroSlide title="Thank you, let's stay connected 📸" />
 
 ---
 routeAlias: bonus
